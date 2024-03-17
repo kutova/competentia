@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Install - Competentia</title>
+    <meta name="description" content="Mapa de Competências - PUC Minas" />
+    <script defer src="./scripts/dados.js"></script>
+    <script defer src="./services/usuarios.service.js"></script>
+    <script defer src="./services/areas.service.js"></script>
+    <script defer src="./services/cursos.service.js"></script>
+    <script defer src="./scripts/install.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="./estilos/login.css" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="container" id="cabecalho">
+      <span>
+        <a href="/index.html"
+          ><img src="./imagens/pucminas.png" width="120"
+        /></a>
+      </span>
+    </header>
+
+    <main class="container">
+      <h1 id="appName"></h1>
+      <h3>Instalando...</h3>
+      <section id="logInstall"></section>
+    </main>
+  </body>
+</html>

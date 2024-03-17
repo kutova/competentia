@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Modern+Antiqua&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap");
+
+body {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "nav nav"
+    "aside main";
+  grid-template-columns: 1fr 5fr;
+}
+
+body > nav,
+.grid > nav {
+  grid-area: nav;
+}
+body > main,
+.grid > main {
+  grid-area: main;
+}
+body > header,
+.grid > header {
+  grid-area: header;
+}
+body > footer,
+.grid > footer {
+  grid-area: footer;
+}
+body > aside,
+.grid > aside {
+  grid-area: aside;
+}
+body > div,
+.grid > div {
+  grid-area: div;
+}
+
+#cabecalho {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+header > h1 {
+  text-align: center;
+  /* font-family: "Modern Antiqua", serif; */
+  font-family: "Gideon Roman", serif;
+  font-size: 2.5rem;
+}
+
+h2 {
+  padding-bottom: 1ex;
+  border-bottom: thin solid black;
+}
+
+#sideMenu {
+  border-radius: 5px;
+  padding-left: 1ex;
+  padding-right: 1ex;
+  margin-right: 1em;
+  margin-top: 2.7ex;
+}
+
+#painelCursos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1ex 2em;
+  place-items: center;
+}
+
+#painelCursos > article {
+  min-height: 5em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

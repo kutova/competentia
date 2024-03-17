@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Login - Competentia</title>
+    <meta name="description" content="Mapa de Competências - PUC Minas" />
+    <script defer src="./scripts/dados.js"></script>
+    <script defer src="./services/usuarios.service.js"></script>
+    <script defer src="./scripts/login.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="./estilos/login.css" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="container" id="cabecalho">
+      <span>
+        <a href="/index.html"
+          ><img src="./imagens/pucminas.png" width="120"
+        /></a>
+      </span>
+    </header>
+
+    <main class="container">
+      <div id="login">
+        <h1 id="appName"></h1>
+        <fieldset>
+          <span>E-mail</span>
+          <input
+            type="text"
+            id="email"
+            aria-label="email"
+            autocomplete="email"
+            required
+          />
+          <span>Senha</span>
+          <input
+            type="password"
+            id="senha"
+            aria-label="senha"
+            autocomplete="current-password"
+            required
+          />
+          <button id="btnLogin">Entrar</button>
+          <span><a href="#">Esqueci a senha</a></span>
+        </fieldset>
+      </div>
+    </main>
+
+    <dialog id="modalErro">
+      <article>
+        <p>Dados inválidos!</p>
+        <footer>
+          <button id="btnClose">Ok</button>
+        </footer>
+      </article>
+    </dialog>
+  </body>
+</html>

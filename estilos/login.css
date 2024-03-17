@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Modern+Antiqua&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap");
+
+#cabecalho {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  /* font-family: "Modern Antiqua", serif; */
+  font-family: "Gideon Roman", serif;
+  font-size: 3rem;
+  text-align: center;
+}
+
+#login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#login > fieldset {
+  justify-self: center;
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30em;
+}

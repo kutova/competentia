@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Competentia</title>
+    <meta name="description" content="Mapa de Competências - PUC Minas" />
+    <script defer src="./scripts/dados.js"></script>
+    <script defer src="./services/usuarios.service.js"></script>
+    <script defer src="./scripts/admin.usuarios.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
+    />
+    <link rel="stylesheet" href="./estilos/admin.css" />
+  </head>
+
+  <body class="container">
+    <!-- Header -->
+    <header id="cabecalho">
+      <span>
+        <a href="/index.html"
+          ><img src="./imagens/pucminas.png" width="120"
+        /></a>
+      </span>
+      <h1 id="appName"></h1>
+      <nav>
+        <ul id="topMenu">
+          <li>
+            <details class="dropdown">
+              <summary class="secondary">Administrador</summary>
+              <!-- role="button"  -->
+              <ul>
+                <li><a href="/admin_usuarios.html">Usuários</a></li>
+                <li><a href="/admin_areas.html">Áreas</a></li>
+                <li><a href="/admin_cursos.html">Cursos</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="dropdown">
+              <summary class="secondary" id="userName"></summary>
+              <!-- role="button"  -->
+              <ul>
+                <li><a href="#" id="btnLogout">Sair</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- ./ Header -->
+
+    <!-- Main -->
+    <main>
+      <!-- Preview -->
+      <section id="preview">
+        <h2>Área do Administrador</h2>
+        <hr />
+        <section id="painelUsuarios">
+          <h3 class="pico-color-azure-550">Usuários</h3>
+          <table id="tabUsuarios">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Admin</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody id="dadosUsuarios"></tbody>
+          </table>
+          <footer><button id="btnNovo">Adicionar</button></footer>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="modalExibeUsuario">
+      <article>
+        <header>
+          <button id="iconeFechar" aria-label="Close" rel="prev"></button>
+          <p>
+            <strong>Usuário</strong>
+          </p>
+        </header>
+        <dl>
+          <dt>Nome</dt>
+          <dd id="nomeExibeUsuario"></dd>
+          <dt>E-mail</dt>
+          <dd id="emailExibeUsuario"></dd>
+        </dl>
+        <footer>
+          <button id="btnFechar">Ok</button>
+        </footer>
+      </article>
+    </dialog>
+  </body>
+</html>

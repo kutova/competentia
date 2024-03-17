@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Modern+Antiqua&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap");
+
+#cabecalho {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+header > h1 {
+  text-align: center;
+  /* font-family: "Modern Antiqua", serif; */
+  font-family: "Gideon Roman", serif;
+  font-size: 2.5rem;
+}
+
+h2 {
+  padding-bottom: 1ex;
+  border-bottom: thin solid black;
+  margin-bottom: 1em;
+}
+
+#painelCursos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1ex 2em;
+  place-items: center;
+}
+
+#painelCursos > article {
+  min-height: 7em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}

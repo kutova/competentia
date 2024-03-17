@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Modern+Antiqua&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+
+.simbolo {
+  font-family: "Material Symbols Outlined", sans-serif;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+#cabecalho {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+header > h1 {
+  text-align: center;
+  /* font-family: "Modern Antiqua", serif; */
+  font-family: "Gideon Roman", serif;
+  font-size: 2.5rem;
+}
+
+hr {
+  margin-bottom: 2em;
+}
+
+#painelUsuarios {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#tabUsuarios tbody td:first-child {
+  width: 10em;
+}
+#tabUsuarios tbody td:nth-child(2) {
+  width: 15em;
+}
+#tabUsuarios tbody td:nth-child(3) {
+  width: 5em;
+  text-align: center;
+}
+#tabUsuarios tbody td:last-child {
+  width: 5em;
+  text-align: center;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
