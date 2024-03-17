@@ -23,9 +23,9 @@ if (usuario.admin) {
         <summary class="secondary">Administrador</summary>
         <!-- role="button"  -->
         <ul>
-        <li><a href="/admin_usuarios.html">Usuários</a></li>
-        <li><a href="/admin_areas.html">Áreas</a></li>
-        <li><a href="/admin_cursos.html">Cursos</a></li>
+        <li><a href="./admin_usuarios.html">Usuários</a></li>
+        <li><a href="./admin_areas.html">Áreas</a></li>
+        <li><a href="./admin_cursos.html">Cursos</a></li>
         </ul>
     </details>
     </li>` + topMenu.innerHTML;
