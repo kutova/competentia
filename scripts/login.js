@@ -15,7 +15,7 @@ let validaLogin = function () {
   if (usuario) {
     localStorage.setItem("ultimoAcesso", new Date().getTime());
     localStorage.setItem("usuario", JSON.stringify(usuario));
-    window.location = "/index.html";
+    window.location = "./index.html";
   }
   modalErro.showModal();
 };

@@ -9,5 +9,5 @@ cursos.forEach((c) => {
 });
 
 let abreCurso = function (id) {
-  window.location = "/curso.html?id=" + id;
+  window.location = "./curso.html?id=" + id;
 };

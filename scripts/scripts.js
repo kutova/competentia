@@ -9,7 +9,7 @@ if (new Date().getTime() - ultimoAcesso > 1800000) {
   let pathName = document.location.pathname.split("/");
   pagina = pathName.pop();
   if (pagina != "login.html") {
-    window.location = "/login.html";
+    window.location = "./login.html";
   }
 } else {
   localStorage.setItem("ultimoAcesso", new Date().getTime());
@@ -35,5 +35,5 @@ if (usuario.admin) {
 btnLogout.onclick = () => {
   localStorage.removeItem("ultimoAcesso");
   localStorage.removeItem("usuario");
-  window.location = "/login.html";
+  window.location = "./login.html";
 };

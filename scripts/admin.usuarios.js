@@ -4,7 +4,7 @@ usuario = JSON.parse(
 if (!usuario.admin) {
   localStorage.removeItem("ultimoAcesso");
   localStorage.removeItem("usuario");
-  window.location = "/login.html";
+  window.location = "./login.html";
 }
 userName.innerHTML = usuario.nome;
 
@@ -14,7 +14,7 @@ if (new Date().getTime() - ultimoAcesso > 1800000) {
   let pathName = document.location.pathname.split("/");
   pagina = pathName.pop();
   if (pagina != "login.html") {
-    window.location = "/login.html";
+    window.location = "./login.html";
   }
 } else {
   localStorage.setItem("ultimoAcesso", new Date().getTime());
@@ -24,7 +24,7 @@ if (new Date().getTime() - ultimoAcesso > 1800000) {
 btnLogout.onclick = () => {
   localStorage.removeItem("ultimoAcesso");
   localStorage.removeItem("usuario");
-  window.location = "/login.html";
+  window.location = "./login.html";
 };
 
 // Carrega os usuários
