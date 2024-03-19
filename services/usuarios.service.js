@@ -3,16 +3,20 @@ let usuariosService = {
   install: function () {
     let usuarios = [
       {
+        id: 1,
         nome: "Marcos",
         email: "kutova@pucminas.br",
         senha: "kutova",
-        tipo: "admin",
+        tipo: 0,
+        celular: "(31)99999-9999",
       },
       {
+        id: 2,
         nome: "Juliana",
         email: "granffild@pucminas.br",
         senha: "docinho",
-        tipo: "usuario",
+        tipo: 0,
+        celular: "(31)99999-9999",
       },
     ];
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
@@ -24,9 +28,11 @@ let usuariosService = {
     for (u in usuarios) {
       if (usuarios[u].email == email && usuarios[u].senha == senha)
         return {
+          id: usuarios[u].id,
           email: usuarios[u].email,
           nome: usuarios[u].nome,
-          admin: usuarios[u].tipo == "admin",
+          tipo: usuarios[u].tipo,
+          celular: usuarios[u].celular,
         };
     }
     return null;
@@ -37,22 +43,26 @@ let usuariosService = {
     let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
     return usuarios.map((u) => {
       return {
+        id: u.id,
         email: u.email,
         nome: u.nome,
-        admin: u.tipo == "admin",
+        tipo: u.tipo,
+        celular: u.celular,
       };
     });
   },
 
   // Retorna os dados de um usuário por meio do seu e-mail (sem a senha)
-  usuario: function (email) {
+  usuario: function (id) {
     let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
     for (u in usuarios) {
-      if (usuarios[u].email == email)
+      if (usuarios[u].id == id)
         return {
+          id: usuarios[u].id,
           email: usuarios[u].email,
           nome: usuarios[u].nome,
-          admin: usuarios[u].tipo == "admin",
+          tipo: usuarios[u].tipo,
+          celular: usuarios[u].celular,
         };
     }
     return null;

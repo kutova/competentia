@@ -49,31 +49,31 @@
 }
 @media (min-width: 576px) {
   :root {
-    --pico-font-size: 106.25%;
+    --pico-font-size: 90%;
   }
 }
 @media (min-width: 768px) {
   :root {
-    --pico-font-size: 112.5%;
+    --pico-font-size: 95%;
   }
 }
 @media (min-width: 1024px) {
   :root {
-    --pico-font-size: 118.75%;
+    --pico-font-size: 100%;
   }
 }
-/*
+
 @media (min-width: 1280px) {
   :root {
-    --pico-font-size: 125%;
+    --pico-font-size: 110%;
   }
 }
 @media (min-width: 1536px) {
   :root {
-    --pico-font-size: 131.25%;
+    --pico-font-size: 120%;
   }
 }
-*/
+
 a {
   --pico-text-decoration: underline;
 }
@@ -711,7 +711,7 @@ section {
     max-width: 950px;
   }
 }
-/*
+
 @media (min-width: 1280px) {
   .container {
     max-width: 1200px;
@@ -722,7 +722,7 @@ section {
     max-width: 1450px;
   }
 }
-*/
+
 .grid {
   grid-column-gap: var(--pico-grid-column-gap);
   grid-row-gap: var(--pico-grid-row-gap);

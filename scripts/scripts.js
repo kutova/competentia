@@ -1,5 +1,5 @@
 usuario = JSON.parse(
-  localStorage.getItem("usuario") || "{nome: Usuário, admin:false}"
+  localStorage.getItem("usuario") || "{nome: 'Usuário', tipo: 'Professor'}"
 );
 userName.innerHTML = usuario.nome;
 
@@ -16,7 +16,7 @@ if (new Date().getTime() - ultimoAcesso > 1800000) {
 }
 
 // Inclui as opções de administrador
-if (usuario.admin) {
+if (usuario.tipo == 0)
   topMenu.innerHTML =
     `<li>
     <details class="dropdown">
@@ -29,7 +29,9 @@ if (usuario.admin) {
         </ul>
     </details>
     </li>` + topMenu.innerHTML;
-}
+else
+  topMenu.innerHTML =
+    `<li>${tiposUsuario[usuario.tipo]}<\li` + topMenu.innerHTML;
 
 // Atribui a funcionalidade de saída do sistema
 btnLogout.onclick = () => {

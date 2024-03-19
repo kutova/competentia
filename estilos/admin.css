@@ -31,23 +31,24 @@ hr {
 }
 
 #painelUsuarios {
-  max-width: 800px;
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
 }
 
 #tabUsuarios tbody td:first-child {
-  width: 10em;
+  width: 12em;
 }
 #tabUsuarios tbody td:nth-child(2) {
   width: 15em;
 }
 #tabUsuarios tbody td:nth-child(3) {
-  width: 5em;
+  width: 10em;
   text-align: center;
 }
 #tabUsuarios tbody td:last-child {
-  width: 5em;
+  width: 6em;
+  min-width: 6em;
   text-align: center;
 }
 
@@ -55,4 +56,13 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+}
+
+.clicavel .simbolo {
+  cursor: pointer;
+}
+
+#sfs1 {
+  display: flex;
+  flex-direction: row;
 }

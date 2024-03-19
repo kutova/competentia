@@ -1,7 +1,8 @@
 usuario = JSON.parse(
-  localStorage.getItem("usuario") || "{nome: Usuário, admin:false}"
+  localStorage.getItem("usuario") || "{nome: 'Usuário', tipo: 'Professor'}"
 );
-if (!usuario.admin) {
+if (!usuario.tipo == 0) {
+  // Administrador
   localStorage.removeItem("ultimoAcesso");
   localStorage.removeItem("usuario");
   window.location = "./login.html";
@@ -35,10 +36,10 @@ usuarios.forEach((usuario) => {
     <tr>
       <td>${usuario.nome}</td>
       <td>${usuario.email}</td>
-      <td><span class="simbolo">${usuario.admin ? "check" : ""}</span></td>
-      <td>
+      <td>${tiposUsuario[usuario.tipo]}</td>
+      <td class="clicavel">
         <span class="simbolo" onclick="exibeUsuario('${
-          usuario.email
+          usuario.id
         }')">visibility</span>
         <span class="simbolo">edit</span>
         <span class="simbolo">delete</span>
@@ -47,12 +48,46 @@ usuarios.forEach((usuario) => {
   `;
 });
 
-let exibeUsuario = function (email) {
-  let usuario = usuariosService.usuario(email);
-  nomeExibeUsuario.innerHTML = usuario.nome;
-  emailExibeUsuario.innerHTML = usuario.email;
-  modalExibeUsuario.showModal();
+let exibeUsuario = function (id) {
+  let usuario = usuariosService.usuario(id);
+  nomeModalUsuario.value = usuario.nome;
+  emailModalUsuario.value = usuario.email;
+  celularModalUsuario.value = usuario.celular;
+  tipoModalUsuario.innerHTML = tiposUsuario
+    .map(
+      (t, i) =>
+        `<option value=${i} ${
+          usuario.tipo == i ? "selected" : ""
+        }>${t}</option>`
+    )
+    .join();
+
+  nomeModalUsuario.disabled = true;
+  emailModalUsuario.disabled = true;
+  celularModalUsuario.disabled = true;
+  tipoModalUsuario.disabled = true;
+
+  let htmlSelect = "";
+  let primeiro = true;
+  let idsCursosDoUsuario = cursosUsuariosService.cursosUsuario(id);
+  if (idsCursosDoUsuario.length == 0)
+    htmlSelect = "<option selected disabled>Nenhum curso encontrado</option>";
+  else {
+    let cursosDoUsuario = idsCursosDoUsuario.map((id) =>
+      cursosService.curso(id)
+    );
+    cursosDoUsuario.sort((a, b) => a.nome.localeCompare(b.nome));
+    for (i in cursosDoUsuario) {
+      htmlSelect += `<option ${primeiro ? "selected " : ""}disabled>${
+        cursosDoUsuario[i].nome
+      }</option>`;
+      primeiro = false;
+    }
+  }
+  cursosModalUsuario.innerHTML = htmlSelect;
+  btnCancelar.style.display = "none";
+  modalUsuario.showModal();
 };
 
-iconeFechar.onclick = () => modalExibeUsuario.close();
-btnFechar.onclick = () => modalExibeUsuario.close();
+iconeFechar.onclick = () => modalUsuario.close();
+btnFechar.onclick = () => modalUsuario.close();

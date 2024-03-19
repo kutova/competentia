@@ -4,10 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>Admin(Usuários) - Competentia</title>
+    <title>Admin (Usuários) - Competentia</title>
     <meta name="description" content="Mapa de Competências - PUC Minas" />
     <script defer src="./scripts/dados.js"></script>
     <script defer src="./services/usuarios.service.js"></script>
+    <script defer src="./services/cursos.service.js"></script>
+    <script defer src="./services/cursosusuarios.service.js"></script>
     <script defer src="./scripts/admin.usuarios.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -65,7 +67,7 @@
               <tr>
                 <th scope="col">Nome</th>
                 <th scope="col">E-mail</th>
-                <th scope="col">Admin</th>
+                <th scope="col">Tipo</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -76,7 +78,7 @@
       </section>
     </main>
 
-    <dialog id="modalExibeUsuario">
+    <dialog id="modalUsuario">
       <article>
         <header>
           <button id="iconeFechar" aria-label="Close" rel="prev"></button>
@@ -84,13 +86,26 @@
             <strong>Usuário</strong>
           </p>
         </header>
-        <dl>
-          <dt>Nome</dt>
-          <dd id="nomeExibeUsuario"></dd>
-          <dt>E-mail</dt>
-          <dd id="emailExibeUsuario"></dd>
-        </dl>
+        <fieldset>
+          <label for="nomeModalUsuario">Nome</label>
+          <input id="nomeModalUsuario" />
+          <label for="emailModalUsuario">E-mail</label>
+          <input id="emailModalUsuario" />
+          <div class="grid">
+            <div>
+              <label for="celularModalUsuario">Celular</label>
+              <input id="celularModalUsuario" />
+            </div>
+            <div>
+              <label for="tipoModalUsuario">Tipo</label>
+              <select id="tipoModalUsuario"></select>
+            </div>
+          </div>
+          <label for="cursosModalUsuario">Cursos</label>
+          <select id="cursosModalUsuario"></select>
+        </fieldset>
         <footer>
+          <button id="btnCancelar">Cancelar</button>
           <button id="btnFechar">Ok</button>
         </footer>
       </article>
