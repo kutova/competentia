@@ -1,9 +1,12 @@
+// --------------------------------------------------------
+// Carrega os cursos do painel de cursos (página principal)
+// --------------------------------------------------------
 cursos = cursosService.cursos();
 cursos.sort((a, b) => a.nome.localeCompare(b.nome));
 
 cursos.forEach((c) => {
   painelCursos.innerHTML += `
-    <article class="pico-background-slate-100" onclick="abreCurso(${c.id})">
+    <article onclick="abreCurso(${c.id})">
       ${c.nome}
     </article>`;
 });

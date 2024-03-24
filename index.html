@@ -4,33 +4,33 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>Competentia</title>
+    <title>Painel - Competentia</title>
     <meta name="description" content="Mapa de Competências - PUC Minas" />
     <script defer src="./scripts/dados.js"></script>
     <script defer src="./services/cursos.service.js"></script>
     <script defer src="./scripts/scripts.js"></script>
     <script defer src="./scripts/index.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="./estilos/pico.min.css" />
     <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
+    <link rel="stylesheet" href="./estilos/estilos.css" />
     <link rel="stylesheet" href="./estilos/index.css" />
   </head>
 
   <body class="container">
     <!-- Header -->
     <header id="cabecalho">
-      <span>
-        <a href="./index.html"
-          ><img src="./imagens/pucminas.png" width="120"
-        /></a>
+      <span class="logo">
+        <a href="./index.html">
+          <img src="./imagens/pucminas.png" width="120" />
+        </a>
       </span>
+
       <h1 id="appName"></h1>
       <nav>
         <ul id="topMenu">
           <li>
             <details class="dropdown">
-              <summary class="secondary" id="userName"></summary>
+              <summary class="secondary" id="nomeUsuarioLogado"></summary>
               <!-- role="button"  -->
               <ul>
                 <li><a href="#" id="btnLogout">Sair</a></li>
@@ -44,11 +44,10 @@
 
     <!-- Main -->
     <main>
-      <!-- Preview -->
-      <section id="preview">
+      <header>
         <h2>Painel de Cursos</h2>
-        <section id="painelCursos"></section>
-      </section>
+      </header>
+      <section id="painelCursos"></section>
     </main>
   </body>
 </html>

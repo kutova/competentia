@@ -1,22 +1,25 @@
-usuario = JSON.parse(
-  localStorage.getItem("usuario") || "{nome: 'Usuário', tipo: 'Professor'}"
-);
-userName.innerHTML = usuario.nome;
-
-// Testa se está logado e quando foi o último acesso
-let ultimoAcesso = parseInt(localStorage.getItem("ultimoAcesso")) || 0;
-if (new Date().getTime() - ultimoAcesso > 1800000) {
-  let pathName = document.location.pathname.split("/");
-  pagina = pathName.pop();
-  if (pagina != "login.html") {
-    window.location = "./login.html";
-  }
-} else {
-  localStorage.setItem("ultimoAcesso", new Date().getTime());
+// --------------------------------------------------------
+// Identifica o usuário logado (se houver) e prepara a sua interface
+// --------------------------------------------------------
+// Testa se há um usuário logado
+let pathName = document.location.pathname.split("/");
+pagina = pathName.pop();
+if (!localStorage.getItem("usuario")) {
+  if (pagina != "login.html") window.location = "./login.html";
 }
 
-// Inclui as opções de administrador
-if (usuario.tipo == 0)
+// Testa se não ocorreu timeout do login
+let ultimoAcesso = parseInt(localStorage.getItem("ultimoAcesso")) || 0;
+if (new Date().getTime() - ultimoAcesso > 1800000) {
+  if (pagina != "login.html") window.location = "./login.html";
+} else localStorage.setItem("ultimoAcesso", new Date().getTime()); // Atualiza o momento do último acesso
+
+// Recupera os dados do usuário
+let usuarioLogado = JSON.parse(localStorage.getItem("usuario"));
+nomeUsuarioLogado.innerHTML = usuarioLogado.nome;
+
+// Acrescenta o menu de Administrador, se for o caso
+if (usuarioLogado.tipo == 0)
   topMenu.innerHTML =
     `<li>
     <details class="dropdown">
@@ -31,9 +34,9 @@ if (usuario.tipo == 0)
     </li>` + topMenu.innerHTML;
 else
   topMenu.innerHTML =
-    `<li>${tiposUsuario[usuario.tipo]}<\li` + topMenu.innerHTML;
+    `<li>${tiposUsuario[usuarioLogado.tipo]}<\li` + topMenu.innerHTML;
 
-// Atribui a funcionalidade de saída do sistema
+// Atribui a funcionalidade de saída (logout) do sistema
 btnLogout.onclick = () => {
   localStorage.removeItem("ultimoAcesso");
   localStorage.removeItem("usuario");

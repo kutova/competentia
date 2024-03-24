@@ -7,32 +7,32 @@
     <title>Curso - Competentia</title>
     <meta name="description" content="Mapa de Competências - PUC Minas" />
     <script defer src="./scripts/dados.js"></script>
+    <script defer src="./services/usuarios.service.js"></script>
     <script defer src="./services/cursos.service.js"></script>
+    <script defer src="./services/cursosusuarios.service.js"></script>
     <script defer src="./services/areas.service.js"></script>
     <script defer src="./scripts/scripts.js"></script>
     <script defer src="./scripts/curso.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="./estilos/pico.min.css" />
     <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
     <link rel="stylesheet" href="./estilos/estilos.css" />
+    <link rel="stylesheet" href="./estilos/curso.css" />
   </head>
 
   <body class="container">
     <!-- Header -->
     <header id="cabecalho">
-      <span>
-        <a href="./index.html"
-          ><img src="./imagens/pucminas.png" width="120"
-        /></a>
+      <span class="logo">
+        <a href="./index.html">
+          <img src="./imagens/pucminas.png" width="120" />
+        </a>
       </span>
       <h1 id="appName"></h1>
       <nav>
         <ul id="topMenu">
           <li>
             <details class="dropdown">
-              <summary class="secondary" id="userName"></summary>
-              <!-- role="button"  -->
+              <summary class="secondary" id="nomeUsuarioLogado"></summary>
               <ul>
                 <li><a href="#" id="btnLogout">Sair</a></li>
               </ul>
@@ -43,23 +43,74 @@
     </header>
     <!-- ./ Header -->
 
-    <aside id="sideMenu" class="pico-background-grey-100">
-      <nav>
-        <ul>
-          <li><a href="#">Curso</a></li>
-          <li><a href="#">Competências</a></li>
-          <li><a href="#">C - H - A</a></li>
-          <li><a href="#">Currículo</a></li>
-        </ul>
-      </nav>
-    </aside>
-
     <!-- Main -->
-    <main>
-      <!-- Preview -->
-      <section id="preview">
+    <main class="has-side-menu">
+      <header>
         <h2 id="nomeCurso"></h2>
-        <p>Ipsum Lorem</p>
+        <hr />
+      </header>
+
+      <aside id="sideMenu">
+        <article>
+          <!-- class="pico-background-indigo-50" -->
+          <nav>
+            <ul>
+              <li>
+                <a href="./index.html" class="secondary">Painel de Cursos</a>
+              </li>
+              <li>
+                <strong>
+                  <a class="linkDoCurso" href="./curso.html">Curso</a>
+                </strong>
+              </li>
+              <li>
+                <a class="linkDoCurso secondary" href="./competencias.html">
+                  Competências
+                </a>
+              </li>
+              <li>
+                <a class="linkDoCurso secondary" href="./objetivos.html">
+                  Conhecimentos, Habilidades e Atitudes
+                </a>
+              </li>
+              <li>
+                <a class="linkDoCurso secondary" href="./componentes.html">
+                  Componentes Curriculares
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </article>
+      </aside>
+
+      <!-- Conteúdo do curso -->
+      <section>
+        <div id="dadosCurso">
+          <table>
+            <tbody>
+              <tr>
+                <th scope="row">Grau:</th>
+                <td id="grauCurso"></td>
+              </tr>
+              <tr>
+                <th scope="row">Modalide:</th>
+                <td id="modalidadeCurso"></td>
+              </tr>
+              <tr>
+                <th scope="row">Períodos:</th>
+                <td id="peridosCurso"></td>
+              </tr>
+              <tr>
+                <th scope="row">Área:</th>
+                <td id="areaCurso"></td>
+              </tr>
+              <tr>
+                <th scope="row">Editores:</th>
+                <td id="editoresCurso"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </main>
   </body>

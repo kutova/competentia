@@ -4,14 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>Admin (Usuários) - Competentia</title>
+    <title>Admin (Cursos) - Competentia</title>
     <meta name="description" content="Mapa de Competências - PUC Minas" />
     <script defer src="./scripts/dados.js"></script>
     <script defer src="./scripts/scripts.js"></script>
     <script defer src="./services/usuarios.service.js"></script>
+    <script defer src="./services/areas.service.js"></script>
     <script defer src="./services/cursos.service.js"></script>
     <script defer src="./services/cursosusuarios.service.js"></script>
-    <script defer src="./scripts/admin.usuarios.js"></script>
+    <script defer src="./scripts/admin.cursos.js"></script>
     <link rel="stylesheet" href="./estilos/pico.min.css" />
     <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
     <link rel="stylesheet" href="./estilos/estilos.css" />
@@ -57,134 +58,75 @@
                 <a href="./index.html" class="secondary">Painel de Cursos</a>
               </li>
               <li>
-                <strong>
-                  <a href="./admin_usuarios.html">Usuários</a>
-                </strong>
+                <a class="secondary" href="./admin_usuarios.html">Usuários</a>
               </li>
               <li>
                 <a class="secondary" href="./admin_areas.html">Áreas</a>
               </li>
               <li>
-                <a class="secondary" href="./admin_cursos.html">Cursos</a>
+                <strong>
+                  <a href="./admin_cursos.html">Cursos</a>
+                </strong>
               </li>
             </ul>
           </nav>
         </article>
       </aside>
 
-      <section id="painelUsuarios">
-        <h4 class="pico-color-azure-550">USUÁRIOS</h4>
+      <section id="painelCursos">
+        <h4 class="pico-color-azure-550">CURSOS</h4>
         <div class="overflow-auto">
           <table id="tabela">
             <thead>
               <tr>
                 <th scope="col">Nome</th>
-                <th scope="col">E-mail</th>
-                <th scope="col">Tipo</th>
+                <th scope="col">Grau</th>
+                <th scope="col">Modalidade</th>
                 <th scope="col"></th>
               </tr>
             </thead>
-            <tbody id="dadosUsuarios"></tbody>
+            <tbody id="dadosCursos"></tbody>
           </table>
         </div>
         <footer><button id="btnAdicionar">Adicionar</button></footer>
       </section>
     </main>
 
-    <dialog id="modalUsuario">
+    <dialog id="modalCurso">
       <article>
         <header>
           <button id="iconeFechar" aria-label="Close" rel="prev"></button>
           <p>
-            <strong>Usuário</strong>
+            <strong id="tituloModal">Curso</strong>
           </p>
         </header>
         <fieldset>
-          <label for="nomeModalUsuario">Nome</label>
-          <input id="nomeModalUsuario" />
-          <label for="emailModalUsuario">E-mail</label>
-          <input id="emailModalUsuario" />
+          <label for="nomeModalCurso">Nome</label>
+          <input id="nomeModalCurso" />
           <div class="grid">
             <div>
-              <label for="celularModalUsuario">Celular</label>
-              <input id="celularModalUsuario" />
+              <label for="grauModalCurso">Grau</label>
+              <select id="grauModalCurso"></select>
             </div>
             <div>
-              <label for="tipoModalUsuario">Tipo</label>
-              <select id="tipoModalUsuario"></select>
+              <label for="modalidadeModalCurso">Modalidade</label>
+              <select id="modalidadeModalCurso"></select>
             </div>
           </div>
-          <div class="tabelaComRolagem">
-            <table id="tabelaCursosUsuario">
-              <thead>
-                <tr>
-                  <th scope="col">Curso</th>
-                  <th scope="col">
-                    <span class="simbolo"
-                      ><img src="./imagens/visibility.svg"
-                    /></span>
-                  </th>
-                  <th scope="col">
-                    <span class="simbolo"
-                      ><img src="./imagens/edit.svg"
-                    /></span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody id="listaCursos"></tbody>
-            </table>
+          <div class="grid">
+            <div>
+              <label for="periodosModalCurso">Períodos</label>
+              <input id="periodosModalCurso" type="number" min="1" max="20" />
+            </div>
+            <div>
+              <label for="areaModalCurso">Área</label>
+              <select id="areaModalCurso"></select>
+            </div>
           </div>
         </fieldset>
         <footer>
           <button class="outline" id="btnCancelar">Cancelar</button>
           <button id="btnFechar">Ok</button>
-        </footer>
-      </article>
-    </dialog>
-
-    <dialog id="modalCreateUsuario">
-      <article>
-        <header>
-          <button id="iconeFechar2" aria-label="Close" rel="prev"></button>
-          <p>
-            <strong>Novo Usuário</strong>
-          </p>
-        </header>
-        <fieldset>
-          <label for="nomeModalCreateUsuario">Nome</label>
-          <input id="nomeModalCreateUsuario" />
-          <label for="emailModalCreateUsuario">E-mail</label>
-          <input id="emailModalCreateUsuario" />
-          <div class="grid">
-            <div>
-              <label for="senha1ModalCreateUsuario">Senha</label>
-              <input id="senha1ModalCreateUsuario" type="password" />
-            </div>
-            <div>
-              <label for="senha2ModalCreateUsuario">Confirmar senha</label>
-              <input id="senha2ModalCreateUsuario" type="password" />
-            </div>
-          </div>
-          <div class="grid">
-            <div>
-              <label for="celularModalCreateUsuario">Celular</label>
-              <input id="celularModalCreateUsuario" />
-            </div>
-            <div>
-              <label for="tipoModalCreateUsuario">Tipo</label>
-              <select id="tipoModalCreateUsuario"></select>
-            </div>
-          </div>
-          <p>
-            <small
-              ><strong>Obs.:</strong> Os cursos do usuário devem ser
-              acrescentados após a sua criação.</small
-            >
-          </p>
-        </fieldset>
-        <footer>
-          <button class="outline" id="btnCancelar2">Cancelar</button>
-          <button id="btnAdicionar2">Adicionar</button>
         </footer>
       </article>
     </dialog>
@@ -204,20 +146,21 @@
       </article>
     </dialog>
 
-    <dialog id="modalDeleteUsuario">
+    <dialog id="modalDeleteCurso">
       <article>
         <header>
           <button id="iconeFechar4" aria-label="Close" rel="prev"></button>
           <p>
-            <strong>Exclusão de Usuário</strong>
+            <strong>Exclusão de Curso</strong>
           </p>
         </header>
         <p>
-          Exclui o usuário <strong><span id="usuarioAExcluir"></span></strong>?
+          Exclui o curso <strong><span id="cursoAExcluir"></span></strong>?
         </p>
         <p>
           <small>
-            <strong>Obs.:</strong>Todos os seus cursos serão excluídos
+            <strong>Obs.:</strong>Todos os dados do curso, incluindo suas
+            competências e componentes curriculares, serão excluídos
             automaticamente.
           </small>
         </p>

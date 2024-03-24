@@ -2,15 +2,16 @@ let areasService = {
   // Cria um BD inicial no Local Storage
   install: function () {
     let areas = [
-      { id: 0, nome: "Administração" },
-      { id: 1, nome: "Direito" },
-      { id: 2, nome: "Arquitetura" },
-      { id: 3, nome: "Relações Internacionais" },
-      { id: 4, nome: "Engenharia de Software" },
-      { id: 5, nome: "Letras" },
-      { id: 6, nome: "História" },
+      { nome: "Administração", id: 0 },
+      { nome: "Direito", id: 1 },
+      { nome: "Arquitetura", id: 2 },
+      { nome: "Relações Internacionais", id: 3 },
+      { nome: "Engenharia de Software", id: 4 },
+      { nome: "Letras", id: 5 },
+      { nome: "História", id: 6 },
     ];
     localStorage.setItem("areas", JSON.stringify(areas));
+    localStorage.setItem("ultimaArea", 6);
   },
 
   // recupera a lista de areas
@@ -25,5 +26,33 @@ let areasService = {
       if (areas[i].id == idArea) return areas[i];
     }
     return null;
+  },
+
+  // Atualiza os dados da área, supondo que o id foi mantido
+  update: function (elem) {
+    let areas = JSON.parse(localStorage.getItem("areas") || "[]");
+    for (i in areas) {
+      if (areas[i].id == elem.id) {
+        areas[i].nome = elem.nome;
+      }
+    }
+    localStorage.setItem("areas", JSON.stringify(areas));
+  },
+
+  // Apaga uma área. Seus cursos devem ser apagados separadamente
+  delete: function (idArea) {
+    let areas = JSON.parse(localStorage.getItem("areas") || "[]");
+    areas = areas.filter((elem) => elem.id != idArea);
+    localStorage.setItem("areas", JSON.stringify(areas));
+  },
+
+  // Cria um novo usuário
+  create: function (area) {
+    let areas = JSON.parse(localStorage.getItem("areas") || "[]");
+    let idArea = parseInt(localStorage.getItem("ultimaArea") || "0") + 1;
+    area.id = idArea;
+    areas.push(area);
+    localStorage.setItem("ultimaArea", idArea);
+    localStorage.setItem("areas", JSON.stringify(areas));
   },
 };

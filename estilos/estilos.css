@@ -1,83 +1,81 @@
 @import url("https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Modern+Antiqua&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap");
 
-body {
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "nav nav"
-    "aside main";
-  grid-template-columns: 1fr 5fr;
-}
-
-body > nav,
-.grid > nav {
-  grid-area: nav;
-}
-body > main,
-.grid > main {
-  grid-area: main;
-}
-body > header,
-.grid > header {
-  grid-area: header;
-}
-body > footer,
-.grid > footer {
-  grid-area: footer;
-}
-body > aside,
-.grid > aside {
-  grid-area: aside;
-}
-body > div,
-.grid > div {
-  grid-area: div;
-}
-
-#cabecalho {
+body > header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  background-color: white;
 }
 
-header > * {
+@media (min-width: 1024px) {
+  body > header {
+    flex-direction: row;
+    justify-content: space-between;
+    z-index: 2;
+    position: sticky;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(0.1rem);
+    transition: border-top-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+  }
+}
+
+body > header > * {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-header > h1 {
-  text-align: center;
-  /* font-family: "Modern Antiqua", serif; */
-  font-family: "Gideon Roman", serif;
-  font-size: 2.5rem;
+.logo {
+  margin-bottom: 1ex;
 }
 
-h2 {
-  padding-bottom: 1ex;
-  border-bottom: thin solid black;
+h1 {
+  font-family: "Gideon Roman", serif;
+  font-size: 2.5em;
+  text-align: center;
+}
+
+h4 {
+  margin-top: 0.5em;
+}
+
+@media (min-width: 1024px) {
+  main.has-side-menu {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 10rem 1fr;
+    grid-template-areas:
+      "menu header"
+      "menu body";
+  }
+}
+
+main > header {
+  grid-area: header;
+}
+
+main > section {
+  grid-area: body;
 }
 
 #sideMenu {
-  border-radius: 5px;
-  padding-left: 1ex;
-  padding-right: 1ex;
-  margin-right: 1em;
-  margin-top: 2.7ex;
+  grid-area: menu;
+  margin-right: 1.5em;
+  padding: 1em 1em;
 }
 
-#painelCursos {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1ex 2em;
-  place-items: center;
+@media (min-width: 1024px) {
+  #sideMenu {
+    align-self: flex-start;
+    position: sticky;
+    top: 156px;
+    padding: 0;
+    font-size: 0.85em;
+  }
 }
 
-#painelCursos > article {
-  min-height: 5em;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.simbolo img {
+  padding-bottom: 2px;
+  width: 1.2em;
 }

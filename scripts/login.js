@@ -1,7 +1,6 @@
-// -----------------------
-// LOGIN
-// -----------------------
+// --------------------------------------------------------
 // Valida o login do usuário
+// --------------------------------------------------------
 let validaLogin = function () {
   if (email.value == "") {
     email.placeholder = "Preencha o e-mail";
@@ -20,7 +19,9 @@ let validaLogin = function () {
   modalErro.showModal();
 };
 
+// --------------------------------------------------------
 // Atribui funcionalidade aos botões
+// --------------------------------------------------------
 btnLogin.onclick = () => validaLogin();
 btnClose.onclick = () => {
   email.value = "";
