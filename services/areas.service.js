@@ -2,16 +2,17 @@ let areasService = {
   // Cria um BD inicial no Local Storage
   install: function () {
     let areas = [
-      { nome: "Administração", id: 0 },
       { nome: "Direito", id: 1 },
       { nome: "Arquitetura", id: 2 },
       { nome: "Relações Internacionais", id: 3 },
       { nome: "Engenharia de Software", id: 4 },
       { nome: "Letras", id: 5 },
       { nome: "História", id: 6 },
+      { nome: "Ciência da Computação", id: 7 },
+      { nome: "Administração", id: 8 },
     ];
     localStorage.setItem("areas", JSON.stringify(areas));
-    localStorage.setItem("ultimaArea", 6);
+    localStorage.setItem("ultimaArea", 8);
   },
 
   // recupera a lista de areas
@@ -46,7 +47,7 @@ let areasService = {
     localStorage.setItem("areas", JSON.stringify(areas));
   },
 
-  // Cria um novo usuário
+  // Cria uma nova área
   create: function (area) {
     let areas = JSON.parse(localStorage.getItem("areas") || "[]");
     let idArea = parseInt(localStorage.getItem("ultimaArea") || "0") + 1;

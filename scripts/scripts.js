@@ -42,3 +42,32 @@ btnLogout.onclick = () => {
   localStorage.removeItem("usuario");
   window.location = "./login.html";
 };
+
+// --------------------------------------------------------
+// Carrega o curso do URL, se existir e o usuário tiver acesso a ele
+// Caso contrário, redireciona para a página principal
+// --------------------------------------------------------
+function carregaCursoDoURL() {
+  let params = new URLSearchParams(document.location.search);
+  let idCurso = params.get("curso");
+  let cursosDoUsuario = cursosUsuariosService.cursosUsuario(usuarioLogado.id);
+
+  let curso = cursosService.curso(idCurso);
+  if (
+    curso == null ||
+    (usuarioLogado.tipo != 0 &&
+      cursosDoUsuario.findIndex((c) => c.id == idCurso) == -1)
+  )
+    window.location = "./index.html";
+
+  return curso;
+}
+
+// --------------------------------------------------------
+// Controla o menu lateral em telas pequenas
+// --------------------------------------------------------
+let controleMenu = document.querySelector("#menuToggle");
+if (controleMenu) {
+  controleMenu.onclick = () =>
+    document.querySelector("#sideMenu").classList.toggle("ativo");
+}

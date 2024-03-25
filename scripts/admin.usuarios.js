@@ -12,13 +12,19 @@ let mostraTabela = function () {
       <td>${usuario.email}</td>
       <td>${tiposUsuario[usuario.tipo]}</td>
       <td class="clicavel">
-        <span class="simbolo" onclick="exibeUsuario('${usuario.id}')">
+        <span class="simbolo" 
+          onclick="exibeUsuario('${usuario.id}')"
+          title="Exibe os dados do usuário">
           <img src="./imagens/visibility.svg" />
         </span>
-        <span class="simbolo" onclick="editaUsuario('${usuario.id}')">
+        <span class="simbolo" 
+          onclick="editaUsuario('${usuario.id}')"
+          title="Altera os dados do usuário">
           <img src="./imagens/edit.svg" />
         </span>
-        <span class="simbolo" onclick="apagaUsuario('${usuario.id}')">
+        <span class="simbolo" 
+          onclick="apagaUsuario('${usuario.id}')"
+          title="Exclui o usuário">
           <img src="./imagens/delete.svg" />
         </span>
       </td>
@@ -61,7 +67,11 @@ let exibeUsuario = function (id) {
     cursosDoUsuario.sort((a, b) => a.nome.localeCompare(b.nome));
     for (i in cursosDoUsuario)
       corpoTabela += `<tr>
-      <td>${cursosDoUsuario[i].nome}</td>
+      <td>${cursosDoUsuario[i].nome} ${
+        cursosDoUsuario[i].status == 1
+          ? ' <sup><img width="15px" src="./imagens/inventory.svg" title="Arquivado" /></sup>'
+          : ""
+      }</td>
       <td>
       ${
         cursosDoUsuario[i].permissao == 1
@@ -121,17 +131,26 @@ let editaUsuario = function (id) {
       let j = cursosDoUsuario.findIndex((c) => c.id == cursos[i].id);
       let p = j == -1 ? -1 : parseInt(cursosDoUsuario[j].permissao);
       corpoTabela += `<tr>
-        <td>${cursos[i].nome}</td>
-        <td><input class="permissaoCurso" type="checkbox" id="${
-          "ct_" + cursos[i].id + "_v"
-        }" 
+        <td>${cursos[i].nome}${
+        cursos[i].status == 1
+          ? ' <sup><img width="15px" src="./imagens/inventory.svg" title="Arquivado" /></sup>'
+          : ""
+      }</td>
+        <td>
+          <input 
+            class="permissaoCurso" 
+            type="checkbox" 
+            id="${"ct_" + cursos[i].id + "_v"}" 
             ${p == 1 ? "checked" : ""} 
             onchange="alternaPermissao(${cursos[i].id}, 1)"/>
-            </td> 
-        <td><input class="permissaoCurso" type="checkbox" id="${
-          "ct_" + cursos[i].id + "_e"
-        }" 
+        </td> 
+        <td>
+          <input 
+            class="permissaoCurso" 
+            type="checkbox" 
+            id="${"ct_" + cursos[i].id + "_e"}" 
             ${p == 0 ? "checked" : ""} 
+            ${cursos[i].status == 1 ? " disabled" : ""}
             onchange="alternaPermissao(${cursos[i].id}, 0)"/>
             </td> 
       </tr>`;

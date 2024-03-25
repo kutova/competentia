@@ -40,14 +40,85 @@ h4 {
   margin-top: 0.5em;
 }
 
+#menuToggle {
+  display: none;
+}
+
+main.has-side-menu {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 45px 1fr;
+  grid-template-areas:
+    "menu header"
+    "menu body";
+}
+
+main.has-side-menu #menuToggle {
+  position: sticky;
+  top: 0;
+  display: block;
+  cursor: pointer;
+}
+
+main.has-side-menu #menuToggle img {
+  width: 30px;
+}
+
+main.has-side-menu #sideMenu {
+  position: relative;
+  top: -2.5rem;
+  left: -40rem;
+  width: 20rem;
+  padding: 1em 1em;
+  font-size: larger;
+}
+
+main.has-side-menu #sideMenu article {
+  background-color: var(--pico-color-slate-150);
+}
+
+main.has-side-menu #sideMenu.ativo {
+  position: sticky;
+  top: 20px;
+  z-index: 10;
+  height: 15rem;
+}
+
+@media (max-width: 767px) {
+  main header {
+    position: sticky;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(0.1rem);
+  }
+}
+
 @media (min-width: 1024px) {
   main.has-side-menu {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    grid-template-columns: 10rem 1fr;
+    grid-template-columns: 12em 1fr;
     grid-template-areas:
       "menu header"
       "menu body";
+  }
+
+  main.has-side-menu #sideMenu {
+    grid-area: menu;
+    position: sticky;
+    top: 156px;
+    margin-right: 1.5em;
+    align-self: flex-start;
+    left: 0px;
+    width: 10rem;
+    padding: 0;
+    font-size: 0.85em;
+  }
+
+  main.has-side-menu #sideMenu article {
+    background-color: white;
+  }
+
+  main.has-side-menu #menuToggle {
+    display: none;
   }
 }
 
@@ -59,23 +130,11 @@ main > section {
   grid-area: body;
 }
 
-#sideMenu {
-  grid-area: menu;
-  margin-right: 1.5em;
-  padding: 1em 1em;
-}
-
-@media (min-width: 1024px) {
-  #sideMenu {
-    align-self: flex-start;
-    position: sticky;
-    top: 156px;
-    padding: 0;
-    font-size: 0.85em;
-  }
-}
-
 .simbolo img {
   padding-bottom: 2px;
   width: 1.2em;
+}
+
+.clicavel .simbolo {
+  cursor: pointer;
 }

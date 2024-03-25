@@ -2,28 +2,39 @@
 // Mostra a tabela de cursos
 // --------------------------------------------------------------
 let mostraTabela = function () {
+  let arquivados = chkArquivados.checked;
   dadosCursos.innerHTML = "";
   let cursos = cursosService.cursos();
   cursos.sort((a, b) => a.nome.localeCompare(b.nome));
   cursos.forEach((curso) => {
-    dadosCursos.innerHTML += `
-    <tr>
+    if (arquivados || (!arquivados && curso.status == 0)) {
+      dadosCursos.innerHTML += `
+    <tr${curso.status == 1 ? ' class="arquivado"' : ""}>
       <td>${curso.nome}</td>
       <td>${graus[curso.grau]}</td>
       <td>${modalidades[curso.modalidade]}</td>
+      <td>${curso.versao}</td>
+      <td>${curso.ano}</td>
       <td class="clicavel">
-        <span class="simbolo" onclick="exibeCurso('${curso.id}')">
+        <span class="simbolo" 
+          onclick="exibeCurso('${curso.id}')"
+          title="Exibe os dados do curso">
           <img src="./imagens/visibility.svg" />
         </span>
-        <span class="simbolo" onclick="editaCurso('${curso.id}')">
+        <span class="simbolo" 
+          onclick="editaCurso('${curso.id}')"
+          title="Altera os dados do curso">
           <img src="./imagens/edit.svg" />
         </span>
-        <span class="simbolo" onclick="apagaCurso('${curso.id}')">
-          <img src="./imagens/delete.svg" />
+        <span class="simbolo" 
+          onclick="arquivaCurso('${curso.id}')"
+          title="Arquiva o curso">
+          <img src="./imagens/archive.svg" />
         </span>
       </td>
     </tr>
   `;
+    }
   });
 };
 
@@ -34,7 +45,6 @@ let exibeCurso = function (id) {
   let curso = cursosService.curso(id);
   nomeModalCurso.value = curso.nome;
   periodosModalCurso.value = curso.periodos;
-
   grauModalCurso.innerHTML = graus
     .map(
       (t, i) =>
@@ -51,12 +61,18 @@ let exibeCurso = function (id) {
     .join();
   areaModalCurso.innerHTML = `<option value=${curso.area}>
   ${areasService.area(curso.area).nome}</option>`;
+  versaoModalCurso.value = curso.versao;
+  anoModalCurso.value = curso.ano;
+  observacoesModalCurso.value = curso.observacoes;
 
   nomeModalCurso.disabled = true;
   periodosModalCurso.disabled = true;
   grauModalCurso.disabled = true;
   modalidadeModalCurso.disabled = true;
   areaModalCurso.disabled = true;
+  versaoModalCurso.disabled = true;
+  anoModalCurso.disabled = true;
+  observacoesModalCurso.disabled = true;
 
   btnCancelar.style.display = "none";
   btnFechar.onclick = () => modalCurso.close();
@@ -98,12 +114,18 @@ let editaCurso = function (id) {
         }</option>`
     )
     .join();
+  versaoModalCurso.value = curso.versao;
+  anoModalCurso.value = curso.ano;
+  observacoesModalCurso.value = curso.observacoes;
 
   nomeModalCurso.disabled = false;
   periodosModalCurso.disabled = false;
   grauModalCurso.disabled = false;
   modalidadeModalCurso.disabled = false;
   areaModalCurso.disabled = false;
+  versaoModalCurso.disabled = false;
+  anoModalCurso.disabled = false;
+  observacoesModalCurso.disabled = false;
 
   btnCancelar.style.display = "block";
   btnFechar.innerHTML = "Salvar";
@@ -134,6 +156,9 @@ let salvar = function (curso, cursos) {
   curso.grau = grauModalCurso.value;
   curso.modalidade = modalidadeModalCurso.value;
   curso.area = areaModalCurso.value;
+  curso.versao = versaoModalCurso.value;
+  curso.ano = anoModalCurso.value;
+  curso.observacoes = observacoesModalCurso.value;
   cursosService.update(curso);
 
   mostraTabela();
@@ -158,6 +183,9 @@ let criaCurso = function () {
   periodosModalCurso.value = 8;
   grauModalCurso.value = 0;
   modalidadeModalCurso.value = 0;
+  versaoModalCurso = 1;
+  anoModalCurso = new Date().getFullYear();
+  observacoesModalCurso = "";
 
   btnCancelar.style.display = "block";
   btnFechar.innerHTML = "Adicionar";
@@ -187,6 +215,9 @@ let adicionar = function () {
     modalidade: modalidadeModalCurso.value,
     grau: grauModalCurso.value,
     area: areaModalCurso.value,
+    versao: versaoModalCurso.value,
+    ano: anoModalCurso.value,
+    observacoes: observacoesModalCurso.value,
   };
   cursosService.create(curso);
   modalCurso.close();
@@ -194,25 +225,24 @@ let adicionar = function () {
 };
 
 // --------------------------------------------------------------
-// Exibe o modal para confirmar a exclusão do curso
+// Exibe o modal para confirmar a arquivamento do curso
 // --------------------------------------------------------------
-let apagaCurso = function (id) {
+let arquivaCurso = function (id) {
   let curso = cursosService.curso(id);
-  cursoAExcluir.innerHTML = curso.nome;
+  cursoAArquivar.innerHTML = curso.nome;
 
-  btnExcluir.onclick = () => excluir(id);
-  modalDeleteCurso.showModal();
-  btnExcluir.focus();
+  btnArquivar.onclick = () => arquivar(id);
+  modalArquivarCurso.showModal();
+  btnArquivar.focus();
 };
 
 // --------------------------------------------------------------
-// Apaga o curso e seus cursos
+// Arquiva o curso e remove seus usuários
 // --------------------------------------------------------------
-let excluir = function (id) {
-  cursosService.delete(id);
+let arquivar = function (id) {
+  cursosService.archive(id);
   cursosUsuariosService.deleteCurso(id);
-  erro("Falta implementar a exclusão de competências e outros dados");
-  modalDeleteCurso.close();
+  modalArquivarCurso.close();
   mostraTabela();
 };
 
@@ -230,9 +260,9 @@ let erro = function (mensagem) {
 btnAdicionar.onclick = () => criaCurso();
 iconeFechar.onclick = () => modalCurso.close();
 iconeFechar3.onclick = () => modalErro.close();
-iconeFechar4.onclick = () => modalDeleteCurso.close();
+iconeFechar4.onclick = () => modalArquivarCurso.close();
 btnCancelar.onclick = () => modalCurso.close();
-btnCancelar3.onclick = () => modalDeleteCurso.close();
+btnCancelar3.onclick = () => modalArquivarCurso.close();
 btnOk.onclick = () => modalErro.close();
 
 // Testes de validade dos campos
@@ -245,6 +275,16 @@ periodosModalCurso.oninput = function () {
     periodosModalCurso.value.length == 0
   );
 };
+versaoModalCurso.oninput = function () {
+  versaoModalCurso.setAttribute(
+    "aria-invalid",
+    versaoModalCurso.value.length == 0
+  );
+};
+anoModalCurso.oninput = function () {
+  anoModalCurso.setAttribute("aria-invalid", anoModalCurso.value.length == 0);
+};
 
 // Mostra a tabela de cursos
+chkArquivados.onchange = () => mostraTabela();
 mostraTabela();

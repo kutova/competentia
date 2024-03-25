@@ -7,7 +7,11 @@ let cursosService = {
         grau: 0,
         modalidade: 0,
         periodos: 8,
-        area: 0,
+        area: 8,
+        versao: 1,
+        ano: 2024,
+        status: 0,
+        observacoes: "",
         id: 1,
       },
       {
@@ -16,6 +20,10 @@ let cursosService = {
         modalidade: 0,
         periodos: 10,
         area: 1,
+        versao: 1,
+        ano: 2024,
+        status: 0,
+        observacoes: "",
         id: 2,
       },
       {
@@ -24,6 +32,10 @@ let cursosService = {
         modalidade: 0,
         periodos: 10,
         area: 2,
+        versao: 1,
+        ano: 2024,
+        status: 0,
+        observacoes: "",
         id: 3,
       },
       {
@@ -32,6 +44,10 @@ let cursosService = {
         modalidade: 0,
         periodos: 8,
         area: 3,
+        versao: 1,
+        ano: 2024,
+        status: 0,
+        observacoes: "",
         id: 4,
       },
       {
@@ -40,6 +56,10 @@ let cursosService = {
         modalidade: 0,
         periodos: 8,
         area: 4,
+        versao: 1,
+        ano: 2024,
+        status: 0,
+        observacoes: "",
         id: 5,
       },
       {
@@ -48,6 +68,10 @@ let cursosService = {
         modalidade: 1,
         periodos: 5,
         area: 4,
+        versao: 1,
+        ano: 2024,
+        status: 0,
+        observacoes: "",
         id: 6,
       },
       {
@@ -56,6 +80,10 @@ let cursosService = {
         modalidade: 0,
         periodos: 8,
         area: 5,
+        versao: 1,
+        ano: 2024,
+        status: 1,
+        observacoes: "",
         id: 7,
       },
       {
@@ -64,11 +92,27 @@ let cursosService = {
         modalidade: 0,
         periodos: 8,
         area: 6,
+        versao: 1,
+        ano: 2024,
+        status: 1,
+        observacoes: "",
         id: 8,
+      },
+      {
+        nome: "Ciência da Computação",
+        grau: 1,
+        modalidade: 0,
+        periodos: 8,
+        area: 7,
+        versao: 1,
+        ano: 2024,
+        status: 0,
+        observacoes: "",
+        id: 9,
       },
     ];
     localStorage.setItem("cursos", JSON.stringify(cursos));
-    localStorage.setItem("ultimoCurso", 8);
+    localStorage.setItem("ultimoCurso", 9);
   },
 
   // recupera a lista de cursos
@@ -86,10 +130,7 @@ let cursosService = {
   // recupera um curso específico
   curso: function (idCurso) {
     let cursos = JSON.parse(localStorage.getItem("cursos") || "[]");
-    for (i in cursos) {
-      if (cursos[i].id == idCurso) return cursos[i];
-    }
-    return null;
+    return cursos.find((c) => c.id == idCurso);
   },
 
   // Atualiza os dados do curso, supondo que o id foi mantido
@@ -102,6 +143,9 @@ let cursosService = {
         cursos[i].modalidade = elem.modalidade;
         cursos[i].grau = elem.grau;
         cursos[i].area = elem.area;
+        cursos[i].versao = elem.versao;
+        cursos[i].ano = elem.ano;
+        cursos[i].observacoes = elem.observacoes;
       }
     }
     localStorage.setItem("cursos", JSON.stringify(cursos));
@@ -112,6 +156,14 @@ let cursosService = {
   delete: function (idCurso) {
     let cursos = JSON.parse(localStorage.getItem("cursos") || "[]");
     cursos = cursos.filter((elem) => elem.id != idCurso);
+    localStorage.setItem("cursos", JSON.stringify(cursos));
+  },
+
+  // Arquiva um curso. O acesso ao curso deve ser removido dos usuários
+  archive: function (idCurso) {
+    let cursos = JSON.parse(localStorage.getItem("cursos") || "[]");
+    let i = cursos.findIndex((c) => c.id == idCurso);
+    cursos[i].status = 1;
     localStorage.setItem("cursos", JSON.stringify(cursos));
   },
 

@@ -67,14 +67,34 @@ let cursosUsuariosService = {
         idCurso: 8,
         permissao: 0,
       },
+      {
+        idUsuario: 1,
+        idCurso: 9,
+        permissao: 0,
+      },
+      {
+        idUsuario: 2,
+        idCurso: 9,
+        permissao: 0,
+      },
+      {
+        idUsuario: 3,
+        idCurso: 9,
+        permissao: 1,
+      },
+      {
+        idUsuario: 3,
+        idCurso: 1,
+        permissao: 0,
+      },
     ];
-    localStorage.setItem("cursosUsuarios", JSON.stringify(cursosUsuarios));
+    localStorage.setItem("cursos-usuarios", JSON.stringify(cursosUsuarios));
   },
 
   // recupera um curso específico
   cursosUsuario: function (idUsuario) {
     let cursosUsuarios = JSON.parse(
-      localStorage.getItem("cursosUsuarios") || "[]"
+      localStorage.getItem("cursos-usuarios") || "[]"
     );
     let cursos = [];
     for (i in cursosUsuarios) {
@@ -90,7 +110,7 @@ let cursosUsuariosService = {
   // retorna os usuãrios que podem editar um curso
   usuarios: function (idCurso) {
     let cursosUsuarios = JSON.parse(
-      localStorage.getItem("cursosUsuarios") || "[]"
+      localStorage.getItem("cursos-usuarios") || "[]"
     );
     let usuarios = [];
     for (i in cursosUsuarios) {
@@ -106,7 +126,7 @@ let cursosUsuariosService = {
   // altera os cursos de um usuário
   update: function (idUsuario, cursosAEditar, cursosAVisualizar) {
     let cursosUsuarios = JSON.parse(
-      localStorage.getItem("cursosUsuarios") || "[]"
+      localStorage.getItem("cursos-usuarios") || "[]"
     );
 
     // remove todos os cursos atuais
@@ -130,28 +150,28 @@ let cursosUsuariosService = {
       });
     }
 
-    localStorage.setItem("cursosUsuarios", JSON.stringify(cursosUsuarios));
+    localStorage.setItem("cursos-usuarios", JSON.stringify(cursosUsuarios));
   },
 
   // remove todos os cursos de um usuário
   deleteUsuario: function (idUsuario) {
     let cursosUsuarios = JSON.parse(
-      localStorage.getItem("cursosUsuarios") || "[]"
+      localStorage.getItem("cursos-usuarios") || "[]"
     );
 
     // remove todos os cursos atuais
     cursosUsuarios = cursosUsuarios.filter((c) => c.idUsuario != idUsuario);
-    localStorage.setItem("cursosUsuarios", JSON.stringify(cursosUsuarios));
+    localStorage.setItem("cursos-usuarios", JSON.stringify(cursosUsuarios));
   },
 
   // remove todos os usuários de um curso
   deleteCurso: function (idCurso) {
     let cursosUsuarios = JSON.parse(
-      localStorage.getItem("cursosUsuarios") || "[]"
+      localStorage.getItem("cursos-usuarios") || "[]"
     );
 
     // remove todos os cursos atuais
     cursosUsuarios = cursosUsuarios.filter((c) => c.idCurso != idCurso);
-    localStorage.setItem("cursosUsuarios", JSON.stringify(cursosUsuarios));
+    localStorage.setItem("cursos-usuarios", JSON.stringify(cursosUsuarios));
   },
 };

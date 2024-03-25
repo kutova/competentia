@@ -15,12 +15,20 @@ let usuariosService = {
         email: "granffild@pucminas.br",
         senha: "docinho",
         tipo: 0,
-        celular: "(31)99999-9999",
+        celular: "(31)99991-9991",
         id: 2,
+      },
+      {
+        nome: "Sara Pimenta Resende",
+        email: "sara@pucminas.br",
+        senha: "sara",
+        tipo: 1,
+        celular: "(31)99992-9992",
+        id: 3,
       },
     ];
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
-    localStorage.setItem("ultimoUsuario", 2);
+    localStorage.setItem("ultimoUsuario", 3);
   },
 
   // Valida email e senha do usuário, retornando os demais dados

@@ -24,41 +24,26 @@
   }
 }
 
-footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-
-.clicavel .simbolo {
-  cursor: pointer;
-}
-
-#sfs1 {
-  display: flex;
-  flex-direction: row;
-}
-
-.linhaLista {
+#painelCursos header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-.linhaLista > span {
-  flex: 1;
-}
-
-.linhaLista > div {
+#painelCursos header > fieldset {
+  margin-top: 1em;
   display: flex;
-  flex-direction: row;
   justify-content: end;
-  align-items: center;
 }
 
-.linhaLista label:not(:last-child) {
-  margin-right: 2em;
+.arquivado td {
+  color: var(--pico-color-slate-200);
+}
+
+#painelCursos #tabela td:nth-child(4),
+#painelCursos #tabela td:nth-child(5) {
+  text-align: center;
 }
 
 #tabelaCursosUsuario th:not(:first-child) {

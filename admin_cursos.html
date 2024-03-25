@@ -74,7 +74,16 @@
       </aside>
 
       <section id="painelCursos">
-        <h4 class="pico-color-azure-550">CURSOS</h4>
+        <header>
+          <h4 class="pico-color-azure-550">CURSOS</h4>
+          <fieldset>
+            <label>
+              <input id="chkArquivados" type="checkbox" role="switch" /> Incluir
+              cursos arquivados
+            </label>
+          </fieldset>
+        </header>
+
         <div class="overflow-auto">
           <table id="tabela">
             <thead>
@@ -82,6 +91,8 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Grau</th>
                 <th scope="col">Modalidade</th>
+                <th scope="col">Versão</th>
+                <th scope="col">Ano</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -123,6 +134,18 @@
               <select id="areaModalCurso"></select>
             </div>
           </div>
+          <div class="grid">
+            <div>
+              <label for="versaoModalCurso">Versão</label>
+              <input id="versaoModalCurso" type="number" min="1" />
+            </div>
+            <div>
+              <label for="anoModalCurso">Ano</label>
+              <input id="anoModalCurso" type="number" min="2020" />
+            </div>
+          </div>
+          <label for="observacoesModalCurso">Observações</label>
+          <textarea id="observacoesModalCurso"></textarea>
         </fieldset>
         <footer>
           <button class="outline" id="btnCancelar">Cancelar</button>
@@ -146,27 +169,25 @@
       </article>
     </dialog>
 
-    <dialog id="modalDeleteCurso">
+    <dialog id="modalArquivarCurso">
       <article>
         <header>
           <button id="iconeFechar4" aria-label="Close" rel="prev"></button>
           <p>
-            <strong>Exclusão de Curso</strong>
+            <strong>Arquivamento de Curso</strong>
           </p>
         </header>
         <p>
-          Exclui o curso <strong><span id="cursoAExcluir"></span></strong>?
+          Arquiva o curso <strong><span id="cursoAArquivar"></span></strong>?
         </p>
         <p>
           <small>
-            <strong>Obs.:</strong>Todos os dados do curso, incluindo suas
-            competências e componentes curriculares, serão excluídos
-            automaticamente.
+            <strong>Obs.:</strong> Todos os usuários perderão o acesso ao curso.
           </small>
         </p>
         <footer>
           <button class="outline" id="btnCancelar3">Cancelar</button>
-          <button id="btnExcluir">Confirma</button>
+          <button id="btnArquivar">Arquivar</button>
         </footer>
       </article>
     </dialog>
