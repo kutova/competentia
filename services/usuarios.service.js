@@ -1,4 +1,4 @@
-let usuariosService = {
+let dbUsuarios = {
   // Cria um BD inicial no Local Storage
   install: function () {
     let usuarios = [

@@ -19,11 +19,11 @@ for (i in linksMenu) {
 // --------------------------------------------------------------
 let mostraTabela = function () {
   corpoTabela.innerHTML = "";
-  let competencias = competenciasCursosService.competencias(curso.id);
+  let competencias = dbCompetenciasCursos.competencias(curso.id);
   competencias.sort((a, b) => a.codigo.localeCompare(b.codigo));
   competencias = competencias.map((c) => ({
     codigo: c.codigo,
-    ...competenciasService.competencia(c.id),
+    ...dbCompetencias.competencia(c.id),
   }));
   competencias.forEach((competencia) => {
     corpoTabela.innerHTML += `
@@ -32,14 +32,20 @@ let mostraTabela = function () {
       <td>${competencia.nome}</td>
       <td>${tiposCompetencia[competencia.tipo]}</td>
       <td class="clicavel">
-        <span class="simbolo" onclick="exibeCurso('${competencia.id}')">
+        <span class="simbolo" 
+          onclick="exibeCompetencia('${competencia.id}')"
+          title="Exibe os dados e cursos da competência">
           <img src="./imagens/visibility.svg" />
         </span>
-        <span class="simbolo" onclick="editaCurso('${competencia.id}')">
+        <span class="simbolo" 
+          onclick="editaCompetencia('${competencia.id}')"
+          title="Altera os dados da competência">
           <img src="./imagens/edit.svg" />
         </span>
-        <span class="simbolo" onclick="apagaCurso('${competencia.id}')">
-          <img src="./imagens/delete.svg" />
+        <span class="simbolo" 
+          onclick="removeCompetencia('${competencia.id}')"
+          title="Remove a competência deste curso">
+          <img src="./imagens/close.svg" />
         </span>
       </td>
     </tr>
@@ -47,4 +53,329 @@ let mostraTabela = function () {
   });
 };
 
+// --------------------------------------------------------------
+// Exibe o modal para visualização dos dados da competência
+// --------------------------------------------------------------
+let exibeCompetencia = function (id) {
+  let competencia = dbCompetencias.competencia(id);
+  nomeModalExibeCompetencia.value = competencia.nome;
+  codigoModalExibeCompetencia.value = dbCompetenciasCursos.codigo(id, curso.id);
+  tipoModalExibeCompetencia.value = tiposCompetencia[competencia.tipo];
+  observacoesModalExibeCompetencia.value = competencia.observacoes;
+
+  cursosModalExibeCompetencia.value = dbCompetenciasCursos
+    .cursos(id)
+    .map((elem) => dbCursos.curso(elem.id).nome)
+    .sort((a, b) => a.localeCompare(b))
+    .join("\n");
+
+  let cha = dbCHACompetencias.cha(id).map((idCHA) => dbCHA.cha(idCHA));
+  conhecimentosModalExibeCompetencia.value = cha
+    .filter((c) => c.tipo == 0)
+    .map((elem) => elem.nome)
+    .sort((a, b) => a.localeCompare(b))
+    .join("\n");
+  habilidadesModalExibeCompetencia.value = cha
+    .filter((c) => c.tipo == 1)
+    .map((elem) => elem.nome)
+    .sort((a, b) => a.localeCompare(b))
+    .join("\n");
+  atitudesModalExibeCompetencia.value = cha
+    .filter((c) => c.tipo == 2)
+    .map((elem) => elem.nome)
+    .sort((a, b) => a.localeCompare(b))
+    .join("\n");
+
+  modalExibeCompetencia.showModal();
+  nomeModalExibeCompetencia.focus();
+};
+
+// --------------------------------------------------------------
+// Exibe o modal para edição dos dados da competência
+// --------------------------------------------------------------
+// Testa se há mais cursos vinculados a esta competência
+let editaCompetencia = function (id) {
+  let n = dbCompetenciasCursos.cursos(id).length;
+  if (n == 1) {
+    editaCompetenciaContinuacao(id);
+  } else {
+    alerta(
+      (n == 2
+        ? "Existe <strong>mais 1 curso</strong> vinculado"
+        : `Existem <strong>mais ${n - 1} cursos/strong> vinculados`) +
+        " a esta competência. As alterações feitas aqui valerão para todos os cursos. Apenas o campo código é específico deste curso.",
+      () => editaCompetenciaContinuacao(id)
+    );
+  }
+};
+
+// Mostra o modal
+let editaCompetenciaContinuacao = function (id) {
+  let competencia = dbCompetencias.competencia(id);
+  nomeModalEditaCompetencia.value = competencia.nome;
+  codigoModalEditaCompetencia.value = dbCompetenciasCursos.codigo(id, curso.id);
+  tipoModalEditaCompetencia.innerHTML = tiposCompetencia
+    .map(
+      (t, i) =>
+        `<option value=${i} ${
+          competencia.tipo == i ? "selected" : ""
+        }>${t}</option>`
+    )
+    .join();
+  observacoesModalEditaCompetencia.value = competencia.observacoes;
+  btnFecharEdicao.onclick = () => salvar(competencia);
+  modalEditaCompetencia.showModal();
+  nomeModalEditaCompetencia.focus();
+};
+
+// Salva as alterações
+let salvar = function (competencia) {
+  if (
+    nomeModalEditaCompetencia.value.length == 0 ||
+    codigoModalEditaCompetencia.value.length == 0
+  ) {
+    erro("Nenhum campo pode ficar vazio.");
+    return;
+  }
+  competencia.nome = nomeModalEditaCompetencia.value;
+  competencia.tipo = tipoModalEditaCompetencia.value;
+  competencia.observacoes = observacoesModalEditaCompetencia.value;
+  dbCompetencias.update(competencia);
+
+  dbCompetenciasCursos.update({
+    idCompetencia: competencia.id,
+    idCurso: curso.id,
+    codigo: codigoModalEditaCompetencia.value,
+  });
+
+  modalEditaCompetencia.close();
+  mostraTabela();
+};
+
+// --------------------------------------------------------------
+// Exibe o modal para criação de uma nova competência
+// --------------------------------------------------------------
+let criaCompetencia = function () {
+  nomeModalCriaCompetencia.value = "";
+  codigoModalCriaCompetencia.value = "";
+  tipoModalCriaCompetencia.innerHTML = tiposCompetencia
+    .map((t, i) => `<option value=${i}>${t}</option>`)
+    .join();
+  observacoesModalCriaCompetencia.value = "";
+  btnFecharCriacao.onclick = () => adicionar();
+  modalCriaCompetencia.showModal();
+  nomeModalCriaCompetencia.focus();
+};
+
+// Grava a nova competência
+let adicionar = function () {
+  if (
+    nomeModalCriaCompetencia.value.length == 0 ||
+    codigoModalCriaCompetencia.value.length == 0
+  ) {
+    erro("Nenhum campo pode ficar vazio.");
+    return;
+  }
+  let novaCompetencia = {
+    nome: nomeModalCriaCompetencia.value,
+    tipo: tipoModalCriaCompetencia.value,
+    observacoes: observacoesModalCriaCompetencia.value,
+  };
+  id = dbCompetencias.create(novaCompetencia);
+
+  dbCompetenciasCursos.create({
+    idCompetencia: id,
+    idCurso: curso.id,
+    codigo: codigoModalCriaCompetencia.value,
+  });
+
+  modalCriaCompetencia.close();
+  mostraTabela();
+};
+
+// --------------------------------------------------------------
+// Pesquisa competências
+// --------------------------------------------------------------
+let pesquisaCompetencias = function () {
+  // Recupera as competência dos cursos aos quais o usuário tem acesso
+  let cursosDoUsuario = dbCursosUsuarios.cursosUsuario(usuarioLogado.id);
+  let competencias = [];
+  let i, j;
+  for (i in cursosDoUsuario) {
+    let competenciasDoCurso = dbCompetenciasCursos.competencias(
+      cursosDoUsuario[i].id
+    );
+    for (j in competenciasDoCurso) {
+      let k = competencias.findIndex((c) => c.id == competenciasDoCurso[j].id);
+      if (k == -1)
+        competencias.push({
+          id: competenciasDoCurso[j].id,
+          cursos: [cursosDoUsuario[i].id],
+        });
+      else competencias[k].cursos.push(cursosDoUsuario[i].id);
+    }
+  }
+
+  competencias = competencias
+    .map((c) => ({
+      ...dbCompetencias.competencia(c.id),
+      cursos: c.cursos,
+    }))
+    .sort((a, b) => a.nome.localeCompare(b.nome));
+
+  filtroTipos.innerHTML =
+    '<option value="-1">Todos</option>' +
+    tiposCompetencia.map((t, i) => `<option value=${i}>${t}</option>`).join();
+  filtroTipos.onchange = () => aplicaFiltros(competencias);
+
+  filtroCursos.innerHTML =
+    '<option value="-1">Todos</option>' +
+    cursosDoUsuario
+      .map((c) => dbCursos.curso(c.id))
+      .sort((a, b) => a.nome.localeCompare(b.nome))
+      .map((c) => `<option value=${c.id}>${c.nome}</option>`)
+      .join();
+  filtroCursos.onchange = () => aplicaFiltros(competencias);
+
+  mostraTabelaPesquisa(competencias);
+  modalPesquisaCompetencia.showModal();
+  filtroTipos.focus();
+};
+
+// Mostra a tabela de pesquisa de competências
+let mostraTabelaPesquisa = function (competencias) {
+  tabelaPesquisaCompetencias.innerHTML = "";
+  competencias.forEach((competencia) => {
+    tabelaPesquisaCompetencias.innerHTML += `
+    <tr>
+      <td>${competencia.nome}</td>
+      <td>${tiposCompetencia[competencia.tipo]}</td>
+      <td class="clicavel">
+        <span class="simbolo" 
+          onclick="exibeCompetencia('${competencia.id}')"
+          title="Exibe os dados e cursos da competência">
+          <img src="./imagens/visibility.svg" />
+        </span>
+        <span class="simbolo" 
+          onclick="importaCompetencia('${competencia.id}')"
+          title="Vincula esta competência ao curso">
+          <img src="./imagens/download.svg" />
+        </span>
+      </td>
+    </tr>
+  `;
+  });
+};
+
+// Filtro de tipos
+let aplicaFiltros = function (competencias) {
+  let condicaoTipo = (tipo) =>
+    filtroTipos.value == -1 ? true : tipo == filtroTipos.value;
+  let condicaoCurso = (cursos) =>
+    filtroCursos.value == -1
+      ? true
+      : cursos.indexOf(parseInt(filtroCursos.value)) != -1;
+  let competenciasFiltradas = competencias.filter(
+    (c) => condicaoTipo(c.tipo) && condicaoCurso(c.cursos)
+  );
+  mostraTabelaPesquisa(competenciasFiltradas);
+};
+
+// Importa a competência
+let importaCompetencia = function (idCompetencia) {
+  // Testa se a competência já existe
+  if (
+    dbCompetenciasCursos
+      .competencias(curso.id)
+      .findIndex((c) => c.id == idCompetencia) != -1
+  ) {
+    erro("Essa competência já faz parte do seu curso");
+  } else {
+    dbCompetenciasCursos.create({
+      idCompetencia: idCompetencia,
+      idCurso: curso.id,
+      codigo: "",
+    });
+    alerta(
+      "Competência vinculada ao curso. Na próxima tela, informe o código que será usado neste curso.<br/><br/>Alterações nos demais campos afetarão todos os cursos vinculados a esta competência.",
+      function () {
+        editaCompetenciaContinuacao(idCompetencia);
+        codigoModalEditaCompetencia.focus();
+      }
+    );
+    modalPesquisaCompetencia.close();
+    modalCriaCompetencia.close();
+  }
+};
+
+// --------------------------------------------------------------
+// Remove a competência deste curso
+// --------------------------------------------------------------
+let removeCompetencia = function (id) {
+  let competencia = dbCompetencias.competencia(id);
+  nomeModalRemoveCompetencia.innerHTML = competencia.nome;
+
+  btnFecharRemocao.onclick = () => remover(id);
+  modalRemoveCompetencia.showModal();
+  btnFecharRemocao.focus();
+};
+// Remove a competência
+let remover = function (idCompetencia) {
+  dbCompetenciasCursos.delete(idCompetencia, curso.id);
+  modalRemoveCompetencia.close();
+  mostraTabela();
+};
+
+// --------------------------------------------------------------
+// Funções auxiliares
+// --------------------------------------------------------------
+// Mostra o modal de alerta
+let alerta = function (mensagem, fn) {
+  mensagemAlerta.innerHTML = mensagem;
+  modalAlerta.showModal();
+  btnOkAlerta.onclick = () => {
+    modalAlerta.close();
+    fn();
+  };
+  btnOkAlerta.focus();
+};
+
+// Mostra o modal de erro
+let erro = function (mensagem) {
+  mensagemErro.innerHTML = mensagem;
+  modalErro.showModal();
+  btnOkErro.focus();
+};
+
+// Atribui funcionalidade aos elementos das janelas modais
+btnAdicionar.onclick = () => criaCompetencia();
+btnPesquisar.onclick = () => pesquisaCompetencias();
+iconeFecharExibicao.onclick = () => modalExibeCompetencia.close();
+btnFecharExibicao.onclick = () => modalExibeCompetencia.close();
+iconeFecharEdicao.onclick = () => modalEditaCompetencia.close();
+btnCancelarEdicao.onclick = () => modalEditaCompetencia.close();
+iconeFecharCriacao.onclick = () => modalCriaCompetencia.close();
+btnCancelarCriacao.onclick = () => modalCriaCompetencia.close();
+btnCancelarEdicao.onclick = () => modalEditaCompetencia.close();
+iconeFecharPesquisa.onclick = () => modalPesquisaCompetencia.close();
+btnFecharPesquisa.onclick = () => modalPesquisaCompetencia.close();
+iconeFecharRemocao.onclick = () => modalRemoveCompetencia.close();
+btnCancelarRemocao.onclick = () => modalRemoveCompetencia.close();
+btnOkErro.onclick = () => modalErro.close();
+
+// Testes de validade dos campos
+nomeModalEditaCompetencia.oninput = function () {
+  nomeModalEditaCompetencia.setAttribute(
+    "aria-invalid",
+    nomeModalEditaCompetencia.value.length == 0
+  );
+};
+codigoModalEditaCompetencia.oninput = function () {
+  codigoModalEditaCompetencia.setAttribute(
+    "aria-invalid",
+    codigoModalEditaCompetencia.value.length == 0
+  );
+};
+
+// Mostra a tabela de competências
 mostraTabela();

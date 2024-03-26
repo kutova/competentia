@@ -33,3 +33,17 @@ footer {
 footer button {
   margin-left: 1em;
 }
+
+#modalPesquisaCompetencia .colunaIcones {
+  min-width: 5em;
+  width: 5em;
+}
+
+#modalCriaCompetencia footer {
+  justify-content: space-between;
+}
+
+#modalCriaCompetencia footer :first-child {
+  justify-content: space-between;
+  margin-left: 0;
+}

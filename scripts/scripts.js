@@ -50,9 +50,9 @@ btnLogout.onclick = () => {
 function carregaCursoDoURL() {
   let params = new URLSearchParams(document.location.search);
   let idCurso = params.get("curso");
-  let cursosDoUsuario = cursosUsuariosService.cursosUsuario(usuarioLogado.id);
+  let cursosDoUsuario = dbCursosUsuarios.cursosUsuario(usuarioLogado.id);
 
-  let curso = cursosService.curso(idCurso);
+  let curso = dbCursos.curso(idCurso);
   if (
     curso == null ||
     (usuarioLogado.tipo != 0 &&

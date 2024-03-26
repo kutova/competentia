@@ -13,6 +13,8 @@
     <script defer src="./services/areas.service.js"></script>
     <script defer src="./services/competencias.service.js"></script>
     <script defer src="./services/competenciascursos.service.js"></script>
+    <script defer src="./services/cha.service.js"></script>
+    <script defer src="./services/chaCompetencias.service.js"></script>
     <script defer src="./scripts/scripts.js"></script>
     <script defer src="./scripts/competencias.js"></script>
     <link rel="stylesheet" href="./estilos/pico.min.css" />
@@ -95,19 +97,18 @@
       <section>
         <article>
           <small>
-            <strong>Competência</strong> é a capacidade de mobilizar
-            conhecimentos, habilidades e atitudes para solucionar problemas de
-            forma eficaz
-            <!-- Perrenoud -->. Um competência, portanto, leva em consideração
-            uma situação-problema que exige uma real intervenção para
-            resolvê-la.
-            <!-- Zabala -->
-            As competências são desenvolvidas por meio de experiências de vida e
-            de aprendizagem e não por mera trasnferêcia de conhecimentos ou pela
-            simples repetição de tarefas mecânicas.
+            <!-- Perrenoud --><strong>Competência</strong> é a capacidade de
+            mobilizar conhecimentos, habilidades e atitudes para solucionar
+            problemas de forma eficaz.
+            <!-- Zabala -->Uma competência, portanto, leva em consideração uma
+            situação-problema que exige uma real intervenção para resolvê-la. As
+            competências são desenvolvidas por meio de experiências de vida e de
+            aprendizagem e não por mera trasnferêcia de conhecimentos ou pela
+            simples repetição de tarefas mecânicas. Deve ser possível avaliar o
+            nível de desempenho dos alunos em cada uma das competências.
           </small>
         </article>
-        <h4 class="pico-color-azure-550">COMPETÊNCIAS</h4>
+        <h4>COMPETÊNCIAS</h4>
         <div class="overflow-auto">
           <table id="tabela">
             <thead>
@@ -122,7 +123,6 @@
           </table>
         </div>
         <footer>
-          <button id="btnPesquisar">Pesquisar</button>
           <button id="btnAdicionar">Adicionar</button>
         </footer>
       </section>
@@ -132,32 +132,243 @@
     <dialog id="modalExibeCompetencia">
       <article>
         <header>
-          <button id="iconeFechar1" aria-label="Close" rel="prev"></button>
+          <button
+            id="iconeFecharExibicao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
           <p>
-            <strong id="tituloModal">Competência</strong>
+            <strong>Competência</strong>
           </p>
         </header>
         <fieldset>
           <label for="nomeModalExibeCompetencia">Nome</label>
-          <input id="nomeModalExibeCompetencia" />
+          <textarea id="nomeModalExibeCompetencia" readonly></textarea>
           <div class="grid">
             <div>
               <label for="tipoModalExibeCompetencia">Tipo</label>
-              <select id="tipoModalExibeCompetencia"></select>
+              <input id="tipoModalExibeCompetencia" readonly />
+            </div>
+            <div>
+              <label for="codigoModalExibeCompetencia">Código no curso</label>
+              <input id="codigoModalExibeCompetencia" readonly />
             </div>
           </div>
           <label for="observacoesModalExibeCompetencia">Observações</label>
-          <textarea id="observacoesModalExibeCompetencia"></textarea>
-          <label for="cursosModalExibeCompetencia"
-            >Cursos com a competência</label
-          >
-          <textarea id="cursosModalExibeCompetencia" rows="5">
-Nenhum curso</textarea
-          >
+          <textarea id="observacoesModalExibeCompetencia" readonly rows="3">
+          </textarea>
+          <label for="cursosModalExibeCompetencia">
+            Cursos vinculados a esta competência
+          </label>
+          <textarea id="cursosModalExibeCompetencia" readonly rows="3">
+            Nenhum curso
+          </textarea>
+          <label for="conhecimentosModalExibeCompetencia">
+            Conhecimentos que fazem parte desta competência
+          </label>
+          <textarea id="conhecimentosModalExibeCompetencia" readonly rows="5">
+            Nenhum conhecimento
+          </textarea>
+          <label for="habilidadesModalExibeCompetencia">
+            Habilidades que fazem parte desta competência
+          </label>
+          <textarea id="habilidadesModalExibeCompetencia" readonly rows="5">
+            Nenhuma habilidade
+          </textarea>
+          <label for="atitudesModalExibeCompetencia">
+            Atitudes que fazem parte desta competência
+          </label>
+          <textarea id="atitudesModalExibeCompetencia" readonly rows="5">
+            Nenhuma atitude
+          </textarea>
         </fieldset>
         <footer>
-          <button class="outline" id="btnCancelar1">Cancelar</button>
-          <button id="btnFechar1">Ok</button>
+          <button id="btnFecharExibicao">Fechar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Modal para alteração dos dados da competência -->
+    <dialog id="modalEditaCompetencia">
+      <article>
+        <header>
+          <button id="iconeFecharEdicao" aria-label="Close" rel="prev"></button>
+          <p>
+            <strong>Competência</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalEditaCompetencia">Nome</label>
+          <textarea id="nomeModalEditaCompetencia"></textarea>
+          <div class="grid">
+            <div>
+              <label for="tipoModalEditaCompetencia">Tipo</label>
+              <select id="tipoModalEditaCompetencia"></select>
+            </div>
+            <div>
+              <label for="codigoModalEditaCompetencia">Código no curso</label>
+              <input id="codigoModalEditaCompetencia" />
+            </div>
+          </div>
+          <label for="observacoesModalEditaCompetencia">Observações</label>
+          <textarea id="observacoesModalEditaCompetencia" rows="3"> </textarea>
+        </fieldset>
+        <small>
+          <strong>Observação:</strong> Os dados da competência são os mesmos em
+          todos os cursos a que ela está vinculada, exceto o seu Código, que é
+          específico para este curso.
+        </small>
+        <footer>
+          <button class="outline" id="btnCancelarEdicao">Cancelar</button>
+          <button id="btnFecharEdicao">Salvar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Modal para alteração dos dados da competência -->
+    <dialog id="modalCriaCompetencia">
+      <article>
+        <header>
+          <button
+            id="iconeFecharCriacao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Nova Competência</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalCriaCompetencia">Nome</label>
+          <textarea id="nomeModalCriaCompetencia"></textarea>
+          <div class="grid">
+            <div>
+              <label for="tipoModalCriaCompetencia">Tipo</label>
+              <select id="tipoModalCriaCompetencia"></select>
+            </div>
+            <div>
+              <label for="codigoModalCriaCompetencia">Código no curso</label>
+              <input id="codigoModalCriaCompetencia" />
+            </div>
+          </div>
+          <label for="observacoesModalCriaCompetencia">Observações</label>
+          <textarea id="observacoesModalCriaCompetencia" rows="3"> </textarea>
+        </fieldset>
+        <small>
+          <strong>Observação:</strong> Antes de criar uma nova competência,
+          certifique-se de que ela já não existe por meio do botão
+          <em>Pesquisar</em> abaixo. Se existir, você poderá importá-la para
+          este curso.
+        </small>
+        <footer>
+          <button id="btnPesquisar">Pesquisar</button>
+          <div>
+            <button class="outline" id="btnCancelarCriacao">Cancelar</button>
+            <button id="btnFecharCriacao">Salvar</button>
+          </div>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Modal pesquisar -->
+    <dialog id="modalPesquisaCompetencia" class="modal-pesquisa">
+      <article>
+        <header>
+          <button
+            id="iconeFecharPesquisa"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Pesquisa de Competências</strong>
+          </p>
+        </header>
+        <fieldset>
+          <div class="grid">
+            <div>
+              <label for="filtroTipos">Filtrar por tipo</label>
+              <select id="filtroTipos"></select>
+            </div>
+            <div>
+              <label for="filtroCursos">Filtrar por curso</label>
+              <select id="filtroCursos"></select>
+            </div>
+          </div>
+        </fieldset>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Tipo</th>
+              <th class="colunaIcones"></th>
+            </tr>
+          </thead>
+          <tbody id="tabelaPesquisaCompetencias"></tbody>
+        </table>
+        <footer>
+          <button id="btnFecharPesquisa">Fechar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Modal para remoção da competência -->
+    <dialog id="modalRemoveCompetencia">
+      <article>
+        <header>
+          <button
+            id="iconeFecharRemocao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Remoção da Competência</strong>
+          </p>
+        </header>
+        <p>
+          Remove a competência
+          <strong> <span id="codigoModalRemoveCompetencia"></span> </strong>?
+        </p>
+        <textarea id="nomeModalRemoveCompetencia" rows="4" readonly></textarea>
+        <small>
+          <strong>Observação:</strong> A remoção não é uma exclusão da
+          competência, mas apenas a sua remoção deste curso. A competência
+          continuará vinculada a outros cursos e poderá ser pesquisada por meio
+          deles. Se não estiver vinculada a nenhum outro curso, apenas o
+          administrador do sistema poderá recuperá-la.
+        </small>
+        <footer>
+          <button class="outline" id="btnCancelarRemocao">Cancelar</button>
+          <button id="btnFecharRemocao">Remover</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Modal para mensagens de alerta -->
+    <dialog id="modalAlerta">
+      <article>
+        <header>
+          <p>
+            <strong>ATENÇÃO</strong>
+          </p>
+        </header>
+        <p id="mensagemAlerta"></p>
+        <footer>
+          <button id="btnOkAlerta">Ok</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Modal para mensagens de erro -->
+    <dialog id="modalErro">
+      <article>
+        <header>
+          <p>
+            <strong>Erro</strong>
+          </p>
+        </header>
+        <p id="mensagemErro"></p>
+        <footer>
+          <button id="btnOkErro">Ok</button>
         </footer>
       </article>
     </dialog>

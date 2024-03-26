@@ -1,4 +1,4 @@
-let competenciasService = {
+let dbCompetencias = {
   // Cria um BD inicial no Local Storage
   install: function () {
     let competencias = [
@@ -112,6 +112,8 @@ let competenciasService = {
     for (i in competencias) {
       if (competencias[i].id == elem.id) {
         competencias[i].nome = elem.nome;
+        competencias[i].tipo = elem.tipo;
+        competencias[i].observacoes = elem.observacoes;
       }
     }
     localStorage.setItem("competencias", JSON.stringify(competencias));
@@ -133,5 +135,6 @@ let competenciasService = {
     competencias.push(competencia);
     localStorage.setItem("ultimaCompetencia", idCompetencia);
     localStorage.setItem("competencias", JSON.stringify(competencias));
+    return idCompetencia;
   },
 };

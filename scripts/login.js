@@ -10,7 +10,7 @@ let validaLogin = function () {
     senha.placeholder = "Preencha a senha";
     return;
   }
-  let usuario = usuariosService.validate(email.value, senha.value);
+  let usuario = dbUsuarios.validate(email.value, senha.value);
   if (usuario) {
     localStorage.setItem("ultimoAcesso", new Date().getTime());
     localStorage.setItem("usuario", JSON.stringify(usuario));

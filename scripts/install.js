@@ -6,20 +6,27 @@ localStorage.clear();
 localStorage.setItem("usuario", usuario);
 localStorage.setItem("ultimoAcesso", ultimoAcesso);
 
-usuariosService.install();
-logInstall.innerHTML += "<p>Usuários... OK</p>";
+dbUsuarios.install();
+logInstall.innerHTML += "<p>Usuários.</p>";
 
-cursosService.install();
-logInstall.innerHTML += "<p>Cursos... OK</p>";
+dbCursos.install();
+logInstall.innerHTML += "<p>Cursos.</p>";
 
-cursosUsuariosService.install();
-logInstall.innerHTML += "<p>Cursos dos usuários... OK</p>";
+dbCursosUsuarios.install();
+logInstall.innerHTML += "<p>Cursos dos usuários.</p>";
 
-areasService.install();
-logInstall.innerHTML += "<p>Áreas... OK</p>";
+dbAreas.install();
+logInstall.innerHTML += "<p>Áreas.</p>";
 
-competenciasService.install();
-logInstall.innerHTML += "<p>Competências... OK</p>";
+dbCompetencias.install();
+logInstall.innerHTML += "<p>Competências.</p>";
 
-competenciasCursosService.install();
-logInstall.innerHTML += "<p>Competências do curso... OK</p>";
+dbCompetenciasCursos.install();
+logInstall.innerHTML += "<p>Vínculos das ompetências aos cursos.</p>";
+
+dbCHA.install();
+logInstall.innerHTML += "<p>Conhecimentos, habilidades e atitudes.</p>";
+
+dbCHACompetencias.install();
+logInstall.innerHTML +=
+  "<p>Vínculos dos conhecimentos, habilidades e atitudes às competências.</p>";

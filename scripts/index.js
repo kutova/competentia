@@ -1,13 +1,13 @@
 // --------------------------------------------------------
 // Carrega os cursos do painel de cursos (página principal)
 // --------------------------------------------------------
-cursos = cursosService.cursos();
+cursos = dbCursos.cursos();
 cursos.sort((a, b) => a.nome.localeCompare(b.nome));
 
 // --------------------------------------------------------
 // Carrega os cursos aos quais o usuário tem acesso
 // --------------------------------------------------------
-let cursosDoUsuario = cursosUsuariosService.cursosUsuario(usuarioLogado.id);
+let cursosDoUsuario = dbCursosUsuarios.cursosUsuario(usuarioLogado.id);
 
 cursos.forEach((c) => {
   if (

@@ -9,9 +9,9 @@ nomeCurso.innerHTML =
     ? ' <sup><img src="./imagens/inventory.svg" title="Arquivado" /></sup>'
     : "");
 
-let usuarios = cursosUsuariosService.usuarios(curso.id);
+let usuarios = dbCursosUsuarios.usuarios(curso.id);
 editoresCurso.innerHTML = usuarios
-  .map((id) => usuariosService.usuario(id).nome)
+  .map((id) => dbUsuarios.usuario(id).nome)
   .join("<br />");
 
 let linksMenu = document.querySelectorAll(".linkDoCurso");
@@ -25,7 +25,7 @@ for (i in linksMenu) {
 grauCurso.innerHTML = graus[curso.grau];
 modalidadeCurso.innerHTML = modalidades[curso.modalidade];
 peridosCurso.innerHTML = curso.periodos;
-areaCurso.innerHTML = areasService.area(curso.area).nome;
+areaCurso.innerHTML = dbAreas.area(curso.area).nome;
 versaoCurso.innerHTML = curso.versao;
 anoCurso.innerHTML = curso.ano;
 observacoesCurso.innerHTML = curso.observacoes;

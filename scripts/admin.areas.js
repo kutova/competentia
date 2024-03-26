@@ -3,7 +3,7 @@
 // --------------------------------------------------------------
 let mostraTabela = function () {
   dadosAreas.innerHTML = "";
-  let areas = areasService.areas();
+  let areas = dbAreas.areas();
   areas.sort((a, b) => a.nome.localeCompare(b.nome));
   areas.forEach((area) => {
     dadosAreas.innerHTML += `
@@ -35,50 +35,45 @@ let mostraTabela = function () {
 // Exibe o modal para visualização dos dados da área
 // --------------------------------------------------------------
 let exibeArea = function (id) {
-  let area = areasService.area(id);
+  let area = dbAreas.area(id);
   nomeModalExibeArea.value = area.nome;
-  nomeModalExibeArea.disabled = true;
+  nomeModalExibeArea.readOnly = true;
 
-  cursosModalExibeArea.value = cursosService
+  cursosModalExibeArea.value = dbCursos
     .cursosDaArea(id)
     .map((elem) => elem.nome)
     .sort((a, b) => a.localeCompare(b))
     .join("\n");
-  cursosModalExibeArea.disabled = true;
 
   modalExibeArea.showModal();
-  btnFechar2.focus();
+  btnFecharExibicao.focus();
 };
 
 // --------------------------------------------------------------
 // Exibe o modal para edição dos dados da área
 // --------------------------------------------------------------
 let editaArea = function (id) {
-  let area = areasService.area(id);
-  nomeModalArea.value = area.nome;
-  nomeModalArea.disabled = false;
+  let area = dbAreas.area(id);
+  nomeModalEditaArea.value = area.nome;
 
-  btnCancelar.style.display = "block";
-  btnFechar.innerHTML = "Salvar";
-  btnFechar.onclick = () => {
+  btnFecharEdicao.onclick = () => {
     salvar(area);
-    modalArea.close();
+    modalEditaArea.close();
   };
-  tituloModal.innerHTML = "Área de Conhecimento";
-  modalArea.showModal();
-  nomeModalArea.focus();
+  modalEditaArea.showModal();
+  nomeModalEditaArea.focus();
 };
 
 // --------------------------------------------------------------
 // Salva os dados editados pelo usuário
 // --------------------------------------------------------------
 let salvar = function (area) {
-  if (nomeModalArea.value.length == 0) {
+  if (nomeModalEditaArea.value.length == 0) {
     erro("Nenhum campo pode ficar vazio.");
     return;
   }
-  area.nome = nomeModalArea.value;
-  areasService.update(area);
+  area.nome = nomeModalEditaArea.value;
+  dbAreas.update(area);
 
   mostraTabela();
 };
@@ -87,33 +82,30 @@ let salvar = function (area) {
 // Exibe o modal para inclusão de uma nova área
 // --------------------------------------------------------------
 let criaArea = function () {
-  nomeModalArea.value = "";
-  nomeModalArea.disabled = false;
+  nomeModalCriaArea.value = "";
+  nomeModalCriaArea.readOnly = false;
 
-  btnCancelar.style.display = "block";
-  btnFechar.innerHTML = "Adicionar";
-  btnFechar.onclick = () => {
+  btnFecharCriacao.onclick = () => {
     adicionar();
   };
 
-  tituloModal.innerHTML = "Nova Área de Conhecimento";
-  modalArea.showModal();
-  nomeModalArea.focus();
+  modalCriaArea.showModal();
+  nomeModalCriaArea.focus();
 };
 
 // --------------------------------------------------------------
 // Inclui uma nova área
 // --------------------------------------------------------------
 let adicionar = function () {
-  if (nomeModalArea.value.length == 0) {
+  if (nomeModalCriaArea.value.length == 0) {
     erro("Nenhum campo pode ficar vazio.");
     return;
   }
   let area = {
-    nome: nomeModalArea.value,
+    nome: nomeModalCriaArea.value,
   };
-  areasService.create(area);
-  modalArea.close();
+  dbAreas.create(area);
+  modalCriaArea.close();
   mostraTabela();
 };
 
@@ -121,7 +113,7 @@ let adicionar = function () {
 // Exibe o modal para confirmar a exclusão da área
 // --------------------------------------------------------------
 let apagaArea = function (id) {
-  let cursosDaArea = cursosService.cursosDaArea(id);
+  let cursosDaArea = dbCursos.cursosDaArea(id);
   if (cursosDaArea.length > 0) {
     erro(
       "Existem cursos vinculados a esta área. Altere os cursos dessa área antes de excluí-la."
@@ -129,11 +121,11 @@ let apagaArea = function (id) {
     return;
   }
 
-  let area = areasService.area(id);
+  let area = dbAreas.area(id);
   areaAExcluir.innerHTML = area.nome;
 
   btnExcluir.onclick = () => excluir(id);
-  modalDeleteArea.showModal();
+  modalApagaArea.showModal();
   btnExcluir.focus();
 };
 
@@ -141,8 +133,8 @@ let apagaArea = function (id) {
 // Apaga a área
 // --------------------------------------------------------------
 let excluir = function (id) {
-  areasService.delete(id);
-  modalDeleteArea.close();
+  dbAreas.delete(id);
+  modalApagaArea.close();
   mostraTabela();
 };
 
@@ -153,24 +145,34 @@ let excluir = function (id) {
 let erro = function (mensagem) {
   mensagemErro.innerHTML = mensagem;
   modalErro.showModal();
-  btnOk.focus();
+  btnOkErro.focus();
+};
+
+// Testes de validade dos campos
+nomeModalEditaArea.oninput = function () {
+  nomeModalEditaArea.setAttribute(
+    "aria-invalid",
+    nomeModalEditaArea.value.length == 0
+  );
+};
+nomeModalCriaArea.oninput = function () {
+  nomeModalCriaArea.setAttribute(
+    "aria-invalid",
+    nomeModalCriaArea.value.length == 0
+  );
 };
 
 // Atribui funcionalidade aos elementos das janelas modais
 btnAdicionar.onclick = () => criaArea();
-iconeFechar.onclick = () => modalArea.close();
-iconeFechar2.onclick = () => modalExibeArea.close();
-iconeFechar3.onclick = () => modalErro.close();
-iconeFechar4.onclick = () => modalDeleteArea.close();
-btnCancelar.onclick = () => modalArea.close();
-btnCancelar3.onclick = () => modalDeleteArea.close();
-btnFechar2.onclick = () => modalExibeArea.close();
-btnOk.onclick = () => modalErro.close();
-
-// Testes de validade dos campos
-nomeModalArea.oninput = function () {
-  nomeModalArea.setAttribute("aria-invalid", nomeModalArea.value.length == 0);
-};
+iconeFecharExibicao.onclick = () => modalExibeArea.close();
+iconeFecharEdicao.onclick = () => modalEditaArea.close();
+iconeFecharCriacao.onclick = () => modalErro.close();
+iconeFecharExclusao.onclick = () => modalApagaArea.close();
+btnFecharExibicao.onclick = () => modalExibeArea.close();
+btnCancelar2.onclick = () => modalEditaArea.close();
+btnCancelar3.onclick = () => modalCriaArea.close();
+btnCancelar4.onclick = () => modalApagaArea.close();
+btnOkErro.onclick = () => modalErro.close();
 
 // Mostra a tabela de usuários
 mostraTabela();

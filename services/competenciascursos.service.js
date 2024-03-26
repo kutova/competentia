@@ -1,4 +1,4 @@
-let competenciasCursosService = {
+let dbCompetenciasCursos = {
   // Cria um BD inicial no Local Storage
   install: function () {
     let competenciasCursos = [
@@ -67,6 +67,11 @@ let competenciasCursosService = {
         idCurso: 9,
         codigo: "C13",
       },
+      {
+        idCompetencia: 1,
+        idCurso: 5,
+        codigo: "C01",
+      },
     ];
     localStorage.setItem(
       "competencias-cursos",
@@ -88,6 +93,17 @@ let competenciasCursosService = {
         });
     }
     return competencias;
+  },
+
+  // recupera o código de uma competÊncia e curso específicos
+  codigo: function (idCompetencia, idCurso) {
+    let competenciasCursos = JSON.parse(
+      localStorage.getItem("competencias-cursos") || "[]"
+    );
+    let competencia = competenciasCursos.find(
+      (c) => c.idCompetencia == idCompetencia && c.idCurso == idCurso
+    );
+    return competencia ? competencia.codigo : "";
   },
 
   // recupera os cursos de uma competência específica
@@ -126,7 +142,8 @@ let competenciasCursosService = {
   },
 
   // remove a competência de um curso
-  delete: function (idCurso, idCompetencia) {
+  delete: function (idCompetencia, idCurso) {
+    console.log(idCompetencia, idCurso);
     let competenciasCursos = JSON.parse(
       localStorage.getItem("competencias-cursos") || "[]"
     );
@@ -139,7 +156,7 @@ let competenciasCursosService = {
     );
   },
 
-  // Cria uma nova área
+  // Adiciona uma nova competencia ao curso
   create: function (competenciaCurso) {
     let competenciasCursos = JSON.parse(
       localStorage.getItem("competencias-cursos") || "[]"

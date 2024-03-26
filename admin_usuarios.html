@@ -73,7 +73,7 @@
       </aside>
 
       <section id="painelUsuarios">
-        <h4 class="pico-color-azure-550">USUÁRIOS</h4>
+        <h4>USUÁRIOS</h4>
         <div class="overflow-auto">
           <table id="tabela">
             <thead>
@@ -91,27 +91,31 @@
       </section>
     </main>
 
-    <dialog id="modalUsuario">
+    <dialog id="modalExibeUsuario">
       <article>
         <header>
-          <button id="iconeFechar" aria-label="Close" rel="prev"></button>
+          <button
+            id="iconeFecharExibicao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
           <p>
             <strong>Usuário</strong>
           </p>
         </header>
         <fieldset>
-          <label for="nomeModalUsuario">Nome</label>
-          <input id="nomeModalUsuario" />
-          <label for="emailModalUsuario">E-mail</label>
-          <input id="emailModalUsuario" />
+          <label for="nomeModalExibeUsuario">Nome</label>
+          <input id="nomeModalExibeUsuario" readonly />
+          <label for="emailModalExibeUsuario">E-mail</label>
+          <input id="emailModalExibeUsuario" readonly />
           <div class="grid">
             <div>
-              <label for="celularModalUsuario">Celular</label>
-              <input id="celularModalUsuario" />
+              <label for="celularModalExibeUsuario">Celular</label>
+              <input id="celularModalExibeUsuario" readonly />
             </div>
             <div>
-              <label for="tipoModalUsuario">Tipo</label>
-              <select id="tipoModalUsuario"></select>
+              <label for="tipoModalExibeUsuario">Tipo</label>
+              <input id="tipoModalExibeUsuario" readonly />
             </div>
           </div>
           <div class="tabelaComRolagem">
@@ -136,43 +140,97 @@
           </div>
         </fieldset>
         <footer>
-          <button class="outline" id="btnCancelar">Cancelar</button>
-          <button id="btnFechar">Ok</button>
+          <button id="btnFecharExibicao">Fechar</button>
         </footer>
       </article>
     </dialog>
 
-    <dialog id="modalCreateUsuario">
+    <dialog id="modalEditaUsuario">
       <article>
         <header>
-          <button id="iconeFechar2" aria-label="Close" rel="prev"></button>
+          <button id="iconeFecharEdicao" aria-label="Close" rel="prev"></button>
+          <p>
+            <strong>Usuário</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalEditaUsuario">Nome</label>
+          <input id="nomeModalEditaUsuario" />
+          <label for="emailModalEditaUsuario">E-mail</label>
+          <input id="emailModalEditaUsuario" />
+          <div class="grid">
+            <div>
+              <label for="celularModalEditaUsuario">Celular</label>
+              <input id="celularModalEditaUsuario" />
+            </div>
+            <div>
+              <label for="tipoModalEditaUsuario">Tipo</label>
+              <select id="tipoModalEditaUsuario"></select>
+            </div>
+          </div>
+          <div class="tabelaComRolagem">
+            <table id="tabelaCursosUsuario">
+              <thead>
+                <tr>
+                  <th scope="col">Curso</th>
+                  <th scope="col">
+                    <span class="simbolo"
+                      ><img src="./imagens/visibility.svg"
+                    /></span>
+                  </th>
+                  <th scope="col">
+                    <span class="simbolo"
+                      ><img src="./imagens/edit.svg"
+                    /></span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="listaCursos2"></tbody>
+            </table>
+          </div>
+        </fieldset>
+        <footer>
+          <button class="outline" id="btnCancelar2">Cancelar</button>
+          <button id="btnFecharEdicao">Salvar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalCriaUsuario">
+      <article>
+        <header>
+          <button
+            id="iconeFecharCriacao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
           <p>
             <strong>Novo Usuário</strong>
           </p>
         </header>
         <fieldset>
-          <label for="nomeModalCreateUsuario">Nome</label>
-          <input id="nomeModalCreateUsuario" />
-          <label for="emailModalCreateUsuario">E-mail</label>
-          <input id="emailModalCreateUsuario" />
+          <label for="nomeModalCriaUsuario">Nome</label>
+          <input id="nomeModalCriaUsuario" />
+          <label for="emailModalCriaUsuario">E-mail</label>
+          <input id="emailModalCriaUsuario" />
           <div class="grid">
             <div>
-              <label for="senha1ModalCreateUsuario">Senha</label>
-              <input id="senha1ModalCreateUsuario" type="password" />
+              <label for="senha1ModalCriaUsuario">Senha</label>
+              <input id="senha1ModalCriaUsuario" type="password" />
             </div>
             <div>
-              <label for="senha2ModalCreateUsuario">Confirmar senha</label>
-              <input id="senha2ModalCreateUsuario" type="password" />
+              <label for="senha2ModalCriaUsuario">Confirmar senha</label>
+              <input id="senha2ModalCriaUsuario" type="password" />
             </div>
           </div>
           <div class="grid">
             <div>
-              <label for="celularModalCreateUsuario">Celular</label>
-              <input id="celularModalCreateUsuario" />
+              <label for="celularModalCriaUsuario">Celular</label>
+              <input id="celularModalCriaUsuario" />
             </div>
             <div>
-              <label for="tipoModalCreateUsuario">Tipo</label>
-              <select id="tipoModalCreateUsuario"></select>
+              <label for="tipoModalCriaUsuario">Tipo</label>
+              <select id="tipoModalCriaUsuario"></select>
             </div>
           </div>
           <p>
@@ -183,8 +241,8 @@
           </p>
         </fieldset>
         <footer>
-          <button class="outline" id="btnCancelar2">Cancelar</button>
-          <button id="btnAdicionar2">Adicionar</button>
+          <button class="outline" id="btnCancelar3">Cancelar</button>
+          <button id="btnAdicionar3">Adicionar</button>
         </footer>
       </article>
     </dialog>
@@ -192,22 +250,26 @@
     <dialog id="modalErro">
       <article>
         <header>
-          <button id="iconeFechar3" aria-label="Close" rel="prev"></button>
+          <button id="iconeFecharErro" aria-label="Close" rel="prev"></button>
           <p>
             <strong>Erro</strong>
           </p>
         </header>
         <p id="mensagemErro"></p>
         <footer>
-          <button id="btnOk">Ok</button>
+          <button id="btnOkErro">Ok</button>
         </footer>
       </article>
     </dialog>
 
-    <dialog id="modalDeleteUsuario">
+    <dialog id="modalApagaUsuario">
       <article>
         <header>
-          <button id="iconeFechar4" aria-label="Close" rel="prev"></button>
+          <button
+            id="iconeFecharExclusao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
           <p>
             <strong>Exclusão de Usuário</strong>
           </p>
@@ -222,7 +284,7 @@
           </small>
         </p>
         <footer>
-          <button class="outline" id="btnCancelar3">Cancelar</button>
+          <button class="outline" id="btnCancelar4">Cancelar</button>
           <button id="btnExcluir">Confirma</button>
         </footer>
       </article>

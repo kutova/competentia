@@ -4,7 +4,7 @@
 let mostraTabela = function () {
   let arquivados = chkArquivados.checked;
   dadosCursos.innerHTML = "";
-  let cursos = cursosService.cursos();
+  let cursos = dbCursos.cursos();
   cursos.sort((a, b) => a.nome.localeCompare(b.nome));
   cursos.forEach((curso) => {
     if (arquivados || (!arquivados && curso.status == 0)) {
@@ -21,6 +21,9 @@ let mostraTabela = function () {
           title="Exibe os dados do curso">
           <img src="./imagens/visibility.svg" />
         </span>
+        ${
+          curso.status == 0
+            ? `
         <span class="simbolo" 
           onclick="editaCurso('${curso.id}')"
           title="Altera os dados do curso">
@@ -30,7 +33,9 @@ let mostraTabela = function () {
           onclick="arquivaCurso('${curso.id}')"
           title="Arquiva o curso">
           <img src="./imagens/archive.svg" />
-        </span>
+        </span>`
+            : ""
+        }
       </td>
     </tr>
   `;
@@ -42,61 +47,35 @@ let mostraTabela = function () {
 // Exibe o modal para visualização dos dados do curso
 // --------------------------------------------------------------
 let exibeCurso = function (id) {
-  let curso = cursosService.curso(id);
-  nomeModalCurso.value = curso.nome;
-  periodosModalCurso.value = curso.periodos;
-  grauModalCurso.innerHTML = graus
-    .map(
-      (t, i) =>
-        `<option value=${i} ${curso.grau == i ? "selected" : ""}>${t}</option>`
-    )
-    .join();
-  modalidadeModalCurso.innerHTML = modalidades
-    .map(
-      (t, i) =>
-        `<option value=${i} ${
-          curso.modalidade == i ? "selected" : ""
-        }>${t}</option>`
-    )
-    .join();
-  areaModalCurso.innerHTML = `<option value=${curso.area}>
-  ${areasService.area(curso.area).nome}</option>`;
-  versaoModalCurso.value = curso.versao;
-  anoModalCurso.value = curso.ano;
-  observacoesModalCurso.value = curso.observacoes;
+  let curso = dbCursos.curso(id);
+  nomeModalExibeCurso.value = curso.nome;
+  periodosModalExibeCurso.value = curso.periodos;
+  grauModalExibeCurso.value = graus[curso.grau];
+  modalidadeModalExibeCurso.value = modalidades[curso.modalidade];
+  areaModalExibeCurso.value = dbAreas.area(curso.area).nome;
+  versaoModalExibeCurso.value = curso.versao;
+  anoModalExibeCurso.value = curso.ano;
+  observacoesModalExibeCurso.value = curso.observacoes;
 
-  nomeModalCurso.disabled = true;
-  periodosModalCurso.disabled = true;
-  grauModalCurso.disabled = true;
-  modalidadeModalCurso.disabled = true;
-  areaModalCurso.disabled = true;
-  versaoModalCurso.disabled = true;
-  anoModalCurso.disabled = true;
-  observacoesModalCurso.disabled = true;
-
-  btnCancelar.style.display = "none";
-  btnFechar.onclick = () => modalCurso.close();
-  btnFechar.innerHTML = "Fechar";
-
-  tituloModal.innerHTML = "Curso";
-  modalCurso.showModal();
-  btnFechar.focus();
+  btnFecharExibicao.onclick = () => modalExibeCurso.close();
+  modalExibeCurso.showModal();
+  btnFecharExibicao.focus();
 };
 
 // --------------------------------------------------------------
 // Exibe o modal para edição dos dados do curso
 // --------------------------------------------------------------
 let editaCurso = function (id) {
-  let curso = cursosService.curso(id);
-  nomeModalCurso.value = curso.nome;
-  periodosModalCurso.value = curso.periodos;
-  grauModalCurso.innerHTML = graus
+  let curso = dbCursos.curso(id);
+  nomeModalEditaCurso.value = curso.nome;
+  periodosModalEditaCurso.value = curso.periodos;
+  grauModalEditaCurso.innerHTML = graus
     .map(
       (t, i) =>
         `<option value=${i} ${curso.grau == i ? "selected" : ""}>${t}</option>`
     )
     .join();
-  modalidadeModalCurso.innerHTML = modalidades
+  modalidadeModalEditaCurso.innerHTML = modalidades
     .map(
       (t, i) =>
         `<option value=${i} ${
@@ -104,7 +83,7 @@ let editaCurso = function (id) {
         }>${t}</option>`
     )
     .join();
-  areaModalCurso.innerHTML = areasService
+  areaModalEditaCurso.innerHTML = dbAreas
     .areas()
     .sort((a, b) => a.nome.localeCompare(b.nome))
     .map(
@@ -114,29 +93,17 @@ let editaCurso = function (id) {
         }</option>`
     )
     .join();
-  versaoModalCurso.value = curso.versao;
-  anoModalCurso.value = curso.ano;
-  observacoesModalCurso.value = curso.observacoes;
+  versaoModalEditaCurso.value = curso.versao;
+  anoModalEditaCurso.value = curso.ano;
+  observacoesModalEditaCurso.value = curso.observacoes;
 
-  nomeModalCurso.disabled = false;
-  periodosModalCurso.disabled = false;
-  grauModalCurso.disabled = false;
-  modalidadeModalCurso.disabled = false;
-  areaModalCurso.disabled = false;
-  versaoModalCurso.disabled = false;
-  anoModalCurso.disabled = false;
-  observacoesModalCurso.disabled = false;
-
-  btnCancelar.style.display = "block";
-  btnFechar.innerHTML = "Salvar";
-  btnFechar.onclick = () => {
+  btnFecharEdicao.onclick = () => {
     salvar(curso);
-    modalCurso.close();
+    modalEditaCurso.close();
   };
 
-  tituloModal.innerHTML = "Curso";
-  modalCurso.showModal();
-  nomeModalCurso.focus();
+  modalEditaCurso.showModal();
+  nomeModalEditaCurso.focus();
 };
 
 // --------------------------------------------------------------
@@ -144,22 +111,22 @@ let editaCurso = function (id) {
 // --------------------------------------------------------------
 let salvar = function (curso, cursos) {
   if (
-    nomeModalCurso.value.length == 0 ||
-    periodosModalCurso.value.length == 0
+    nomeModalEditaCurso.value.length == 0 ||
+    periodosModalEditaCurso.value.length == 0
   ) {
     erro("Nenhum campo pode ficar vazio.");
     return;
   }
 
-  curso.nome = nomeModalCurso.value;
-  curso.periodos = periodosModalCurso.value;
-  curso.grau = grauModalCurso.value;
-  curso.modalidade = modalidadeModalCurso.value;
-  curso.area = areaModalCurso.value;
-  curso.versao = versaoModalCurso.value;
-  curso.ano = anoModalCurso.value;
-  curso.observacoes = observacoesModalCurso.value;
-  cursosService.update(curso);
+  curso.nome = nomeModalEditaCurso.value;
+  curso.periodos = periodosModalEditaCurso.value;
+  curso.grau = grauModalEditaCurso.value;
+  curso.modalidade = modalidadeModalEditaCurso.value;
+  curso.area = areaModalEditaCurso.value;
+  curso.versao = versaoModalEditaCurso.value;
+  curso.ano = anoModalEditaCurso.value;
+  curso.observacoes = observacoesModalEditaCurso.value;
+  dbCursos.update(curso);
 
   mostraTabela();
 };
@@ -168,33 +135,30 @@ let salvar = function (curso, cursos) {
 // Exibe o modal para criação de um novo curso
 // --------------------------------------------------------------
 let criaCurso = function () {
-  grauModalCurso.innerHTML = graus
+  grauModalCriaCurso.innerHTML = graus
     .map((t, i) => `<option value=${i}>${t}</option>`)
     .join();
-  modalidadeModalCurso.innerHTML = modalidades
+  modalidadeModalCriaCurso.innerHTML = modalidades
     .map((t, i) => `<option value=${i}>${t}</option>`)
     .join();
-  areaModalCurso.innerHTML = areasService
+  areaModalCriaCurso.innerHTML = dbAreas
     .areas()
     .sort((a, b) => a.nome.localeCompare(b.nome))
     .map((elem) => `<option value=${elem.id}>${elem.nome}</option>`)
     .join();
-  nomeModalCurso.value = "";
-  periodosModalCurso.value = 8;
-  grauModalCurso.value = 0;
-  modalidadeModalCurso.value = 0;
-  versaoModalCurso = 1;
-  anoModalCurso = new Date().getFullYear();
-  observacoesModalCurso = "";
+  nomeModalCriaCurso.value = "";
+  periodosModalCriaCurso.value = 8;
+  grauModalCriaCurso.value = 0;
+  modalidadeModalCriaCurso.value = 0;
+  versaoModalCriaCurso = 1;
+  anoModalCriaCurso = new Date().getFullYear();
+  observacoesModalCriaCurso = "";
 
-  btnCancelar.style.display = "block";
-  btnFechar.innerHTML = "Adicionar";
-  btnFechar.onclick = () => {
+  btnFecharCriacao.onclick = () => {
     adicionar();
   };
-  tituloModal.innerHTML = "Novo Curso";
-  modalCurso.showModal();
-  nomeModalCurso.focus();
+  modalCriaCurso.showModal();
+  nomeModalCriaCurso.focus();
 };
 
 // --------------------------------------------------------------
@@ -202,25 +166,25 @@ let criaCurso = function () {
 // --------------------------------------------------------------
 let adicionar = function () {
   if (
-    nomeModalCurso.value.length == 0 ||
-    periodosModalCurso.value.length == 0
+    nomeModalCriaCurso.value.length == 0 ||
+    periodosModalCriaCurso.value.length == 0
   ) {
     erro("Nenhum campo pode ficar vazio.");
     return;
   }
 
   let curso = {
-    nome: nomeModalCurso.value,
-    periodos: periodosModalCurso.value,
-    modalidade: modalidadeModalCurso.value,
-    grau: grauModalCurso.value,
-    area: areaModalCurso.value,
-    versao: versaoModalCurso.value,
-    ano: anoModalCurso.value,
-    observacoes: observacoesModalCurso.value,
+    nome: nomeModalCriaCurso.value,
+    periodos: periodosModalCriaCurso.value,
+    modalidade: modalidadeModalCriaCurso.value,
+    grau: grauModalCriaCurso.value,
+    area: areaModalCriaCurso.value,
+    versao: versaoModalCriaCurso.value,
+    ano: anoModalCriaCurso.value,
+    observacoes: observacoesModalCriaCurso.value,
   };
-  cursosService.create(curso);
-  modalCurso.close();
+  dbCursos.create(curso);
+  modalCriaCurso.close();
   mostraTabela();
 };
 
@@ -228,21 +192,21 @@ let adicionar = function () {
 // Exibe o modal para confirmar a arquivamento do curso
 // --------------------------------------------------------------
 let arquivaCurso = function (id) {
-  let curso = cursosService.curso(id);
+  let curso = dbCursos.curso(id);
   cursoAArquivar.innerHTML = curso.nome;
 
-  btnArquivar.onclick = () => arquivar(id);
-  modalArquivarCurso.showModal();
-  btnArquivar.focus();
+  btnArquivar4.onclick = () => arquivar(id);
+  modalArquivaCurso.showModal();
+  btnArquivar4.focus();
 };
 
 // --------------------------------------------------------------
 // Arquiva o curso e remove seus usuários
 // --------------------------------------------------------------
 let arquivar = function (id) {
-  cursosService.archive(id);
-  cursosUsuariosService.deleteCurso(id);
-  modalArquivarCurso.close();
+  dbCursos.archive(id);
+  dbCursosUsuarios.deleteCurso(id);
+  modalArquivaCurso.close();
   mostraTabela();
 };
 
@@ -253,36 +217,70 @@ let arquivar = function (id) {
 let erro = function (mensagem) {
   mensagemErro.innerHTML = mensagem;
   modalErro.showModal();
-  btnOk.focus();
+  btnOkErro.focus();
 };
 
 // Atribui funcionalidade aos elementos das janelas modais
 btnAdicionar.onclick = () => criaCurso();
-iconeFechar.onclick = () => modalCurso.close();
-iconeFechar3.onclick = () => modalErro.close();
-iconeFechar4.onclick = () => modalArquivarCurso.close();
-btnCancelar.onclick = () => modalCurso.close();
-btnCancelar3.onclick = () => modalArquivarCurso.close();
-btnOk.onclick = () => modalErro.close();
+iconeFecharExibicao.onclick = () => modalExibeCurso.close();
+iconeFecharEdicao.onclick = () => modalEditaCurso.close();
+iconeFecharCriacao.onclick = () => modalCriaCurso.close();
+iconeFecharExclusao.onclick = () => modalArquivaCurso.close();
+iconeFecharErro.onclick = () => modalErro.close();
+btnCancelar2.onclick = () => modalEditaCurso.close();
+btnCancelar3.onclick = () => modalCriaCurso.close();
+btnCancelar4.onclick = () => modalArquivaCurso.close();
+btnOkErro.onclick = () => modalErro.close();
 
 // Testes de validade dos campos
-nomeModalCurso.oninput = function () {
-  nomeModalCurso.setAttribute("aria-invalid", nomeModalCurso.value.length == 0);
-};
-periodosModalCurso.oninput = function () {
-  periodosModalCurso.setAttribute(
+nomeModalEditaCurso.oninput = function () {
+  nomeModalEditaCurso.setAttribute(
     "aria-invalid",
-    periodosModalCurso.value.length == 0
+    nomeModalEditaCurso.value.length == 0
   );
 };
-versaoModalCurso.oninput = function () {
-  versaoModalCurso.setAttribute(
+periodosModalEditaCurso.oninput = function () {
+  periodosModalEditaCurso.setAttribute(
     "aria-invalid",
-    versaoModalCurso.value.length == 0
+    periodosModalEditaCurso.value.length == 0
   );
 };
-anoModalCurso.oninput = function () {
-  anoModalCurso.setAttribute("aria-invalid", anoModalCurso.value.length == 0);
+versaoModalEditaCurso.oninput = function () {
+  versaoModalEditaCurso.setAttribute(
+    "aria-invalid",
+    versaoModalEditaCurso.value.length == 0
+  );
+};
+anoModalEditaCurso.oninput = function () {
+  anoModalEditaCurso.setAttribute(
+    "aria-invalid",
+    anoModalEditaCurso.value.length == 0
+  );
+};
+
+nomeModalCriaCurso.oninput = function () {
+  nomeModalCriaCurso.setAttribute(
+    "aria-invalid",
+    nomeModalCriaCurso.value.length == 0
+  );
+};
+periodosModalCriaCurso.oninput = function () {
+  periodosModalCriaCurso.setAttribute(
+    "aria-invalid",
+    periodosModalCriaCurso.value.length == 0
+  );
+};
+versaoModalCriaCurso.oninput = function () {
+  versaoModalCriaCurso.setAttribute(
+    "aria-invalid",
+    versaoModalCriaCurso.value.length == 0
+  );
+};
+anoModalCriaCurso.oninput = function () {
+  anoModalCriaCurso.setAttribute(
+    "aria-invalid",
+    anoModalCriaCurso.value.length == 0
+  );
 };
 
 // Mostra a tabela de cursos

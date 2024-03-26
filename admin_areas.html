@@ -72,7 +72,7 @@
       </aside>
 
       <section id="painelAreas">
-        <h4 class="pico-color-azure-550">ÁREAS DE CONHECIMENTO</h4>
+        <h4>ÁREAS DE CONHECIMENTO</h4>
         <div class="overflow-auto">
           <table id="tabela">
             <thead>
@@ -88,64 +88,82 @@
       </section>
     </main>
 
-    <dialog id="modalArea">
-      <article>
-        <header>
-          <button id="iconeFechar" aria-label="Close" rel="prev"></button>
-          <p>
-            <strong id="tituloModal">Área de Conhecimento</strong>
-          </p>
-        </header>
-        <fieldset>
-          <label for="nomeModalArea">Nome</label>
-          <input id="nomeModalArea" />
-        </fieldset>
-        <footer>
-          <button class="outline" id="btnCancelar">Cancelar</button>
-          <button id="btnFechar">Ok</button>
-        </footer>
-      </article>
-    </dialog>
-
     <dialog id="modalExibeArea">
       <article>
         <header>
-          <button id="iconeFechar2" aria-label="Close" rel="prev"></button>
+          <button
+            id="iconeFecharExibicao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
           <p>
             <strong>Área de Conhecimento</strong>
           </p>
         </header>
         <fieldset>
           <label for="nomeModalExibeArea">Nome</label>
-          <input id="nomeModalExibeArea" />
+          <input id="nomeModalExibeArea" readonly />
           <label for="cursosModalExibeArea">Cursos</label>
-          <textarea id="cursosModalExibeArea" rows="5">Nenhum curso</textarea>
+          <textarea id="cursosModalExibeArea" readonly rows="5">
+              Nenhum curso
+          </textarea>
         </fieldset>
         <footer>
-          <button id="btnFechar2">Fechar</button>
+          <button id="btnFecharExibicao">Fechar</button>
         </footer>
       </article>
     </dialog>
 
-    <dialog id="modalErro">
+    <dialog id="modalEditaArea">
       <article>
         <header>
-          <button id="iconeFechar3" aria-label="Close" rel="prev"></button>
+          <button id="iconeFecharEdicao" aria-label="Close" rel="prev"></button>
           <p>
-            <strong>Erro</strong>
+            <strong>Área de Conhecimento</strong>
           </p>
         </header>
-        <p id="mensagemErro"></p>
+        <fieldset>
+          <label for="nomeModalEditaArea">Nome</label>
+          <input id="nomeModalEditaArea" />
+        </fieldset>
         <footer>
-          <button id="btnOk">Ok</button>
+          <button class="outline" id="btnCancelar2">Cancelar</button>
+          <button id="btnFecharEdicao">Salvar</button>
         </footer>
       </article>
     </dialog>
 
-    <dialog id="modalDeleteArea">
+    <dialog id="modalCriaArea">
       <article>
         <header>
-          <button id="iconeFechar4" aria-label="Close" rel="prev"></button>
+          <button
+            id="iconeFecharCriacao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Nova Área de Conhecimento</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalCriaArea">Nome</label>
+          <input id="nomeModalCriaArea" />
+        </fieldset>
+        <footer>
+          <button class="outline" id="btnCancelar3">Cancelar</button>
+          <button id="btnFecharCriacao">Adicionar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalApagaArea">
+      <article>
+        <header>
+          <button
+            id="iconeFecharExclusao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
           <p>
             <strong>Exclusão de Área</strong>
           </p>
@@ -155,13 +173,28 @@
         </p>
         <p>
           <small>
-            <strong>Obs.:</strong> A área só será excluída se não houver nenhum
-            curso vinculado a ela.
+            <strong>Observação:</strong> Uma área só pode ser excluída quando
+            não há nenhum curso vinculado a ela.
           </small>
         </p>
         <footer>
-          <button class="outline" id="btnCancelar3">Cancelar</button>
+          <button class="outline" id="btnCancelar4">Cancelar</button>
           <button id="btnExcluir">Confirma</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalErro">
+      <article>
+        <header>
+          <button id="iconeFecharErro" aria-label="Close" rel="prev"></button>
+          <p>
+            <strong>Erro</strong>
+          </p>
+        </header>
+        <p id="mensagemErro"></p>
+        <footer>
+          <button id="btnOkErro">Ok</button>
         </footer>
       </article>
     </dialog>

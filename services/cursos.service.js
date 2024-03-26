@@ -1,4 +1,4 @@
-let cursosService = {
+let dbCursos = {
   // Cria um BD inicial no Local Storage
   install: function () {
     let cursos = [
@@ -19,7 +19,7 @@ let cursosService = {
         grau: 0,
         modalidade: 0,
         periodos: 10,
-        area: 1,
+        area: 9,
         versao: 1,
         ano: 2024,
         status: 0,

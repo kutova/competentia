@@ -138,3 +138,34 @@ main > section {
 .clicavel .simbolo {
   cursor: pointer;
 }
+
+main h4 {
+  color: var(--pico-color-azure-550);
+  margin-top: 1em;
+}
+
+dialog header {
+  background-color: var(--pico-color-azure-550);
+}
+
+dialog article > header :is(a, button)[rel="prev"] {
+  filter: brightness(10);
+  opacity: 1;
+}
+
+dialog header p {
+  color: white;
+  font-size: larger;
+}
+
+#modalErro header {
+  background-color: var(--pico-color-red-500);
+}
+
+#modalAlerta header {
+  background-color: var(--pico-color-pumpkin-300);
+}
+
+.modal-pesquisa header {
+  background-color: var(--pico-color-jade-500);
+}
