@@ -8,10 +8,11 @@
     <meta name="description" content="Mapa de Competências - PUC Minas" />
     <script defer src="./scripts/dados.js"></script>
     <script defer src="./scripts/scripts.js"></script>
-    <script defer src="./services/usuarios.service.js"></script>
+    <script defer src="./services/usuarios-service.js"></script>
     <script defer src="./scripts/login.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
     <link rel="stylesheet" href="./estilos/pico.min.css" />
     <link rel="stylesheet" href="./estilos/estilos.css" />
     <link rel="stylesheet" href="./estilos/login.css" />
@@ -55,9 +56,14 @@
 
     <dialog id="modalErro">
       <article>
+        <header>
+          <p>
+            <strong>Erro</strong>
+          </p>
+        </header>
         <p>Dados inválidos!</p>
         <footer>
-          <button id="btnClose">Ok</button>
+          <button id="btnOkErro">Ok</button>
         </footer>
       </article>
     </dialog>

@@ -51,45 +51,9 @@ let dbCompetencias = {
           "O egresso deve ser capaz de usar a inteligência artificial e a aprendizagem de máquina para permitir que as tarefas rotineiras possam ser realizadas automaticamente pelas máquinas. Também devem criar soluções inteligentes para a solução de problemas complexos demais para serem resolvidos por meio dos métodos tradicionais.",
         id: 7,
       },
-      {
-        nome: "Cultivar o compromisso ético com a verdade e, naturalmente, com a honestidade intelectual e profissional",
-        tipo: 0,
-        observacoes: "",
-        id: 8,
-      },
-      {
-        nome: "Cultivar e promover o respeito às diferenças entre pessoas em suas singularidades",
-        tipo: 0,
-        observacoes: "",
-        id: 9,
-      },
-      {
-        nome: "Desenvolver postura crítica, analítica e reflexiva, no que diz respeito à economia, história, política, cultura e biodiversidade brasileira",
-        tipo: 0,
-        observacoes: "",
-        id: 10,
-      },
-      {
-        nome: "Resolver situações com flexibilidade e adaptabilidade, frente aos problemas e desafios organizacionais, socioeconômicos e político-econômicos",
-        tipo: 0,
-        observacoes: "",
-        id: 11,
-      },
-      {
-        nome: "Buscar contínuo aperfeiçoamento profissional, no desenvolvimento da autoconfiança, da iniciativa e da criatividade",
-        tipo: 0,
-        observacoes: "",
-        id: 12,
-      },
-      {
-        nome: "Estimular a liberdade de criação, produção de conhecimento e de expressão do pensamento",
-        tipo: 0,
-        observacoes: "",
-        id: 13,
-      },
     ];
     localStorage.setItem("competencias", JSON.stringify(competencias));
-    localStorage.setItem("ultimaCompetencia", 13);
+    localStorage.setItem("ultimaCompetencia", 8);
   },
 
   // recupera a lista de competencias

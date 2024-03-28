@@ -7,7 +7,7 @@ cursos.sort((a, b) => a.nome.localeCompare(b.nome));
 // --------------------------------------------------------
 // Carrega os cursos aos quais o usuário tem acesso
 // --------------------------------------------------------
-let cursosDoUsuario = dbCursosUsuarios.cursosUsuario(usuarioLogado.id);
+let cursosDoUsuario = dbCursos_Usuarios.cursosUsuario(usuarioLogado.id);
 
 cursos.forEach((c) => {
   if (

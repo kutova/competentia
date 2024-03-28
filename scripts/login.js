@@ -15,15 +15,14 @@ let validaLogin = function () {
     localStorage.setItem("ultimoAcesso", new Date().getTime());
     localStorage.setItem("usuario", JSON.stringify(usuario));
     window.location = "./index.html";
-  }
-  modalErro.showModal();
+  } else modalErro.showModal();
 };
 
 // --------------------------------------------------------
 // Atribui funcionalidade aos botões
 // --------------------------------------------------------
 btnLogin.onclick = () => validaLogin();
-btnClose.onclick = () => {
+btnOkErro.onclick = () => {
   email.value = "";
   email.placeholder = "";
   senha.value = "";

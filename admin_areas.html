@@ -8,8 +8,8 @@
     <meta name="description" content="Mapa de Competências - PUC Minas" />
     <script defer src="./scripts/dados.js"></script>
     <script defer src="./scripts/scripts.js"></script>
-    <script defer src="./services/areas.service.js"></script>
-    <script defer src="./services/cursos.service.js"></script>
+    <script defer src="./services/areas-service.js"></script>
+    <script defer src="./services/cursos-service.js"></script>
     <script defer src="./scripts/admin.areas.js"></script>
     <link rel="stylesheet" href="./estilos/pico.min.css" />
     <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
@@ -78,7 +78,7 @@
             <thead>
               <tr>
                 <th scope="col">Nome</th>
-                <th scope="col"></th>
+                <th scope="col" class="colunaIcones"></th>
               </tr>
             </thead>
             <tbody id="dadosAreas"></tbody>
@@ -169,7 +169,8 @@
           </p>
         </header>
         <p>
-          Exclui a área <strong><span id="areaAExcluir"></span></strong>?
+          Deseja excluir a área
+          <strong><span id="areaAExcluir"></span></strong>?
         </p>
         <p>
           <small>

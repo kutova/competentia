@@ -49,7 +49,7 @@ let mostraTabela = function () {
 let exibeCurso = function (id) {
   let curso = dbCursos.curso(id);
   nomeModalExibeCurso.value = curso.nome;
-  periodosModalExibeCurso.value = curso.periodos;
+  semestresModalExibeCurso.value = curso.semestres;
   grauModalExibeCurso.value = graus[curso.grau];
   modalidadeModalExibeCurso.value = modalidades[curso.modalidade];
   areaModalExibeCurso.value = dbAreas.area(curso.area).nome;
@@ -68,7 +68,7 @@ let exibeCurso = function (id) {
 let editaCurso = function (id) {
   let curso = dbCursos.curso(id);
   nomeModalEditaCurso.value = curso.nome;
-  periodosModalEditaCurso.value = curso.periodos;
+  semestresModalEditaCurso.value = curso.semestres;
   grauModalEditaCurso.innerHTML = graus
     .map(
       (t, i) =>
@@ -112,14 +112,14 @@ let editaCurso = function (id) {
 let salvar = function (curso, cursos) {
   if (
     nomeModalEditaCurso.value.length == 0 ||
-    periodosModalEditaCurso.value.length == 0
+    semestresModalEditaCurso.value.length == 0
   ) {
     erro("Nenhum campo pode ficar vazio.");
     return;
   }
 
   curso.nome = nomeModalEditaCurso.value;
-  curso.periodos = periodosModalEditaCurso.value;
+  curso.semestres = semestresModalEditaCurso.value;
   curso.grau = grauModalEditaCurso.value;
   curso.modalidade = modalidadeModalEditaCurso.value;
   curso.area = areaModalEditaCurso.value;
@@ -147,7 +147,7 @@ let criaCurso = function () {
     .map((elem) => `<option value=${elem.id}>${elem.nome}</option>`)
     .join();
   nomeModalCriaCurso.value = "";
-  periodosModalCriaCurso.value = 8;
+  semestresModalCriaCurso.value = 8;
   grauModalCriaCurso.value = 0;
   modalidadeModalCriaCurso.value = 0;
   versaoModalCriaCurso = 1;
@@ -167,7 +167,7 @@ let criaCurso = function () {
 let adicionar = function () {
   if (
     nomeModalCriaCurso.value.length == 0 ||
-    periodosModalCriaCurso.value.length == 0
+    semestresModalCriaCurso.value.length == 0
   ) {
     erro("Nenhum campo pode ficar vazio.");
     return;
@@ -175,7 +175,7 @@ let adicionar = function () {
 
   let curso = {
     nome: nomeModalCriaCurso.value,
-    periodos: periodosModalCriaCurso.value,
+    semestres: semestresModalCriaCurso.value,
     modalidade: modalidadeModalCriaCurso.value,
     grau: grauModalCriaCurso.value,
     area: areaModalCriaCurso.value,
@@ -205,7 +205,7 @@ let arquivaCurso = function (id) {
 // --------------------------------------------------------------
 let arquivar = function (id) {
   dbCursos.archive(id);
-  dbCursosUsuarios.deleteCurso(id);
+  dbCursos_Usuarios.deleteCurso(id);
   modalArquivaCurso.close();
   mostraTabela();
 };
@@ -239,10 +239,10 @@ nomeModalEditaCurso.oninput = function () {
     nomeModalEditaCurso.value.length == 0
   );
 };
-periodosModalEditaCurso.oninput = function () {
-  periodosModalEditaCurso.setAttribute(
+semestresModalEditaCurso.oninput = function () {
+  semestresModalEditaCurso.setAttribute(
     "aria-invalid",
-    periodosModalEditaCurso.value.length == 0
+    semestresModalEditaCurso.value.length == 0
   );
 };
 versaoModalEditaCurso.oninput = function () {
@@ -264,10 +264,10 @@ nomeModalCriaCurso.oninput = function () {
     nomeModalCriaCurso.value.length == 0
   );
 };
-periodosModalCriaCurso.oninput = function () {
-  periodosModalCriaCurso.setAttribute(
+semestresModalCriaCurso.oninput = function () {
+  semestresModalCriaCurso.setAttribute(
     "aria-invalid",
-    periodosModalCriaCurso.value.length == 0
+    semestresModalCriaCurso.value.length == 0
   );
 };
 versaoModalCriaCurso.oninput = function () {

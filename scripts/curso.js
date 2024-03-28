@@ -9,7 +9,7 @@ nomeCurso.innerHTML =
     ? ' <sup><img src="./imagens/inventory.svg" title="Arquivado" /></sup>'
     : "");
 
-let usuarios = dbCursosUsuarios.usuarios(curso.id);
+let usuarios = dbCursos_Usuarios.usuarios(curso.id);
 editoresCurso.innerHTML = usuarios
   .map((id) => dbUsuarios.usuario(id).nome)
   .join("<br />");
@@ -24,7 +24,7 @@ for (i in linksMenu) {
 // --------------------------------------------------------------
 grauCurso.innerHTML = graus[curso.grau];
 modalidadeCurso.innerHTML = modalidades[curso.modalidade];
-peridosCurso.innerHTML = curso.periodos;
+semestresCurso.innerHTML = curso.semestres;
 areaCurso.innerHTML = dbAreas.area(curso.area).nome;
 versaoCurso.innerHTML = curso.versao;
 anoCurso.innerHTML = curso.ano;

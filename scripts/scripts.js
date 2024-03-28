@@ -14,14 +14,16 @@ if (new Date().getTime() - ultimoAcesso > 1800000) {
   if (pagina != "login.html") window.location = "./login.html";
 } else localStorage.setItem("ultimoAcesso", new Date().getTime()); // Atualiza o momento do último acesso
 
-// Recupera os dados do usuário
-let usuarioLogado = JSON.parse(localStorage.getItem("usuario"));
-nomeUsuarioLogado.innerHTML = usuarioLogado.nome;
+let usuarioLogado;
+if (pagina != "login.html") {
+  // Recupera os dados do usuário
+  usuarioLogado = JSON.parse(localStorage.getItem("usuario"));
+  nomeUsuarioLogado.innerHTML = usuarioLogado.nome;
 
-// Acrescenta o menu de Administrador, se for o caso
-if (usuarioLogado.tipo == 0)
-  topMenu.innerHTML =
-    `<li>
+  // Acrescenta o menu de Administrador, se for o caso
+  if (usuarioLogado.tipo == 0)
+    topMenu.innerHTML =
+      `<li>
     <details class="dropdown">
         <summary class="secondary">Administrador</summary>
         <!-- role="button"  -->
@@ -32,16 +34,17 @@ if (usuarioLogado.tipo == 0)
         </ul>
     </details>
     </li>` + topMenu.innerHTML;
-else
-  topMenu.innerHTML =
-    `<li>${tiposUsuario[usuarioLogado.tipo]}<\li` + topMenu.innerHTML;
+  else
+    topMenu.innerHTML =
+      `<li>${tiposUsuario[usuarioLogado.tipo]}<\li` + topMenu.innerHTML;
 
-// Atribui a funcionalidade de saída (logout) do sistema
-btnLogout.onclick = () => {
-  localStorage.removeItem("ultimoAcesso");
-  localStorage.removeItem("usuario");
-  window.location = "./login.html";
-};
+  // Atribui a funcionalidade de saída (logout) do sistema
+  btnLogout.onclick = () => {
+    localStorage.removeItem("ultimoAcesso");
+    localStorage.removeItem("usuario");
+    window.location = "./login.html";
+  };
+}
 
 // --------------------------------------------------------
 // Carrega o curso do URL, se existir e o usuário tiver acesso a ele
@@ -50,7 +53,7 @@ btnLogout.onclick = () => {
 function carregaCursoDoURL() {
   let params = new URLSearchParams(document.location.search);
   let idCurso = params.get("curso");
-  let cursosDoUsuario = dbCursosUsuarios.cursosUsuario(usuarioLogado.id);
+  let cursosDoUsuario = dbCursos_Usuarios.cursosUsuario(usuarioLogado.id);
 
   let curso = dbCursos.curso(idCurso);
   if (
@@ -71,3 +74,12 @@ if (controleMenu) {
   controleMenu.onclick = () =>
     document.querySelector("#sideMenu").classList.toggle("ativo");
 }
+
+// --------------------------------------------------------
+// Remove os acentos de uma string
+// --------------------------------------------------------
+let desacentua = (str) =>
+  str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();

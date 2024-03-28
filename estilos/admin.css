@@ -11,12 +11,6 @@
   width: 30em;
 }
 
-#tabela tbody td:last-child {
-  width: 7em;
-  min-width: 7em;
-  text-align: center;
-}
-
 @media (max-width: 768px) {
   #tabela thead th:not(:first-child):not(:last-child),
   #tabela tbody td:not(:first-child):not(:last-child) {
@@ -53,10 +47,4 @@
 .tabelaComRolagem {
   overflow-y: auto;
   height: 15em;
-}
-
-footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
 }

@@ -19,7 +19,7 @@ for (i in linksMenu) {
 // --------------------------------------------------------------
 let mostraTabela = function () {
   corpoTabela.innerHTML = "";
-  let competencias = dbCompetenciasCursos.competencias(curso.id);
+  let competencias = dbCompetencias_Cursos.competencias(curso.id);
   competencias.sort((a, b) => a.codigo.localeCompare(b.codigo));
   competencias = competencias.map((c) => ({
     codigo: c.codigo,
@@ -59,34 +59,84 @@ let mostraTabela = function () {
 let exibeCompetencia = function (id) {
   let competencia = dbCompetencias.competencia(id);
   nomeModalExibeCompetencia.value = competencia.nome;
-  codigoModalExibeCompetencia.value = dbCompetenciasCursos.codigo(id, curso.id);
+  codigoModalExibeCompetencia.value = dbCompetencias_Cursos.codigo(
+    id,
+    curso.id
+  );
   tipoModalExibeCompetencia.value = tiposCompetencia[competencia.tipo];
   observacoesModalExibeCompetencia.value = competencia.observacoes;
 
-  cursosModalExibeCompetencia.value = dbCompetenciasCursos
+  cursosModalExibeCompetencia.innerHTML = dbCompetencias_Cursos
+    .cursos(id)
+    .map((elem) => dbCursos.curso(elem.id).nome)
+    .sort((a, b) => a.localeCompare(b))
+    .map((elem) => `<tr><td>${elem}</td></tr>`)
+    .join("\n");
+
+  /*
+  cursosModalExibeCompetencia.value = dbCompetencias_Cursos
     .cursos(id)
     .map((elem) => dbCursos.curso(elem.id).nome)
     .sort((a, b) => a.localeCompare(b))
     .join("\n");
+*/
 
-  let cha = dbCHACompetencias.cha(id).map((idCHA) => dbCHA.cha(idCHA));
-  conhecimentosModalExibeCompetencia.value = cha
+  let componentesCompetencias = dbComponentesCompetencias_Competencias
+    .componentesCompetencia(id)
+    .map((idComponenteCompetencia) =>
+      dbComponentesCompetencias.componenteCompetencias(idComponenteCompetencia)
+    );
+  conhecimentosModalExibeCompetencia.innerHTML = componentesCompetencias
+    .filter((c) => c.tipo == 0)
+    .sort((a, b) => a.nome.localeCompare(b.nome))
+    .map(
+      (elem) =>
+        `<tr><td>${elem.nome}</td><td>${dbAreas.area(elem.area).nome}</td></tr>`
+    )
+    .join("");
+  habilidadesModalExibeCompetencia.innerHTML = componentesCompetencias
+    .filter((c) => c.tipo == 1)
+    .sort((a, b) => a.nome.localeCompare(b.nome))
+    .map(
+      (elem) =>
+        `<tr><td>${elem.nome}</td><td>${dbAreas.area(elem.area).nome}</td></tr>`
+    )
+    .join("");
+  atitudesModalExibeCompetencia.innerHTML = componentesCompetencias
+    .filter((c) => c.tipo == 2)
+    .sort((a, b) => a.nome.localeCompare(b.nome))
+    .map(
+      (elem) =>
+        `<tr><td>${elem.nome}</td><td>${dbAreas.area(elem.area).nome}</td></tr>`
+    )
+    .join("");
+
+  /*
+  conhecimentosModalExibeCompetencia.value = componentesCompetencias
     .filter((c) => c.tipo == 0)
     .map((elem) => elem.nome)
     .sort((a, b) => a.localeCompare(b))
     .join("\n");
-  habilidadesModalExibeCompetencia.value = cha
+  habilidadesModalExibeCompetencia.value = componentesCompetencias
     .filter((c) => c.tipo == 1)
     .map((elem) => elem.nome)
     .sort((a, b) => a.localeCompare(b))
     .join("\n");
-  atitudesModalExibeCompetencia.value = cha
+  atitudesModalExibeCompetencia.value = componentesCompetencias
     .filter((c) => c.tipo == 2)
     .map((elem) => elem.nome)
     .sort((a, b) => a.localeCompare(b))
     .join("\n");
-
+*/
   modalExibeCompetencia.showModal();
+
+  nomeModalExibeCompetencia.style.height = "auto";
+  nomeModalExibeCompetencia.style.height =
+    nomeModalExibeCompetencia.scrollHeight + 10 + "px";
+
+  observacoesModalExibeCompetencia.style.height = "auto";
+  observacoesModalExibeCompetencia.style.height =
+    observacoesModalExibeCompetencia.scrollHeight + 10 + "px";
   nomeModalExibeCompetencia.focus();
 };
 
@@ -95,7 +145,7 @@ let exibeCompetencia = function (id) {
 // --------------------------------------------------------------
 // Testa se há mais cursos vinculados a esta competência
 let editaCompetencia = function (id) {
-  let n = dbCompetenciasCursos.cursos(id).length;
+  let n = dbCompetencias_Cursos.cursos(id).length;
   if (n == 1) {
     editaCompetenciaContinuacao(id);
   } else {
@@ -113,7 +163,10 @@ let editaCompetencia = function (id) {
 let editaCompetenciaContinuacao = function (id) {
   let competencia = dbCompetencias.competencia(id);
   nomeModalEditaCompetencia.value = competencia.nome;
-  codigoModalEditaCompetencia.value = dbCompetenciasCursos.codigo(id, curso.id);
+  codigoModalEditaCompetencia.value = dbCompetencias_Cursos.codigo(
+    id,
+    curso.id
+  );
   tipoModalEditaCompetencia.innerHTML = tiposCompetencia
     .map(
       (t, i) =>
@@ -142,7 +195,7 @@ let salvar = function (competencia) {
   competencia.observacoes = observacoesModalEditaCompetencia.value;
   dbCompetencias.update(competencia);
 
-  dbCompetenciasCursos.update({
+  dbCompetencias_Cursos.update({
     idCompetencia: competencia.id,
     idCurso: curso.id,
     codigo: codigoModalEditaCompetencia.value,
@@ -183,7 +236,7 @@ let adicionar = function () {
   };
   id = dbCompetencias.create(novaCompetencia);
 
-  dbCompetenciasCursos.create({
+  dbCompetencias_Cursos.create({
     idCompetencia: id,
     idCurso: curso.id,
     codigo: codigoModalCriaCompetencia.value,
@@ -198,11 +251,11 @@ let adicionar = function () {
 // --------------------------------------------------------------
 let pesquisaCompetencias = function () {
   // Recupera as competência dos cursos aos quais o usuário tem acesso
-  let cursosDoUsuario = dbCursosUsuarios.cursosUsuario(usuarioLogado.id);
+  let cursosDoUsuario = dbCursos_Usuarios.cursosUsuario(usuarioLogado.id);
   let competencias = [];
   let i, j;
   for (i in cursosDoUsuario) {
-    let competenciasDoCurso = dbCompetenciasCursos.competencias(
+    let competenciasDoCurso = dbCompetencias_Cursos.competencias(
       cursosDoUsuario[i].id
     );
     for (j in competenciasDoCurso) {
@@ -236,6 +289,9 @@ let pesquisaCompetencias = function () {
       .map((c) => `<option value=${c.id}>${c.nome}</option>`)
       .join();
   filtroCursos.onchange = () => aplicaFiltros(competencias);
+
+  filtroTexto.value = "";
+  filtroTexto.oninput = () => aplicaFiltros(competencias);
 
   mostraTabelaPesquisa(competencias);
   modalPesquisaCompetencia.showModal();
@@ -275,8 +331,16 @@ let aplicaFiltros = function (competencias) {
     filtroCursos.value == -1
       ? true
       : cursos.indexOf(parseInt(filtroCursos.value)) != -1;
+  let condicaoTexto = (nome) =>
+    filtroTexto.value.length == 0
+      ? true
+      : desacentua(filtroTexto.value)
+          .split(" ")
+          .reduce((acc, val) => acc && desacentua(nome).includes(val), true);
+
   let competenciasFiltradas = competencias.filter(
-    (c) => condicaoTipo(c.tipo) && condicaoCurso(c.cursos)
+    (c) =>
+      condicaoTipo(c.tipo) && condicaoCurso(c.cursos) && condicaoTexto(c.nome)
   );
   mostraTabelaPesquisa(competenciasFiltradas);
 };
@@ -285,13 +349,13 @@ let aplicaFiltros = function (competencias) {
 let importaCompetencia = function (idCompetencia) {
   // Testa se a competência já existe
   if (
-    dbCompetenciasCursos
+    dbCompetencias_Cursos
       .competencias(curso.id)
       .findIndex((c) => c.id == idCompetencia) != -1
   ) {
     erro("Essa competência já faz parte do seu curso");
   } else {
-    dbCompetenciasCursos.create({
+    dbCompetencias_Cursos.create({
       idCompetencia: idCompetencia,
       idCurso: curso.id,
       codigo: "",
@@ -313,15 +377,21 @@ let importaCompetencia = function (idCompetencia) {
 // --------------------------------------------------------------
 let removeCompetencia = function (id) {
   let competencia = dbCompetencias.competencia(id);
+  let codigo = dbCompetencias_Cursos.codigo(id, curso.id);
+  codigoModalRemoveCompetencia.innerHTML = codigo;
   nomeModalRemoveCompetencia.innerHTML = competencia.nome;
 
   btnFecharRemocao.onclick = () => remover(id);
   modalRemoveCompetencia.showModal();
+  nomeModalRemoveCompetencia.style.height = "auto";
+  nomeModalRemoveCompetencia.style.height =
+    nomeModalRemoveCompetencia.scrollHeight + 10 + "px";
+  btnFecharRemocao.focus();
   btnFecharRemocao.focus();
 };
 // Remove a competência
 let remover = function (idCompetencia) {
-  dbCompetenciasCursos.delete(idCompetencia, curso.id);
+  dbCompetencias_Cursos.delete(idCompetencia, curso.id);
   modalRemoveCompetencia.close();
   mostraTabela();
 };
@@ -356,7 +426,6 @@ iconeFecharEdicao.onclick = () => modalEditaCompetencia.close();
 btnCancelarEdicao.onclick = () => modalEditaCompetencia.close();
 iconeFecharCriacao.onclick = () => modalCriaCompetencia.close();
 btnCancelarCriacao.onclick = () => modalCriaCompetencia.close();
-btnCancelarEdicao.onclick = () => modalEditaCompetencia.close();
 iconeFecharPesquisa.onclick = () => modalPesquisaCompetencia.close();
 btnFecharPesquisa.onclick = () => modalPesquisaCompetencia.close();
 iconeFecharRemocao.onclick = () => modalRemoveCompetencia.close();

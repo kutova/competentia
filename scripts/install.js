@@ -12,7 +12,7 @@ logInstall.innerHTML += "<p>Usuários.</p>";
 dbCursos.install();
 logInstall.innerHTML += "<p>Cursos.</p>";
 
-dbCursosUsuarios.install();
+dbCursos_Usuarios.install();
 logInstall.innerHTML += "<p>Cursos dos usuários.</p>";
 
 dbAreas.install();
@@ -21,12 +21,16 @@ logInstall.innerHTML += "<p>Áreas.</p>";
 dbCompetencias.install();
 logInstall.innerHTML += "<p>Competências.</p>";
 
-dbCompetenciasCursos.install();
+dbCompetencias_Cursos.install();
 logInstall.innerHTML += "<p>Vínculos das ompetências aos cursos.</p>";
 
-dbCHA.install();
-logInstall.innerHTML += "<p>Conhecimentos, habilidades e atitudes.</p>";
+dbComponentesCompetencias.install();
+logInstall.innerHTML += "<p>Componentes da competência.</p>";
 
-dbCHACompetencias.install();
+dbComponentesCompetencias_Competencias.install();
 logInstall.innerHTML +=
   "<p>Vínculos dos conhecimentos, habilidades e atitudes às competências.</p>";
+
+dbComponentesCompetencias_ComponentesCurriculares.install();
+logInstall.innerHTML +=
+  "<p>Vínculos dos conhecimentos, habilidades e atitudes aos componentes curriculares.</p>";

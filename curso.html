@@ -7,10 +7,10 @@
     <title>Curso - Competentia</title>
     <meta name="description" content="Mapa de Competências - PUC Minas" />
     <script defer src="./scripts/dados.js"></script>
-    <script defer src="./services/usuarios.service.js"></script>
-    <script defer src="./services/cursos.service.js"></script>
-    <script defer src="./services/cursosusuarios.service.js"></script>
-    <script defer src="./services/areas.service.js"></script>
+    <script defer src="./services/usuarios-service.js"></script>
+    <script defer src="./services/cursos-service.js"></script>
+    <script defer src="./services/cursos-usuarios-service.js"></script>
+    <script defer src="./services/areas-service.js"></script>
     <script defer src="./scripts/scripts.js"></script>
     <script defer src="./scripts/curso.js"></script>
     <link rel="stylesheet" href="./estilos/pico.min.css" />
@@ -70,8 +70,11 @@
                 </a>
               </li>
               <li>
-                <a class="linkDoCurso secondary" href="./objetivos.html">
-                  Conhecimentos, Habilidades e Atitudes
+                <a
+                  class="linkDoCurso secondary"
+                  href="./componentes.competencias.html"
+                >
+                  Componentes das Competências
                 </a>
               </li>
               <li>
@@ -81,7 +84,7 @@
               </li>
               <li>
                 <a class="linkDoCurso secondary" href="./projetos.html">
-                  Projetos
+                  Objetivos de Aprendizagem
                 </a>
               </li>
             </ul>
@@ -103,8 +106,8 @@
                 <td id="modalidadeCurso"></td>
               </tr>
               <tr>
-                <th scope="row">Períodos:</th>
-                <td id="peridosCurso"></td>
+                <th scope="row">Semestres:</th>
+                <td id="semestresCurso"></td>
               </tr>
               <tr>
                 <th scope="row">Área:</th>

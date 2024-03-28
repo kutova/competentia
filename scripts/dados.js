@@ -5,4 +5,6 @@ let graus = ["Bacharelado", "Licenciatura", "Tecnólogo"];
 let modalidades = ["Presencial", "A Distância"];
 let tiposCompetencia = ["Humanística", "Técnica", "Comportamental"];
 let statusCurso = ["Ativo", "Arquivado"];
-let tiposObjetivos = ["Conhecimento", "Habilidade", "Atitude"];
+
+let tiposComponentesCompetencias = ["Conhecimento", "Habilidade", "Atitude"];
+let artigosTiposComponentesCompetencias = ["o", "a", "a"];

@@ -44,7 +44,7 @@ let exibeUsuario = function (id) {
   tipoModalExibeUsuario.value = tiposUsuario[usuario.tipo];
 
   let corpoTabela = "";
-  let idsCursosDoUsuario = dbCursosUsuarios.cursosUsuario(id);
+  let idsCursosDoUsuario = dbCursos_Usuarios.cursosUsuario(id);
   if (idsCursosDoUsuario.length == 0)
     corpoTabela = "<li>Nenhum curso encontrado</li>";
   else {
@@ -100,7 +100,7 @@ let editaUsuario = function (id) {
     .join();
 
   let cursos = dbCursos.cursos().sort((a, b) => a.nome.localeCompare(b.nome));
-  let cursosDoUsuario = dbCursosUsuarios.cursosUsuario(id);
+  let cursosDoUsuario = dbCursos_Usuarios.cursosUsuario(id);
 
   let corpoTabela = "";
   if (cursos.length == 0)
@@ -172,7 +172,7 @@ let salvar = function (usuario, cursos) {
     else if (document.querySelector(campo2).checked)
       cursosAEditar.push(cursos[i].id);
   }
-  dbCursosUsuarios.update(usuario.id, cursosAEditar, cursosAVisualizar);
+  dbCursos_Usuarios.update(usuario.id, cursosAEditar, cursosAVisualizar);
   mostraTabela();
 };
 
@@ -240,7 +240,7 @@ let apagaUsuario = function (id) {
 // --------------------------------------------------------------
 let excluir = function (id) {
   dbUsuarios.delete(id);
-  dbCursosUsuarios.deleteUsuario(id);
+  dbCursos_Usuarios.deleteUsuario(id);
   modalDeleteUsuario.close();
   mostraTabela();
 };

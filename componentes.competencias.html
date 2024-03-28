@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Objetivos - Competentia</title>
+    <meta name="description" content="Mapa de Competências - PUC Minas" />
+    <script defer src="./scripts/dados.js"></script>
+    <script defer src="./services/usuarios-service.js"></script>
+    <script defer src="./services/cursos-service.js"></script>
+    <script defer src="./services/cursos-usuarios-service.js"></script>
+    <script defer src="./services/areas-service.js"></script>
+    <script defer src="./services/competencias.service.js"></script>
+    <script defer src="./services/competencias-cursos-service.js"></script>
+    <script defer src="./services/componentescompetencias-service.js"></script>
+    <script
+      defer
+      src="./services/componentescompetencias-competencias-service.js"
+    ></script>
+    <script
+      defer
+      src="./services/componentescompetencias-componentescurriculares-service.js"
+    ></script>
+    <script defer src="./scripts/scripts.js"></script>
+    <script defer src="./scripts/componentes.competencias.js"></script>
+    <link rel="stylesheet" href="./estilos/pico.min.css" />
+    <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
+    <link rel="stylesheet" href="./estilos/estilos.css" />
+    <link rel="stylesheet" href="./estilos/componentes.competencias.css" />
+  </head>
+
+  <body class="container">
+    <!-- Header -->
+    <header id="cabecalho">
+      <span class="logo">
+        <a href="./index.html">
+          <img src="./imagens/pucminas.png" width="120" />
+        </a>
+      </span>
+      <h1 id="appName"></h1>
+      <nav>
+        <ul id="topMenu">
+          <li>
+            <details class="dropdown">
+              <summary class="secondary" id="nomeUsuarioLogado"></summary>
+              <ul>
+                <li><a href="#" id="btnLogout">Sair</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- ./ Header -->
+
+    <!-- Main -->
+    <main class="has-side-menu">
+      <div id="menuToggle"><img src="./imagens/menu.svg" /></div>
+      <header>
+        <h2 id="nomeCurso"></h2>
+        <hr />
+      </header>
+
+      <aside id="sideMenu">
+        <article>
+          <!-- class="pico-background-indigo-50" -->
+          <nav>
+            <ul>
+              <li>
+                <a href="./index.html" class="secondary">Painel de Cursos</a>
+              </li>
+              <li>
+                <a class="linkDoCurso secondary" href="./curso.html">Curso</a>
+              </li>
+              <li>
+                <a class="linkDoCurso secondary" href="./competencias.html">
+                  Competências
+                </a>
+              </li>
+              <li>
+                <strong>
+                  <a class="linkDoCurso" href="./componentes.competencias.html">
+                    Componentes das Competências
+                  </a>
+                </strong>
+              </li>
+              <li>
+                <a class="linkDoCurso secondary" href="./componentes.html">
+                  Componentes Curriculares
+                </a>
+              </li>
+              <li>
+                <a class="linkDoCurso secondary" href="./projetos.html">
+                  Objetivos de Aprendizagem
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </article>
+      </aside>
+
+      <!-- Conteúdo central -->
+      <section>
+        <article>
+          <small>
+            Uma <strong>competência</strong> é composta por conhecimentos,
+            habilidades e atitudes. Os <strong>conhecimentos</strong> são fatos,
+            fórmulas, conceitos, princípios modelos e teorias que constituem a
+            base do aprendizado. As <strong>habilidades</strong> são as
+            capacidades de realização de tarefas específicas. Geralmente são
+            estruturadas como um conjunto de ações de ações objetivas e
+            ordenadas. As habilidades dependem do conhecimento adquirido e são
+            desenvolvidas por meio de experiências. As
+            <strong>atitudes</strong> são os comportamentos, valores e posturas
+            que determinam a forma como as pessoas praticam as suas habilidades.
+          </small>
+        </article>
+        <h4>COMPONENTES DA COMPETÊNCIA</h4>
+
+        <section id="listaCompetencias"></section>
+      </section>
+    </main>
+
+    <!-- Modal para visualização dos dados do componente de competência -->
+    <dialog id="modalExibeComponente">
+      <article>
+        <header>
+          <button
+            id="iconeFecharExibicao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Componente de Competências</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalExibeComponente">Nome</label>
+          <textarea id="nomeModalExibeComponente" readonly></textarea>
+          <div class="grid">
+            <div>
+              <label for="tipoModalExibeComponente">Tipo</label>
+              <input id="tipoModalExibeComponente" readonly />
+            </div>
+            <div>
+              <label for="areaModalExibeComponente">Área</label>
+              <input id="areaModalExibeComponente" readonly />
+            </div>
+          </div>
+          <label for="descricaoModalExibeComponente">Descrição</label>
+          <textarea id="descricaoModalExibeComponente" readonly> </textarea>
+
+          <table class="tabelaCompetencias">
+            <thead>
+              <tr>
+                <th>Competências que possuem este componentes</th>
+              </tr>
+            </thead>
+            <tbody id="competenciasModalExibeComponente"></tbody>
+          </table>
+        </fieldset>
+        <footer>
+          <button id="btnFecharExibicao">Fechar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Modal para alteração dos dados do componente de competência -->
+    <dialog id="modalEditaComponente">
+      <article>
+        <header>
+          <button id="iconeFecharEdicao" aria-label="Close" rel="prev"></button>
+          <p>
+            <strong>Componente de Competências</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalEditaComponente">Nome</label>
+          <textarea id="nomeModalEditaComponente" rows="2"></textarea>
+          <div class="grid">
+            <div>
+              <label for="tipoModalEditaComponente">Tipo</label>
+              <select id="tipoModalEditaComponente"></select>
+            </div>
+
+            <div>
+              <label for="areaModalEditaComponente">Área</label>
+              <select id="areaModalEditaComponente"></select>
+            </div>
+          </div>
+          <label for="descricaoModalEditaComponente">Descrição</label>
+          <textarea id="descricaoModalEditaComponente" rows="4"> </textarea>
+        </fieldset>
+        <small>
+          <strong>Observação:</strong> Um conhecimento, habilidade ou atitude
+          pode estar vinculado a mais de uma competência e a mais de um
+          componente curricular. A alteração dos dados aqui afeta todas as
+          competências e todos os componentes curriculares vinculados.
+        </small>
+        <footer>
+          <button class="outline" id="btnCancelarEdicao">Cancelar</button>
+          <button id="btnFecharEdicao">Salvar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Modal para criação de uma nova competência -->
+    <dialog id="modalCriaComponente">
+      <article>
+        <header>
+          <button
+            id="iconeFecharCriacao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Novo Componente de Competência</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalCriaComponente">Nome</label>
+          <textarea id="nomeModalCriaComponente"></textarea>
+          <div class="grid">
+            <div>
+              <label for="tipoModalCriaComponente">Tipo</label>
+              <select id="tipoModalCriaComponente"></select>
+            </div>
+            <div>
+              <label for="areaModalCriaComponente">Área</label>
+              <select id="areaModalCriaComponente"></select>
+            </div>
+          </div>
+          <label for="descricaoModalCriaComponente">Descrição</label>
+          <textarea id="descricaoModalCriaComponente" rows="3"> </textarea>
+        </fieldset>
+        <small>
+          <strong>Observação:</strong> Antes de criar um novo componente de
+          competência, certifique-se de que ele já não existe por meio do botão
+          <em>Pesquisar</em> abaixo. Se existir, você poderá importá-lo para
+          esta competência do curso.
+        </small>
+        <footer>
+          <button id="btnPesquisar">Pesquisar</button>
+          <div>
+            <button class="outline" id="btnCancelarCriacao">Cancelar</button>
+            <button id="btnFecharCriacao">Salvar</button>
+          </div>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Modal pesquisar -->
+    <dialog id="modalPesquisaComponente" class="modal-pesquisa">
+      <article>
+        <header>
+          <button
+            id="iconeFecharPesquisa"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Pesquisa de Componentes de Competências</strong>
+          </p>
+        </header>
+        <fieldset>
+          <div class="grid">
+            <div>
+              <label for="filtroTipos">Filtrar por tipo</label>
+              <select id="filtroTipos"></select>
+            </div>
+            <div>
+              <label for="filtroAreas">Filtrar por área</label>
+              <select id="filtroAreas"></select>
+            </div>
+          </div>
+          <label for="filtroTexto"
+            >Filtrar por palavras (separadas por espaços)</label
+          >
+          <input id="filtroTexto" />
+        </fieldset>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Tipo</th>
+              <th>Área</th>
+              <th class="colunaIcones"></th>
+            </tr>
+          </thead>
+          <tbody id="tabelaPesquisaComponentes"></tbody>
+        </table>
+        <footer>
+          <button id="btnFecharPesquisa">Fechar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Modal para remoção do componente de competências -->
+    <dialog id="modalRemoveComponente">
+      <article>
+        <header>
+          <button
+            id="iconeFecharRemocao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Remoção do Componente de Competências</strong>
+          </p>
+        </header>
+        <p>
+          Deseja remover <span id="artigoModalRemoveComponente">o</span>
+          <strong
+            ><span id="tipoModalRemoveComponente"
+              >componente de competência</span
+            ></strong
+          >?
+        </p>
+        <textarea id="nomeModalRemoveComponente" readonly></textarea>
+        <small>
+          <strong>Observação:</strong> A remoção não é uma exclusão do
+          componente de competência, mas apenas a sua remoção desta competência.
+          Esse componente continuará vinculado a outras competências e outros
+          cursos e poderá ser pesquisada por meio deles. Se não estiver
+          vinculado a nenhuma outra competência, apenas o administrador do
+          sistema poderá recuperá-lo.
+        </small>
+        <footer>
+          <button class="outline" id="btnCancelarRemocao">Cancelar</button>
+          <button id="btnFecharRemocao">Remover</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Modal para mensagens de alerta -->
+    <dialog id="modalAlerta">
+      <article>
+        <header>
+          <p>
+            <strong>ATENÇÃO</strong>
+          </p>
+        </header>
+        <p id="mensagemAlerta"></p>
+        <footer>
+          <button id="btnOkAlerta">Ok</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Modal para mensagens de erro -->
+    <dialog id="modalErro">
+      <article>
+        <header>
+          <p>
+            <strong>Erro</strong>
+          </p>
+        </header>
+        <p id="mensagemErro"></p>
+        <footer>
+          <button id="btnOkErro">Ok</button>
+        </footer>
+      </article>
+    </dialog>
+  </body>
+</html>

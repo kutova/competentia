@@ -4,17 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>Curso - Competentia</title>
+    <title>Competências - Competentia</title>
     <meta name="description" content="Mapa de Competências - PUC Minas" />
     <script defer src="./scripts/dados.js"></script>
-    <script defer src="./services/usuarios.service.js"></script>
-    <script defer src="./services/cursos.service.js"></script>
-    <script defer src="./services/cursosusuarios.service.js"></script>
-    <script defer src="./services/areas.service.js"></script>
+    <script defer src="./services/usuarios-service.js"></script>
+    <script defer src="./services/cursos-service.js"></script>
+    <script defer src="./services/cursos-usuarios-service.js"></script>
+    <script defer src="./services/areas-service.js"></script>
     <script defer src="./services/competencias.service.js"></script>
-    <script defer src="./services/competenciascursos.service.js"></script>
-    <script defer src="./services/cha.service.js"></script>
-    <script defer src="./services/chaCompetencias.service.js"></script>
+    <script defer src="./services/competencias-cursos-service.js"></script>
+    <script defer src="./services/componentescompetencias-service.js"></script>
+    <script
+      defer
+      src="./services/componentescompetencias-competencias-service.js"
+    ></script>
     <script defer src="./scripts/scripts.js"></script>
     <script defer src="./scripts/competencias.js"></script>
     <link rel="stylesheet" href="./estilos/pico.min.css" />
@@ -74,8 +77,11 @@
                 </strong>
               </li>
               <li>
-                <a class="linkDoCurso secondary" href="./objetivos.html">
-                  Conhecimentos, Habilidades e Atitudes
+                <a
+                  class="linkDoCurso secondary"
+                  href="./componentes.competencias.html"
+                >
+                  Componentes das Competências
                 </a>
               </li>
               <li>
@@ -85,7 +91,7 @@
               </li>
               <li>
                 <a class="linkDoCurso secondary" href="./projetos.html">
-                  Projetos
+                  Objetivos de Aprendizagem
                 </a>
               </li>
             </ul>
@@ -104,8 +110,9 @@
             situação-problema que exige uma real intervenção para resolvê-la. As
             competências são desenvolvidas por meio de experiências de vida e de
             aprendizagem e não por mera trasnferêcia de conhecimentos ou pela
-            simples repetição de tarefas mecânicas. Deve ser possível avaliar o
-            nível de desempenho dos alunos em cada uma das competências.
+            simples repetição de tarefas mecânicas. Existem níveis de
+            competência, pois as intervenções na realidade podem ser mais ou
+            menos bem-sucedidas e efetivas.
           </small>
         </article>
         <h4>COMPETÊNCIAS</h4>
@@ -116,7 +123,7 @@
                 <th scope="col">Código</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Tipo</th>
-                <th scope="col"></th>
+                <th scope="col" class="colunaIcones"></th>
               </tr>
             </thead>
             <tbody id="corpoTabela"></tbody>
@@ -155,14 +162,54 @@
             </div>
           </div>
           <label for="observacoesModalExibeCompetencia">Observações</label>
-          <textarea id="observacoesModalExibeCompetencia" readonly rows="3">
-          </textarea>
+          <textarea id="observacoesModalExibeCompetencia" readonly> </textarea>
+
+          <table class="tabelaCursos">
+            <thead>
+              <tr>
+                <th>Cursos que possuem esta competência</th>
+              </tr>
+            </thead>
+            <tbody id="cursosModalExibeCompetencia"></tbody>
+          </table>
+          <!-- 
           <label for="cursosModalExibeCompetencia">
             Cursos vinculados a esta competência
           </label>
           <textarea id="cursosModalExibeCompetencia" readonly rows="3">
             Nenhum curso
           </textarea>
+          -->
+
+          <table class="tabelaComponentesCompetencias">
+            <thead>
+              <tr>
+                <th>Conhecimentos da competência</th>
+                <th>Áreas</th>
+              </tr>
+            </thead>
+            <tbody id="conhecimentosModalExibeCompetencia"></tbody>
+          </table>
+          <table class="tabelaComponentesCompetencias">
+            <thead>
+              <tr>
+                <th>Habilidades da competência</th>
+                <th>Áreas</th>
+              </tr>
+            </thead>
+            <tbody id="habilidadesModalExibeCompetencia"></tbody>
+          </table>
+          <table class="tabelaComponentesCompetencias">
+            <thead>
+              <tr>
+                <th>Atitudes da competência</th>
+                <th>Áreas</th>
+              </tr>
+            </thead>
+            <tbody id="atitudesModalExibeCompetencia"></tbody>
+          </table>
+
+          <!--
           <label for="conhecimentosModalExibeCompetencia">
             Conhecimentos que fazem parte desta competência
           </label>
@@ -181,6 +228,7 @@
           <textarea id="atitudesModalExibeCompetencia" readonly rows="5">
             Nenhuma atitude
           </textarea>
+          -->
         </fieldset>
         <footer>
           <button id="btnFecharExibicao">Fechar</button>
@@ -225,7 +273,7 @@
       </article>
     </dialog>
 
-    <!-- Modal para alteração dos dados da competência -->
+    <!-- Modal para criação de uma nova competência -->
     <dialog id="modalCriaCompetencia">
       <article>
         <header>
@@ -294,6 +342,10 @@
               <select id="filtroCursos"></select>
             </div>
           </div>
+          <label for="filtroTexto"
+            >Filtrar por palavras (separadas por espaços)</label
+          >
+          <input id="filtroTexto" />
         </fieldset>
         <table>
           <thead>
@@ -325,10 +377,10 @@
           </p>
         </header>
         <p>
-          Remove a competência
-          <strong> <span id="codigoModalRemoveCompetencia"></span> </strong>?
+          Deseja remover a competência
+          <strong> <span id="codigoModalRemoveCompetencia"></span></strong>?
         </p>
-        <textarea id="nomeModalRemoveCompetencia" rows="4" readonly></textarea>
+        <textarea id="nomeModalRemoveCompetencia" readonly></textarea>
         <small>
           <strong>Observação:</strong> A remoção não é uma exclusão da
           competência, mas apenas a sua remoção deste curso. A competência

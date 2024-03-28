@@ -7,11 +7,6 @@
 #tabela thead th:nth-child(3) {
   width: 10em;
 }
-#tabela thead th:last-child {
-  width: 7em;
-  min-width: 7em;
-  text-align: center;
-}
 
 @media (max-width: 768px) {
   #tabela thead th:nth-child(3),
@@ -22,21 +17,6 @@
 
 #tabela td {
   vertical-align: top;
-}
-
-footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-
-footer button {
-  margin-left: 1em;
-}
-
-#modalPesquisaCompetencia .colunaIcones {
-  min-width: 5em;
-  width: 5em;
 }
 
 #modalCriaCompetencia footer {

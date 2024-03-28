@@ -8,10 +8,10 @@
     <meta name="description" content="Mapa de Competências - PUC Minas" />
     <script defer src="./scripts/dados.js"></script>
     <script defer src="./scripts/scripts.js"></script>
-    <script defer src="./services/usuarios.service.js"></script>
-    <script defer src="./services/areas.service.js"></script>
-    <script defer src="./services/cursos.service.js"></script>
-    <script defer src="./services/cursosusuarios.service.js"></script>
+    <script defer src="./services/usuarios-service.js"></script>
+    <script defer src="./services/areas-service.js"></script>
+    <script defer src="./services/cursos-service.js"></script>
+    <script defer src="./services/cursos-usuarios-service.js"></script>
     <script defer src="./scripts/admin.cursos.js"></script>
     <link rel="stylesheet" href="./estilos/pico.min.css" />
     <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
@@ -93,7 +93,7 @@
                 <th scope="col">Modalidade</th>
                 <th scope="col">Versão</th>
                 <th scope="col">Ano</th>
-                <th scope="col"></th>
+                <th scope="col" class="colunaIcones"></th>
               </tr>
             </thead>
             <tbody id="dadosCursos"></tbody>
@@ -130,9 +130,9 @@
           </div>
           <div class="grid">
             <div>
-              <label for="periodosModalExibeCurso">Períodos</label>
+              <label for="semestresModalExibeCurso">Semestres</label>
               <input
-                id="periodosModalExibeCurso"
+                id="semestresModalExibeCurso"
                 type="number"
                 min="1"
                 max="20"
@@ -196,9 +196,9 @@
           </div>
           <div class="grid">
             <div>
-              <label for="periodosModalEditaCurso">Períodos</label>
+              <label for="semestresModalEditaCurso">Semestres</label>
               <input
-                id="periodosModalEditaCurso"
+                id="semestresModalEditaCurso"
                 type="number"
                 min="1"
                 max="20"
@@ -256,9 +256,9 @@
           </div>
           <div class="grid">
             <div>
-              <label for="periodosModalCriaCurso">Períodos</label>
+              <label for="semestresModalCriaCurso">Semestres</label>
               <input
-                id="periodosModalCriaCurso"
+                id="semestresModalCriaCurso"
                 type="number"
                 min="1"
                 max="20"
@@ -302,7 +302,8 @@
           </p>
         </header>
         <p>
-          Arquiva o curso <strong><span id="cursoAArquivar"></span></strong>?
+          Deseja arquivar o curso
+          <strong><span id="cursoAArquivar"></span></strong>?
         </p>
         <p>
           <small>

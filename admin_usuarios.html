@@ -8,9 +8,9 @@
     <meta name="description" content="Mapa de Competências - PUC Minas" />
     <script defer src="./scripts/dados.js"></script>
     <script defer src="./scripts/scripts.js"></script>
-    <script defer src="./services/usuarios.service.js"></script>
-    <script defer src="./services/cursos.service.js"></script>
-    <script defer src="./services/cursosusuarios.service.js"></script>
+    <script defer src="./services/usuarios-service.js"></script>
+    <script defer src="./services/cursos-service.js"></script>
+    <script defer src="./services/cursos-usuarios-service.js"></script>
     <script defer src="./scripts/admin.usuarios.js"></script>
     <link rel="stylesheet" href="./estilos/pico.min.css" />
     <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
@@ -81,7 +81,7 @@
                 <th scope="col">Nome</th>
                 <th scope="col">E-mail</th>
                 <th scope="col">Tipo</th>
-                <th scope="col"></th>
+                <th scope="col" class="colunaIcones"></th>
               </tr>
             </thead>
             <tbody id="dadosUsuarios"></tbody>
@@ -275,7 +275,8 @@
           </p>
         </header>
         <p>
-          Exclui o usuário <strong><span id="usuarioAExcluir"></span></strong>?
+          Deseja excluir o usuário
+          <strong><span id="usuarioAExcluir"></span></strong>?
         </p>
         <p>
           <small>

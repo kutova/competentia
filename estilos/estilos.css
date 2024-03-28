@@ -144,6 +144,16 @@ main h4 {
   margin-top: 1em;
 }
 
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+footer button {
+  margin-left: 1em;
+}
+
 dialog header {
   background-color: var(--pico-color-azure-550);
 }
@@ -162,10 +172,63 @@ dialog header p {
   background-color: var(--pico-color-red-500);
 }
 
+#modalErro footer button {
+  background-color: var(--pico-color-red-500);
+  border-color: var(--pico-color-red-800);
+}
+
+#modalErro footer button:focus {
+  box-shadow: 0 0 8px var(--pico-color-red-500);
+}
+
 #modalAlerta header {
   background-color: var(--pico-color-pumpkin-300);
 }
 
+#modalAlerta footer button {
+  background-color: var(--pico-color-pumpkin-300);
+  border-color: var(--pico-color-pumpkin-500);
+}
+
+#modalAlerta footer button:focus {
+  box-shadow: 0 0 8px var(--pico-color-pumpkin-300);
+}
+
 .modal-pesquisa header {
   background-color: var(--pico-color-jade-500);
+}
+
+.modal-pesquisa footer button {
+  background-color: var(--pico-color-jade-500);
+  border-color: var(--pico-color-jade-800);
+}
+
+.modal-pesquisa footer button:focus {
+  box-shadow: 0 0 8px var(--pico-color-jade-500);
+}
+
+.tabelaComponentesCompetencias,
+.tabelaCursos {
+  margin-top: 2em;
+}
+
+.tabelaComponentesCompetencias th:first-child {
+  width: 60%;
+}
+
+.tabelaComponentesCompetencias th:last-child {
+  width: 40%;
+}
+
+.tabelaComponentesCompetencias td,
+.tabelaCursos td {
+  /* font-size: smaller; */
+  border: none;
+  vertical-align: top;
+}
+
+.colunaIcones {
+  min-width: 7em;
+  width: 7em;
+  text-align: center;
 }
