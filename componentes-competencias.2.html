@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>Competências - Competentia</title>
+    <title>Componentes das Competências - Competentia</title>
     <meta name="description" content="Mapa de Competências - PUC Minas" />
     <script defer src="./scripts/dados.js"></script>
     <script defer src="./services/usuarios-service.js"></script>
@@ -14,16 +14,21 @@
     <script defer src="./services/competencias-service.js"></script>
     <script defer src="./services/competencias-cursos-service.js"></script>
     <script defer src="./services/componentescompetencias-service.js"></script>
+    <script defer src="./services/componentescurriculares-service.js"></script>
     <script
       defer
       src="./services/componentescompetencias-competencias-service.js"
     ></script>
+    <script
+      defer
+      src="./services/componentescompetencias-componentescurriculares-service.js"
+    ></script>
     <script defer src="./scripts/scripts.js"></script>
-    <script defer src="./scripts/competencias.js"></script>
+    <script defer src="./scripts/componentescompetencias.2.js"></script>
     <link rel="stylesheet" href="./estilos/pico.min.css" />
     <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
     <link rel="stylesheet" href="./estilos/estilos.css" />
-    <link rel="stylesheet" href="./estilos/competencias.css" />
+    <link rel="stylesheet" href="./estilos/componentescompetencias.2.css" />
   </head>
 
   <body class="container">
@@ -70,15 +75,12 @@
                 <a class="linkDoCurso secondary" href="./curso.html">Curso</a>
               </li>
               <li>
-                <a class="linkDoCurso" href="./competencias.html">
+                <a class="linkDoCurso secondary" href="./competencias.html">
                   Competências
                 </a>
               </li>
               <li>
-                <a
-                  class="linkDoCurso secondary"
-                  href="./componentes-competencias.html"
-                >
+                <a class="linkDoCurso" href="./componentes-competencias.html">
                   Componentes das Competências
                 </a>
               </li>
@@ -120,26 +122,26 @@
       <section>
         <article>
           <small>
-            <!-- Perrenoud --><strong>Competência</strong> é a capacidade de
-            mobilizar conhecimentos, habilidades e atitudes para solucionar
-            problemas de forma eficaz.
-            <!-- Zabala -->Uma competência, portanto, leva em consideração uma
-            situação-problema que exige uma real intervenção para resolvê-la. As
-            competências são desenvolvidas por meio de experiências de vida e de
-            aprendizagem e não por mera trasnferêcia de conhecimentos ou pela
-            simples repetição de tarefas mecânicas. Existem níveis de
-            competência, pois as intervenções na realidade podem ser mais ou
-            menos bem-sucedidas e efetivas.
+            Uma <strong>competência</strong> é composta por conhecimentos,
+            habilidades e atitudes. Os <strong>conhecimentos</strong> são fatos,
+            fórmulas, conceitos, princípios modelos e teorias que constituem a
+            base do aprendizado. As <strong>habilidades</strong> são as
+            capacidades de realização de tarefas específicas. Geralmente são
+            estruturadas como um conjunto de ações de ações objetivas e
+            ordenadas. As habilidades dependem do conhecimento adquirido e são
+            desenvolvidas por meio de experiências. As
+            <strong>atitudes</strong> são os comportamentos, valores e posturas
+            que determinam a forma como as pessoas praticam as suas habilidades.
           </small>
         </article>
-        <h4>COMPETÊNCIAS</h4>
+        <h4>COMPONENTES DAS COMPETÊNCIAS</h4>
         <div class="overflow-auto">
           <table id="tabela">
             <thead>
               <tr>
-                <th scope="col">Código</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Tipo</th>
+                <th scope="col">Área</th>
                 <th scope="col" class="colunaIcones"></th>
               </tr>
             </thead>
@@ -152,8 +154,8 @@
       </section>
     </main>
 
-    <!-- Modal para visualização dos dados da competência -->
-    <dialog id="modalExibeCompetencia">
+    <!-- Modal para visualização dos dados do componente de competências -->
+    <dialog id="modalExibeComponente">
       <article>
         <header>
           <button
@@ -162,90 +164,45 @@
             rel="prev"
           ></button>
           <p>
-            <strong>Competência</strong>
+            <strong>Componente de Competências</strong>
           </p>
         </header>
         <fieldset>
-          <label for="nomeModalExibeCompetencia">Nome</label>
-          <textarea id="nomeModalExibeCompetencia" readonly></textarea>
+          <label for="nomeModalExibeComponente">Nome</label>
+          <textarea id="nomeModalExibeComponente" readonly></textarea>
           <div class="grid">
             <div>
-              <label for="tipoModalExibeCompetencia">Tipo</label>
-              <input id="tipoModalExibeCompetencia" readonly />
+              <label for="tipoModalExibeComponente">Tipo</label>
+              <input id="tipoModalExibeComponente" readonly />
             </div>
             <div>
-              <label for="codigoModalExibeCompetencia">Código no curso</label>
-              <input id="codigoModalExibeCompetencia" readonly />
+              <label for="areaModalExibeComponente">Área</label>
+              <input id="areaModalExibeComponente" readonly />
             </div>
           </div>
-          <label for="observacoesModalExibeCompetencia">Observações</label>
-          <textarea id="observacoesModalExibeCompetencia" readonly> </textarea>
+          <label for="descricaoModalExibeComponente">Descrição</label>
+          <textarea id="descricaoModalExibeComponente" readonly> </textarea>
 
-          <table class="tabelaCursos">
+          <table class="tabelaCompetencias">
             <thead>
               <tr>
-                <th>Cursos que possuem esta competência</th>
+                <th colspan="2">Competências</th>
               </tr>
             </thead>
-            <tbody id="cursosModalExibeCompetencia"></tbody>
-          </table>
-          <!-- 
-          <label for="cursosModalExibeCompetencia">
-            Cursos vinculados a esta competência
-          </label>
-          <textarea id="cursosModalExibeCompetencia" readonly rows="3">
-            Nenhum curso
-          </textarea>
-          -->
-
-          <table class="tabelaComponentesCompetencias">
-            <thead>
-              <tr>
-                <th>Conhecimentos da competência</th>
-                <th>Áreas</th>
-              </tr>
-            </thead>
-            <tbody id="conhecimentosModalExibeCompetencia"></tbody>
-          </table>
-          <table class="tabelaComponentesCompetencias">
-            <thead>
-              <tr>
-                <th>Habilidades da competência</th>
-                <th>Áreas</th>
-              </tr>
-            </thead>
-            <tbody id="habilidadesModalExibeCompetencia"></tbody>
-          </table>
-          <table class="tabelaComponentesCompetencias">
-            <thead>
-              <tr>
-                <th>Atitudes da competência</th>
-                <th>Áreas</th>
-              </tr>
-            </thead>
-            <tbody id="atitudesModalExibeCompetencia"></tbody>
+            <tbody id="competenciasModalExibeComponente"></tbody>
           </table>
 
-          <!--
-          <label for="conhecimentosModalExibeCompetencia">
-            Conhecimentos que fazem parte desta competência
-          </label>
-          <textarea id="conhecimentosModalExibeCompetencia" readonly rows="5">
-            Nenhum conhecimento
-          </textarea>
-          <label for="habilidadesModalExibeCompetencia">
-            Habilidades que fazem parte desta competência
-          </label>
-          <textarea id="habilidadesModalExibeCompetencia" readonly rows="5">
-            Nenhuma habilidade
-          </textarea>
-          <label for="atitudesModalExibeCompetencia">
-            Atitudes que fazem parte desta competência
-          </label>
-          <textarea id="atitudesModalExibeCompetencia" readonly rows="5">
-            Nenhuma atitude
-          </textarea>
-          -->
+          <table class="tabelaComponentesCurriculares">
+            <thead>
+              <tr>
+                <th>Componente Curriculares</th>
+                <th>CH</th>
+                <th>Tipo</th>
+                <th>Área</th>
+              </tr>
+            </thead>
+            <tbody id="componentesCurricularesModalExibeComponente"></tbody>
+          </table>
         </fieldset>
         <footer>
           <button id="btnFecharExibicao">Fechar</button>
@@ -253,35 +210,53 @@
       </article>
     </dialog>
 
-    <!-- Modal para alteração dos dados da competência -->
-    <dialog id="modalEditaCompetencia">
+    <!-- Modal para alteração dos dados do componente de competências  -->
+    <dialog id="modalEditaComponente">
       <article>
         <header>
           <button id="iconeFecharEdicao" aria-label="Close" rel="prev"></button>
           <p>
-            <strong>Competência</strong>
+            <strong>Componente de Competências</strong>
           </p>
         </header>
         <fieldset>
-          <label for="nomeModalEditaCompetencia">Nome</label>
-          <textarea id="nomeModalEditaCompetencia"></textarea>
+          <label for="nomeModalEditaComponente">Nome</label>
+          <textarea id="nomeModalEditaComponente" rows="2"></textarea>
           <div class="grid">
             <div>
-              <label for="tipoModalEditaCompetencia">Tipo</label>
-              <select id="tipoModalEditaCompetencia"></select>
+              <label for="tipoModalEditaComponente">Tipo</label>
+              <select id="tipoModalEditaComponente"></select>
             </div>
             <div>
-              <label for="codigoModalEditaCompetencia">Código no curso</label>
-              <input id="codigoModalEditaCompetencia" />
+              <label for="areaModalEditaComponente">Área</label>
+              <select id="areaModalEditaComponente"></select>
             </div>
           </div>
-          <label for="observacoesModalEditaCompetencia">Observações</label>
-          <textarea id="observacoesModalEditaCompetencia" rows="3"> </textarea>
+          <label for="descricaoModalEditaComponente">Descrição</label>
+          <textarea id="descricaoModalEditaComponente" rows="4"> </textarea>
+          <div class="tabelaComRolagem">
+            <table id="tabelaCompetencias">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <span class="simbolo">
+                      <img src="./imagens/check.svg" />
+                    </span>
+                  </th>
+                  <th scope="col" colspan="2">Competência</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody id="conteudoCompetenciasEdicao"></tbody>
+            </table>
+          </div>
         </fieldset>
         <small>
-          <strong>Observação:</strong> Os dados da competência são os mesmos em
-          todos os cursos a que ela está vinculada, exceto o seu Código, que é
-          específico para este curso.
+          <strong>Observação:</strong> Um conhecimento, habilidade ou atitude
+          pode estar vinculado a mais de uma competência e a mais de um
+          componente curricular. A alteração dos dados aqui afeta todas as
+          competências e todos os componentes curriculares vinculados.
         </small>
         <footer>
           <button class="outline" id="btnCancelarEdicao">Cancelar</button>
@@ -290,8 +265,8 @@
       </article>
     </dialog>
 
-    <!-- Modal para criação de uma nova competência -->
-    <dialog id="modalCriaCompetencia">
+    <!-- Modal para criação de um novo componente curricular -->
+    <dialog id="modalCriaComponente">
       <article>
         <header>
           <button
@@ -300,30 +275,47 @@
             rel="prev"
           ></button>
           <p>
-            <strong>Nova Competência</strong>
+            <strong>Novo Componente de Competências</strong>
           </p>
         </header>
         <fieldset>
-          <label for="nomeModalCriaCompetencia">Nome</label>
-          <textarea id="nomeModalCriaCompetencia"></textarea>
+          <label for="nomeModalCriaComponente">Nome</label>
+          <textarea id="nomeModalCriaComponente"></textarea>
           <div class="grid">
             <div>
-              <label for="tipoModalCriaCompetencia">Tipo</label>
-              <select id="tipoModalCriaCompetencia"></select>
+              <label for="tipoModalCriaComponente">Tipo</label>
+              <select id="tipoModalCriaComponente"></select>
             </div>
             <div>
-              <label for="codigoModalCriaCompetencia">Código no curso</label>
-              <input id="codigoModalCriaCompetencia" />
+              <label for="areaModalCriaComponente">Área</label>
+              <select id="areaModalCriaComponente"></select>
             </div>
           </div>
-          <label for="observacoesModalCriaCompetencia">Observações</label>
-          <textarea id="observacoesModalCriaCompetencia" rows="3"> </textarea>
+          <label for="descricaoModalCriaComponente">Descrição</label>
+          <textarea id="descricaoModalCriaComponente" rows="3"> </textarea>
+          <div class="tabelaComRolagem">
+            <table id="tabelaCompetenciasCriacao">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <span class="simbolo">
+                      <img src="./imagens/check.svg" />
+                    </span>
+                  </th>
+                  <th scope="col" colspan="2">Competência</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody id="conteudoCompetenciasCriacao"></tbody>
+            </table>
+          </div>
         </fieldset>
         <small>
-          <strong>Observação:</strong> Antes de criar uma nova competência,
-          certifique-se de que ela já não existe por meio do botão
-          <em>Pesquisar</em> abaixo. Se existir, você poderá importá-la para
-          este curso.
+          <strong>Observação:</strong> Antes de criar um novo componente de
+          competência, certifique-se de que ele já não existe por meio do botão
+          <em>Pesquisar</em> abaixo. Se existir, você poderá importá-lo para
+          esta competência do curso.
         </small>
         <footer>
           <button id="btnPesquisar">Pesquisar</button>
@@ -336,7 +328,7 @@
     </dialog>
 
     <!-- Modal pesquisar -->
-    <dialog id="modalPesquisaCompetencia" class="modal-pesquisa">
+    <dialog id="modalPesquisaComponentes" class="modal-pesquisa">
       <article>
         <header>
           <button
@@ -345,7 +337,7 @@
             rel="prev"
           ></button>
           <p>
-            <strong>Pesquisa de Competências</strong>
+            <strong>Pesquisa de Componente de Competências</strong>
           </p>
         </header>
         <fieldset>
@@ -355,24 +347,27 @@
               <select id="filtroTipos"></select>
             </div>
             <div>
-              <label for="filtroCursos">Filtrar por curso</label>
-              <select id="filtroCursos"></select>
+              <label for="filtroAreas">Filtrar por área</label>
+              <select id="filtroAreas"></select>
             </div>
           </div>
-          <label for="filtroTexto"
-            >Filtrar por palavras (separadas por espaços)</label
-          >
-          <input id="filtroTexto" />
+          <div>
+            <label for="filtroTexto">
+              Filtrar por palavras (separadas por espaços)
+            </label>
+            <input id="filtroTexto" />
+          </div>
         </fieldset>
         <table>
           <thead>
             <tr>
               <th>Nome</th>
               <th>Tipo</th>
+              <th>Área</th>
               <th class="colunaIcones"></th>
             </tr>
           </thead>
-          <tbody id="tabelaPesquisaCompetencias"></tbody>
+          <tbody id="tabelaPesquisaComponentes"></tbody>
         </table>
         <footer>
           <button id="btnFecharPesquisa">Fechar</button>
@@ -381,7 +376,7 @@
     </dialog>
 
     <!-- Modal para remoção da competência -->
-    <dialog id="modalRemoveCompetencia">
+    <dialog id="modalRemoveComponente">
       <article>
         <header>
           <button
@@ -390,24 +385,46 @@
             rel="prev"
           ></button>
           <p>
-            <strong>Remoção da Competência</strong>
+            <strong>Remoção do Componente de Competências</strong>
           </p>
         </header>
         <p>
-          Deseja remover a competência
-          <strong> <span id="codigoModalRemoveCompetencia"></span></strong>?
+          Deseja remover <span id="artigoModalRemoveComponente">o</span>
+          <strong
+            ><span id="tipoModalRemoveComponente"
+              >componente de competência</span
+            ></strong
+          >?
         </p>
-        <textarea id="nomeModalRemoveCompetencia" readonly></textarea>
+        <textarea id="nomeModalRemoveComponente" readonly></textarea>
         <small>
-          <strong>Observação:</strong> A remoção não é uma exclusão da
-          competência, mas apenas a sua remoção deste curso. A competência
-          continuará vinculada a outros cursos e poderá ser pesquisada por meio
-          deles. Se não estiver vinculada a nenhum outro curso, apenas o
-          administrador do sistema poderá recuperá-la.
+          <strong>Observação:</strong> A remoção não é uma exclusão do
+          componente de competência, mas apenas a sua remoção de
+          <strong>todas</strong>
+          as competências deste curso. Esse componente continuará vinculado a
+          competências de outros cursos e poderá ser pesquisada por meio deles.
+          Se não estiver vinculado a nenhuma outra competência, apenas o
+          administrador do sistema poderá recuperá-lo.
         </small>
         <footer>
           <button class="outline" id="btnCancelarRemocao">Cancelar</button>
           <button id="btnFecharRemocao">Remover</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <!-- Modal com descrição do componente de competência -->
+    <dialog id="modalDescricao">
+      <article>
+        <header>
+          <p>
+            <strong>DESCRIÇÃO</strong>
+          </p>
+        </header>
+        <p><strong id="tituloDescricao"></strong></p>
+        <p id="mensagemDescricao"></p>
+        <footer>
+          <button id="btnOkDescricao">Ok</button>
         </footer>
       </article>
     </dialog>

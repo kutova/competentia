@@ -174,7 +174,7 @@ let editaCompetenciaContinuacao = function (id) {
           competencia.tipo == i ? "selected" : ""
         }>${t}</option>`
     )
-    .join();
+    .join("");
   observacoesModalEditaCompetencia.value = competencia.observacoes;
   btnFecharEdicao.onclick = () => salvar(competencia);
   modalEditaCompetencia.showModal();
@@ -213,7 +213,7 @@ let criaCompetencia = function () {
   codigoModalCriaCompetencia.value = "";
   tipoModalCriaCompetencia.innerHTML = tiposCompetencia
     .map((t, i) => `<option value=${i}>${t}</option>`)
-    .join();
+    .join("");
   observacoesModalCriaCompetencia.value = "";
   btnFecharCriacao.onclick = () => adicionar();
   modalCriaCompetencia.showModal();
@@ -278,7 +278,7 @@ let pesquisaCompetencias = function () {
 
   filtroTipos.innerHTML =
     '<option value="-1">Todos</option>' +
-    tiposCompetencia.map((t, i) => `<option value=${i}>${t}</option>`).join();
+    tiposCompetencia.map((t, i) => `<option value=${i}>${t}</option>`).join("");
   filtroTipos.onchange = () => aplicaFiltros(competencias);
 
   filtroCursos.innerHTML =
@@ -287,7 +287,7 @@ let pesquisaCompetencias = function () {
       .map((c) => dbCursos.curso(c.id))
       .sort((a, b) => a.nome.localeCompare(b.nome))
       .map((c) => `<option value=${c.id}>${c.nome}</option>`)
-      .join();
+      .join("");
   filtroCursos.onchange = () => aplicaFiltros(competencias);
 
   filtroTexto.value = "";

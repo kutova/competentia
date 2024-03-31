@@ -34,3 +34,10 @@ logInstall.innerHTML +=
 dbComponentesCompetencias_ComponentesCurriculares.install();
 logInstall.innerHTML +=
   "<p>Vínculos dos conhecimentos, habilidades e atitudes aos componentes curriculares.</p>";
+
+dbComponentesCurriculares.install();
+logInstall.innerHTML += "<p>Componentes curriculares.</p>";
+
+dbComponentesCurriculares_Cursos.install();
+logInstall.innerHTML +=
+  "<p>Vínculso dos componentes curriculares aos cursos.</p>";

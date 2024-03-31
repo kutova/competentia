@@ -65,12 +65,12 @@
 
 @media (min-width: 1280px) {
   :root {
-    --pico-font-size: 110%;
+    --pico-font-size: 105%;
   }
 }
 @media (min-width: 1536px) {
   :root {
-    --pico-font-size: 120%;
+    --pico-font-size: 110%;
   }
 }
 
@@ -2549,7 +2549,7 @@ dialog article {
 }
 @media (min-width: 768px) {
   dialog article {
-    max-width: 700px;
+    max-width: 900px;
   }
 }
 dialog article > header > * {

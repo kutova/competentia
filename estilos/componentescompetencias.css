@@ -1,0 +1,22 @@
+@media (max-width: 768px) {
+  .tabelaComponentesCompetenciasComp thead th:nth-child(2),
+  .tabelaComponentesCompetenciasComp thead th:nth-child(3),
+  .tabelaComponentesCompetenciasComp tbody td:nth-child(2),
+  .tabelaComponentesCompetenciasComp tbody td:nth-child(3) {
+    display: none;
+  }
+}
+
+.tabelaComponentesCompetenciasComp td,
+.tabelaCompetencias td {
+  vertical-align: top;
+}
+
+#modalCriaComponente footer {
+  justify-content: space-between;
+}
+
+#modalCriaComponente footer :first-child {
+  justify-content: space-between;
+  margin-left: 0;
+}

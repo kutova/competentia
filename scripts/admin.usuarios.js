@@ -97,7 +97,7 @@ let editaUsuario = function (id) {
           usuario.tipo == i ? "selected" : ""
         }>${t}</option>`
     )
-    .join();
+    .join("");
 
   let cursos = dbCursos.cursos().sort((a, b) => a.nome.localeCompare(b.nome));
   let cursosDoUsuario = dbCursos_Usuarios.cursosUsuario(id);
@@ -182,7 +182,7 @@ let salvar = function (usuario, cursos) {
 let criaUsuario = function () {
   tipoModalCreateUsuario.innerHTML = tiposUsuario
     .map((t, i) => `<option value=${i}>${t}</option>`)
-    .join();
+    .join("");
   nomeModalCriaUsuario.value = "";
   emailModalCriaUsuario.value = "";
   senha1ModalCriaUsuario.value = "";

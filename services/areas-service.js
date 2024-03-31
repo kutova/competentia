@@ -11,9 +11,14 @@ let dbAreas = {
       { nome: "Ciência da Computação", id: 7 },
       { nome: "Administração", id: 8 },
       { nome: "Direito", id: 9 },
+      { nome: "Matemática", id: 10 },
+      { nome: "Física", id: 11 },
+      { nome: "Química", id: 12 },
+      { nome: "Fisolofia", id: 13 },
+      { nome: "Ciências da Religião", id: 14 },
     ];
     localStorage.setItem("areas", JSON.stringify(areas));
-    localStorage.setItem("ultimaArea", 8);
+    localStorage.setItem("ultimaArea", 14);
   },
 
   // recupera a lista de areas

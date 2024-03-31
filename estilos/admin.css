@@ -45,6 +45,7 @@
 }
 
 .tabelaComRolagem {
-  overflow-y: auto;
-  height: 15em;
+  /* overflow-y: auto; */
+  /* height: 15em; */
+  font-size: smaller;
 }

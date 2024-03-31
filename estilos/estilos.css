@@ -232,3 +232,17 @@ dialog header p {
   width: 7em;
   text-align: center;
 }
+
+#sideMenu li.submenu {
+  margin-left: 1em;
+  padding-left: 1.2em;
+  border-left: thin solid rgb(225, 225, 225);
+}
+
+#sideMenu a:not(.secondary) {
+  font-weight: bold;
+}
+
+#sideMenu .submenu:has(a:not(.secondary)) {
+  border-left: thin solid rgb(128, 128, 128);
+}

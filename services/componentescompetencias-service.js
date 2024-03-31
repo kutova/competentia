@@ -32,7 +32,7 @@ let dbComponentesCompetencias = {
         id: 4,
       },
       {
-        nome: "Desenvolvimento agil de software",
+        nome: "Desenvolvimento ágil de software",
         tipo: 0,
         area: 4,
         descricao:

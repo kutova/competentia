@@ -3,29 +3,24 @@ let dbComponentesCompetencias_ComponentesCurriculares = {
   install: function () {
     let componentesCompentencia_ComponentesCurriculares = [
       { idComponenteCompetencia: 1, idComponenteCurricular: 1 },
-      { idComponenteCompetencia: 2, idComponenteCurricular: 1 },
-      { idComponenteCompetencia: 3, idComponenteCurricular: 1 },
-      { idComponenteCompetencia: 4, idComponenteCurricular: 1 },
-      { idComponenteCompetencia: 5, idComponenteCurricular: 1 },
-      { idComponenteCompetencia: 6, idComponenteCurricular: 1 },
       { idComponenteCompetencia: 7, idComponenteCurricular: 1 },
-      { idComponenteCompetencia: 8, idComponenteCurricular: 1 },
-      { idComponenteCompetencia: 9, idComponenteCurricular: 1 },
-      { idComponenteCompetencia: 10, idComponenteCurricular: 1 },
-      { idComponenteCompetencia: 11, idComponenteCurricular: 1 },
-      { idComponenteCompetencia: 12, idComponenteCurricular: 1 },
-      { idComponenteCompetencia: 13, idComponenteCurricular: 1 },
       { idComponenteCompetencia: 14, idComponenteCurricular: 1 },
+      { idComponenteCompetencia: 16, idComponenteCurricular: 1 },
+      { idComponenteCompetencia: 17, idComponenteCurricular: 1 },
+      { idComponenteCompetencia: 1, idComponenteCurricular: 3 },
+      { idComponenteCompetencia: 4, idComponenteCurricular: 3 },
+      { idComponenteCompetencia: 7, idComponenteCurricular: 3 },
+      { idComponenteCompetencia: 13, idComponenteCurricular: 3 },
+      { idComponenteCompetencia: 14, idComponenteCurricular: 3 },
+      { idComponenteCompetencia: 1, idComponenteCurricular: 7 },
+      { idComponenteCompetencia: 4, idComponenteCurricular: 7 },
+      { idComponenteCompetencia: 7, idComponenteCurricular: 7 },
 
-      { idComponenteCompetencia: 1, idComponenteCurricular: 2 },
-      { idComponenteCompetencia: 2, idComponenteCurricular: 2 },
-      { idComponenteCompetencia: 7, idComponenteCurricular: 2 },
-      { idComponenteCompetencia: 14, idComponenteCurricular: 2 },
-      { idComponenteCompetencia: 15, idComponenteCurricular: 2 },
-      { idComponenteCompetencia: 16, idComponenteCurricular: 2 },
-      { idComponenteCompetencia: 17, idComponenteCurricular: 2 },
-      { idComponenteCompetencia: 18, idComponenteCurricular: 2 },
-      { idComponenteCompetencia: 19, idComponenteCurricular: 2 },
+      { idComponenteCompetencia: 12, idComponenteCurricular: 7 },
+      { idComponenteCompetencia: 13, idComponenteCurricular: 7 },
+      { idComponenteCompetencia: 14, idComponenteCurricular: 7 },
+      { idComponenteCompetencia: 16, idComponenteCurricular: 7 },
+      { idComponenteCompetencia: 18, idComponenteCurricular: 7 },
     ];
     localStorage.setItem(
       "componentescompetencias-componentescurriculares",
@@ -54,7 +49,7 @@ let dbComponentesCompetencias_ComponentesCurriculares = {
   },
 
   // recupera as componentes curriculares vinculadas a um conhecimento, habilidade ou atitude
-  componentescurriculares: function (idComponenteCompetencia) {
+  componentesCurriculares: function (idComponenteCompetencia) {
     let componentesCompentencia_ComponentesCurriculares = JSON.parse(
       localStorage.getItem("componentescompetencias-componentescurriculares") ||
         "[]"
@@ -73,27 +68,29 @@ let dbComponentesCompetencias_ComponentesCurriculares = {
     return componentescurriculares;
   },
 
-  /*
-
-
-  // altera o código de uma componente curricular em um curso
-  update: function (componenteCurricularCurso) {
-    let componentescurricularesCursos = JSON.parse(
-      localStorage.getItem("componentescurriculares-cursos") || "[]"
+  // altera os componentes de competência de um componente curricular
+  update: function (idComponenteCurricular, listaIdsComponenteCompetencias) {
+    let componentesCompentencia_ComponentesCurriculares = JSON.parse(
+      localStorage.getItem("componentescompetencias-componentescurriculares") ||
+        "[]"
     );
-    let i = componentescurricularesCursos.findIndex(
-      (cc) =>
-        cc.idCurso == componenteCurricularCurso.idCurso &&
-        cc.idComponenteCurricular == componenteCurricularCurso.idComponenteCurricular
-    );
-    if (i >= 0) {
-      componentescurricularesCursos[i].codigo = componenteCurricularCurso.codigo;
-      localStorage.setItem(
-        "componentescurriculares-cursos",
-        JSON.stringify(componentescurricularesCursos)
+    componentesCompentencia_ComponentesCurriculares =
+      componentesCompentencia_ComponentesCurriculares.filter(
+        (cc) => cc.idComponenteCurricular != idComponenteCurricular
       );
+    for (i in listaIdsComponenteCompetencias) {
+      componentesCompentencia_ComponentesCurriculares.push({
+        idComponenteCompetencia: listaIdsComponenteCompetencias[i],
+        idComponenteCurricular: idComponenteCurricular,
+      });
     }
+    localStorage.setItem(
+      "componentescompetencias-componentescurriculares",
+      JSON.stringify(componentesCompentencia_ComponentesCurriculares)
+    );
   },
+
+  /*
 
   // remove a componente curricular de um curso
   delete: function (idComponenteCurricular, idCurso) {

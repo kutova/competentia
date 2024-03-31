@@ -74,7 +74,7 @@ let editaCurso = function (id) {
       (t, i) =>
         `<option value=${i} ${curso.grau == i ? "selected" : ""}>${t}</option>`
     )
-    .join();
+    .join("");
   modalidadeModalEditaCurso.innerHTML = modalidades
     .map(
       (t, i) =>
@@ -82,7 +82,7 @@ let editaCurso = function (id) {
           curso.modalidade == i ? "selected" : ""
         }>${t}</option>`
     )
-    .join();
+    .join("");
   areaModalEditaCurso.innerHTML = dbAreas
     .areas()
     .sort((a, b) => a.nome.localeCompare(b.nome))
@@ -92,7 +92,7 @@ let editaCurso = function (id) {
           elem.nome
         }</option>`
     )
-    .join();
+    .join("");
   versaoModalEditaCurso.value = curso.versao;
   anoModalEditaCurso.value = curso.ano;
   observacoesModalEditaCurso.value = curso.observacoes;
@@ -137,15 +137,15 @@ let salvar = function (curso, cursos) {
 let criaCurso = function () {
   grauModalCriaCurso.innerHTML = graus
     .map((t, i) => `<option value=${i}>${t}</option>`)
-    .join();
+    .join("");
   modalidadeModalCriaCurso.innerHTML = modalidades
     .map((t, i) => `<option value=${i}>${t}</option>`)
-    .join();
+    .join("");
   areaModalCriaCurso.innerHTML = dbAreas
     .areas()
     .sort((a, b) => a.nome.localeCompare(b.nome))
     .map((elem) => `<option value=${elem.id}>${elem.nome}</option>`)
-    .join();
+    .join("");
   nomeModalCriaCurso.value = "";
   semestresModalCriaCurso.value = 8;
   grauModalCriaCurso.value = 0;

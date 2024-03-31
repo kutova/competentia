@@ -68,6 +68,27 @@ let dbComponentesCompetencias_Competencias = {
     return competencias;
   },
 
+  // altera as competencias de um componente de competencia
+  update: function (idComponenteCompetencia, listaIdsCompetencias) {
+    let componentesCompetencias_Competencias = JSON.parse(
+      localStorage.getItem("componentescompetencias-competencias") || "[]"
+    );
+    componentesCompetencias_Competencias =
+      componentesCompetencias_Competencias.filter(
+        (cc) => cc.idComponenteCompetencia != idComponenteCompetencia
+      );
+    for (i in listaIdsCompetencias) {
+      componentesCompetencias_Competencias.push({
+        idComponenteCompetencia: idComponenteCompetencia,
+        idCompetencia: listaIdsCompetencias[i],
+      });
+    }
+    localStorage.setItem(
+      "componentescompetencias-competencias",
+      JSON.stringify(componentesCompetencias_Competencias)
+    );
+  },
+
   // remove a componente de uma competência
   delete: function (idComponente, idCompetencia) {
     let componentesCompetencias_Competencias = JSON.parse(

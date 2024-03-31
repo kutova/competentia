@@ -1,0 +1,31 @@
+@media (max-width: 768px) {
+  .tabelaComponentesCompetenciasComp thead th:nth-child(4),
+  .tabelaComponentesCompetenciasComp thead th:nth-child(5),
+  .tabelaComponentesCompetenciasComp tbody td:nth-child(4),
+  .tabelaComponentesCompetenciasComp tbody td:nth-child(5) {
+    display: none;
+  }
+}
+
+#modalEditaComponente article {
+  max-width: min(1100px, 100%);
+}
+
+.tabelaComponentesCompetenciasComp td {
+  vertical-align: top;
+}
+
+.tabelaComRolagem {
+  /* overflow-y: auto; */
+  /* height: 20em; */
+  font-size: smaller;
+}
+
+#modalCriaComponente footer {
+  justify-content: space-between;
+}
+
+#modalCriaComponente footer :first-child {
+  justify-content: space-between;
+  margin-left: 0;
+}
