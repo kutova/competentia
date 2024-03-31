@@ -55,7 +55,7 @@ let dbCompetencias_Cursos = {
       localStorage.getItem("competencias-cursos") || "[]"
     );
     let competencias = [];
-    for (i in competenciasCursos) {
+    for (let i in competenciasCursos) {
       if (competenciasCursos[i].idCurso == idCurso)
         competencias.push({
           id: competenciasCursos[i].idCompetencia,
@@ -82,7 +82,7 @@ let dbCompetencias_Cursos = {
       localStorage.getItem("competencias-cursos") || "[]"
     );
     let cursos = [];
-    for (i in competenciasCursos) {
+    for (let i in competenciasCursos) {
       if (competenciasCursos[i].idCompetencia == idCompetencia)
         cursos.push({
           id: competenciasCursos[i].idCurso,

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Admin (Usuários) - Competentia</title>
+    <meta name="description" content="Mapa de Competências - PUC Minas" />
+    <script defer src="./scripts/dados.js"></script>
+    <script defer src="./scripts/scripts.js"></script>
+    <script defer src="./services/usuarios-service.js"></script>
+    <script defer src="./services/cursos-service.js"></script>
+    <script defer src="./services/cursos-usuarios-service.js"></script>
+    <script defer src="./scripts/admin-usuarios.js"></script>
+    <link rel="stylesheet" href="./estilos/pico.min.css" />
+    <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
+    <link rel="stylesheet" href="./estilos/estilos.css" />
+    <link rel="stylesheet" href="./estilos/admin-css" />
+  </head>
+
+  <body class="container">
+    <!-- Header -->
+    <header id="cabecalho">
+      <span class="logo">
+        <a href="./index.html">
+          <img src="./imagens/pucminas.png" width="120" />
+        </a>
+      </span>
+      <h1 id="appName"></h1>
+      <nav>
+        <ul id="topMenu">
+          <li>
+            <details class="dropdown">
+              <summary class="secondary" id="nomeUsuarioLogado"></summary>
+              <ul>
+                <li><a href="#" id="btnLogout">Sair</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- ./ Header -->
+
+    <!-- Main -->
+    <main class="has-side-menu">
+      <header>
+        <h2>Área do Administrador</h2>
+        <hr />
+      </header>
+
+      <aside id="sideMenu">
+        <article>
+          <nav>
+            <ul>
+              <li>
+                <a href="./index.html" class="secondary">Painel de Cursos</a>
+              </li>
+              <li>
+                <a href="./admin-usuarios.html">Usuários</a>
+              </li>
+              <li>
+                <a class="secondary" href="./admin-areas.html">Áreas</a>
+              </li>
+              <li>
+                <a class="secondary" href="./admin-cursos.html">Cursos</a>
+              </li>
+            </ul>
+          </nav>
+        </article>
+      </aside>
+
+      <section id="painelUsuarios">
+        <h4>USUÁRIOS</h4>
+        <div class="overflow-auto">
+          <table id="tabela">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Tipo</th>
+                <th scope="col" class="colunaIcones"></th>
+              </tr>
+            </thead>
+            <tbody id="dadosUsuarios"></tbody>
+          </table>
+        </div>
+        <footer><button id="btnAdicionar">Adicionar</button></footer>
+      </section>
+    </main>
+
+    <dialog id="modalExibeUsuario">
+      <article>
+        <header>
+          <button
+            id="iconeFecharExibicao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Usuário</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalExibeUsuario">Nome</label>
+          <input id="nomeModalExibeUsuario" readonly />
+          <label for="emailModalExibeUsuario">E-mail</label>
+          <input id="emailModalExibeUsuario" readonly />
+          <div class="grid">
+            <div>
+              <label for="celularModalExibeUsuario">Celular</label>
+              <input id="celularModalExibeUsuario" readonly />
+            </div>
+            <div>
+              <label for="tipoModalExibeUsuario">Tipo</label>
+              <input id="tipoModalExibeUsuario" readonly />
+            </div>
+          </div>
+          <div class="tabelaComRolagem">
+            <table id="tabelaCursosUsuario">
+              <thead>
+                <tr>
+                  <th scope="col">Curso</th>
+                  <th scope="col">
+                    <span class="simbolo"
+                      ><img src="./imagens/visibility.svg"
+                    /></span>
+                  </th>
+                  <th scope="col">
+                    <span class="simbolo"
+                      ><img src="./imagens/edit.svg"
+                    /></span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="listaCursos"></tbody>
+            </table>
+          </div>
+        </fieldset>
+        <footer>
+          <button id="btnFecharExibicao">Fechar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalEditaUsuario">
+      <article>
+        <header>
+          <button id="iconeFecharEdicao" aria-label="Close" rel="prev"></button>
+          <p>
+            <strong>Usuário</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalEditaUsuario">Nome</label>
+          <input id="nomeModalEditaUsuario" />
+          <label for="emailModalEditaUsuario">E-mail</label>
+          <input id="emailModalEditaUsuario" />
+          <div class="grid">
+            <div>
+              <label for="celularModalEditaUsuario">Celular</label>
+              <input id="celularModalEditaUsuario" />
+            </div>
+            <div>
+              <label for="tipoModalEditaUsuario">Tipo</label>
+              <select id="tipoModalEditaUsuario"></select>
+            </div>
+          </div>
+          <div class="tabelaComRolagem">
+            <table id="tabelaCursosUsuario">
+              <thead>
+                <tr>
+                  <th scope="col">Curso</th>
+                  <th scope="col">
+                    <span class="simbolo"
+                      ><img src="./imagens/visibility.svg"
+                    /></span>
+                  </th>
+                  <th scope="col">
+                    <span class="simbolo"
+                      ><img src="./imagens/edit.svg"
+                    /></span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="listaCursos2"></tbody>
+            </table>
+          </div>
+        </fieldset>
+        <footer>
+          <button class="outline" id="btnCancelar2">Cancelar</button>
+          <button id="btnFecharEdicao">Salvar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalCriaUsuario">
+      <article>
+        <header>
+          <button
+            id="iconeFecharCriacao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Novo Usuário</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalCriaUsuario">Nome</label>
+          <input id="nomeModalCriaUsuario" />
+          <label for="emailModalCriaUsuario">E-mail</label>
+          <input id="emailModalCriaUsuario" />
+          <div class="grid">
+            <div>
+              <label for="senha1ModalCriaUsuario">Senha</label>
+              <input id="senha1ModalCriaUsuario" type="password" />
+            </div>
+            <div>
+              <label for="senha2ModalCriaUsuario">Confirmar senha</label>
+              <input id="senha2ModalCriaUsuario" type="password" />
+            </div>
+          </div>
+          <div class="grid">
+            <div>
+              <label for="celularModalCriaUsuario">Celular</label>
+              <input id="celularModalCriaUsuario" />
+            </div>
+            <div>
+              <label for="tipoModalCriaUsuario">Tipo</label>
+              <select id="tipoModalCriaUsuario"></select>
+            </div>
+          </div>
+          <p>
+            <small
+              ><strong>Obs.:</strong> Os cursos do usuário devem ser
+              acrescentados após a sua criação.</small
+            >
+          </p>
+        </fieldset>
+        <footer>
+          <button class="outline" id="btnCancelar3">Cancelar</button>
+          <button id="btnAdicionar3">Adicionar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalErro">
+      <article>
+        <header>
+          <button id="iconeFecharErro" aria-label="Close" rel="prev"></button>
+          <p>
+            <strong>ERRO</strong>
+          </p>
+        </header>
+        <p id="mensagemErro"></p>
+        <footer>
+          <button id="btnOkErro">Ok</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalApagaUsuario">
+      <article>
+        <header>
+          <button
+            id="iconeFecharExclusao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Exclusão de Usuário</strong>
+          </p>
+        </header>
+        <p>
+          Deseja excluir o usuário
+          <strong><span id="usuarioAExcluir"></span></strong>?
+        </p>
+        <p>
+          <small>
+            <strong>Obs.:</strong>Todos os seus cursos serão excluídos
+            automaticamente.
+          </small>
+        </p>
+        <footer>
+          <button class="outline" id="btnCancelar4">Cancelar</button>
+          <button id="btnExcluir">Confirma</button>
+        </footer>
+      </article>
+    </dialog>
+  </body>
+</html>

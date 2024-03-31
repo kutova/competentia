@@ -10,7 +10,7 @@ nomeCurso.innerHTML =
     : "");
 
 let linksMenu = document.querySelectorAll(".linkDoCurso");
-for (i in linksMenu) {
+for (let i in linksMenu) {
   linksMenu[i].href += "?curso=" + curso.id;
 }
 
@@ -179,12 +179,12 @@ let editaComponenteContinuacao = function (idComponenteCurricular) {
     .competencias(curso.id)
     .map((c) => c.id);
   let idsComponentesCompetencias = [];
-  for (i in competencias) {
+  for (let i in competencias) {
     let componentesDaCompetencia =
       dbComponentesCompetencias_Competencias.componentesCompetencia(
         competencias[i]
       );
-    for (j in componentesDaCompetencia) {
+    for (let j in componentesDaCompetencia) {
       if (
         idsComponentesCompetencias.findIndex(
           (c) => c == componentesDaCompetencia[j]
@@ -298,12 +298,12 @@ let criaComponente = function () {
     .competencias(curso.id)
     .map((c) => c.id);
   let idsComponentesCompetencias = [];
-  for (i in competencias) {
+  for (let i in competencias) {
     let componentesDaCompetencia =
       dbComponentesCompetencias_Competencias.componentesCompetencia(
         competencias[i]
       );
-    for (j in componentesDaCompetencia) {
+    for (let j in componentesDaCompetencia) {
       if (
         idsComponentesCompetencias.findIndex(
           (c) => c == componentesDaCompetencia[j]
@@ -388,12 +388,12 @@ let pesquisaComponentes = function () {
   let cursosDoUsuario = dbCursos_Usuarios.cursosUsuario(usuarioLogado.id);
   let componentes = [];
   let i, j;
-  for (i in cursosDoUsuario) {
+  for (let i in cursosDoUsuario) {
     let componentesDosCursos =
       dbComponentesCurriculares_Cursos.componentesCurriculares(
         cursosDoUsuario[i].id
       );
-    for (j in componentesDosCursos) {
+    for (let j in componentesDosCursos) {
       let k = componentes.findIndex(
         (c) => c.id == componentesDosCursos[j].idComponenteCurricular
       );

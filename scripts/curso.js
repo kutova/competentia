@@ -15,7 +15,7 @@ editoresCurso.innerHTML = usuarios
   .join("<br />");
 
 let linksMenu = document.querySelectorAll(".linkDoCurso");
-for (i in linksMenu) {
+for (let i in linksMenu) {
   linksMenu[i].href += "?curso=" + curso.id;
 }
 

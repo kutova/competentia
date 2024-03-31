@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Admin (Áreas) - Competentia</title>
+    <meta name="description" content="Mapa de Competências - PUC Minas" />
+    <script defer src="./scripts/dados.js"></script>
+    <script defer src="./scripts/scripts.js"></script>
+    <script defer src="./services/areas-service.js"></script>
+    <script defer src="./services/cursos-service.js"></script>
+    <script defer src="./scripts/admin-areas.js"></script>
+    <link rel="stylesheet" href="./estilos/pico.min.css" />
+    <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
+    <link rel="stylesheet" href="./estilos/estilos.css" />
+    <link rel="stylesheet" href="./estilos/admin-css" />
+  </head>
+
+  <body class="container">
+    <!-- Header -->
+    <header id="cabecalho">
+      <span class="logo">
+        <a href="./index.html">
+          <img src="./imagens/pucminas.png" width="120" />
+        </a>
+      </span>
+      <h1 id="appName"></h1>
+      <nav>
+        <ul id="topMenu">
+          <li>
+            <details class="dropdown">
+              <summary class="secondary" id="nomeUsuarioLogado"></summary>
+              <ul>
+                <li><a href="#" id="btnLogout">Sair</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- ./ Header -->
+
+    <!-- Main -->
+    <main class="has-side-menu">
+      <header>
+        <h2>Área do Administrador</h2>
+        <hr />
+      </header>
+
+      <aside id="sideMenu">
+        <article>
+          <nav>
+            <ul>
+              <li>
+                <a href="./index.html" class="secondary">Painel de Cursos</a>
+              </li>
+              <li>
+                <a class="secondary" href="./admin-usuarios.html">Usuários</a>
+              </li>
+              <li>
+                <a href="./admin-areas.html">Áreas</a>
+              </li>
+              <li>
+                <a class="secondary" href="./admin-cursos.html">Cursos</a>
+              </li>
+            </ul>
+          </nav>
+        </article>
+      </aside>
+
+      <section id="painelAreas">
+        <h4>ÁREAS DE CONHECIMENTO</h4>
+        <div class="overflow-auto">
+          <table id="tabela">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col" class="colunaIcones"></th>
+              </tr>
+            </thead>
+            <tbody id="dadosAreas"></tbody>
+          </table>
+        </div>
+        <footer><button id="btnAdicionar">Adicionar</button></footer>
+      </section>
+    </main>
+
+    <dialog id="modalExibeArea">
+      <article>
+        <header>
+          <button
+            id="iconeFecharExibicao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Área de Conhecimento</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalExibeArea">Nome</label>
+          <input id="nomeModalExibeArea" readonly />
+          <label for="cursosModalExibeArea">Cursos</label>
+          <textarea id="cursosModalExibeArea" readonly rows="5">
+              Nenhum curso
+          </textarea>
+        </fieldset>
+        <footer>
+          <button id="btnFecharExibicao">Fechar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalEditaArea">
+      <article>
+        <header>
+          <button id="iconeFecharEdicao" aria-label="Close" rel="prev"></button>
+          <p>
+            <strong>Área de Conhecimento</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalEditaArea">Nome</label>
+          <input id="nomeModalEditaArea" />
+        </fieldset>
+        <footer>
+          <button class="outline" id="btnCancelar2">Cancelar</button>
+          <button id="btnFecharEdicao">Salvar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalCriaArea">
+      <article>
+        <header>
+          <button
+            id="iconeFecharCriacao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Nova Área de Conhecimento</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalCriaArea">Nome</label>
+          <input id="nomeModalCriaArea" />
+        </fieldset>
+        <footer>
+          <button class="outline" id="btnCancelar3">Cancelar</button>
+          <button id="btnFecharCriacao">Adicionar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalApagaArea">
+      <article>
+        <header>
+          <button
+            id="iconeFecharExclusao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Exclusão de Área</strong>
+          </p>
+        </header>
+        <p>
+          Deseja excluir a área
+          <strong><span id="areaAExcluir"></span></strong>?
+        </p>
+        <p>
+          <small>
+            <strong>Observação:</strong> Uma área só pode ser excluída quando
+            não há nenhum curso vinculado a ela.
+          </small>
+        </p>
+        <footer>
+          <button class="outline" id="btnCancelar4">Cancelar</button>
+          <button id="btnExcluir">Confirma</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalErro">
+      <article>
+        <header>
+          <button id="iconeFecharErro" aria-label="Close" rel="prev"></button>
+          <p>
+            <strong>ERRO</strong>
+          </p>
+        </header>
+        <p id="mensagemErro"></p>
+        <footer>
+          <button id="btnOkErro">Ok</button>
+        </footer>
+      </article>
+    </dialog>
+  </body>
+</html>

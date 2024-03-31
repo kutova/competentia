@@ -29,7 +29,7 @@ let dbAreas = {
   // recupera um area específico
   area: function (idArea) {
     let areas = JSON.parse(localStorage.getItem("areas") || "[]");
-    for (i in areas) {
+    for (let i in areas) {
       if (areas[i].id == idArea) return areas[i];
     }
     return null;
@@ -38,7 +38,7 @@ let dbAreas = {
   // Atualiza os dados da área, supondo que o id foi mantido
   update: function (elem) {
     let areas = JSON.parse(localStorage.getItem("areas") || "[]");
-    for (i in areas) {
+    for (let i in areas) {
       if (areas[i].id == elem.id) {
         areas[i].nome = elem.nome;
       }

@@ -10,7 +10,7 @@ nomeCurso.innerHTML =
     : "");
 
 let linksMenu = document.querySelectorAll(".linkDoCurso");
-for (i in linksMenu) {
+for (let i in linksMenu) {
   linksMenu[i].href += "?curso=" + curso.id;
 }
 
@@ -28,12 +28,12 @@ let mostraTabela = function () {
 
   // Recupera os componentes de competências dessas competências
   let componentesCompetencias = [];
-  for (i in competencias) {
+  for (let i in competencias) {
     let idsComponentesCompetencias =
       dbComponentesCompetencias_Competencias.componentesCompetencia(
         competencias[i].id
       );
-    for (j in idsComponentesCompetencias)
+    for (let j in idsComponentesCompetencias)
       if (componentesCompetencias.indexOf(idsComponentesCompetencias[j]) == -1)
         componentesCompetencias.push(idsComponentesCompetencias[j]);
   }
@@ -346,11 +346,11 @@ let pesquisaComponentes = function () {
   let cursosDoUsuario = dbCursos_Usuarios.cursosUsuario(usuarioLogado.id);
   let competencias = [];
   let i, j;
-  for (i in cursosDoUsuario) {
+  for (let i in cursosDoUsuario) {
     let competenciasDoCurso = dbCompetencias_Cursos.competencias(
       cursosDoUsuario[i].id
     );
-    for (j in competenciasDoCurso) {
+    for (let j in competenciasDoCurso) {
       let k = competencias.findIndex((c) => c.id == competenciasDoCurso[j].id);
       if (k == -1)
         competencias.push({
@@ -363,12 +363,12 @@ let pesquisaComponentes = function () {
 
   // Recupera os componentes dessas competências
   let componentes = [];
-  for (i in competencias) {
+  for (let i in competencias) {
     let componentesDaCompetencia =
       dbComponentesCompetencias_Competencias.componentesCompetencia(
         competencias[i].id
       );
-    for (j in componentesDaCompetencia)
+    for (let j in componentesDaCompetencia)
       if (
         componentes.findIndex((id) => id == componentesDaCompetencia[j]) == -1
       )
@@ -455,7 +455,7 @@ let importaComponente = function (idComponente) {
   // Testa se o componente já existe
   let competencias =
     dbComponentesCompetencias_Competencias.competencias(idComponente);
-  for (i in competencias) {
+  for (let i in competencias) {
     console.log(competencias[i]);
     console.log(dbCompetencias_Cursos.cursos(competencias[i]));
     if (dbCompetencias_Cursos.cursos(competencias[i]).length > 0) {
@@ -499,17 +499,17 @@ let remover = function (idComponente) {
   let cursosDoUsuario = dbCursos_Usuarios.cursosUsuario(usuarioLogado.id);
   let competencias = [];
   let i, j;
-  for (i in cursosDoUsuario) {
+  for (let i in cursosDoUsuario) {
     let competenciasDoCurso = dbCompetencias_Cursos.competencias(
       cursosDoUsuario[i].id
     );
-    for (j in competenciasDoCurso)
+    for (let j in competenciasDoCurso)
       if (
         competencias.findIndex((c) => c.id == competenciasDoCurso[j].id) == -1
       )
         competencias.push(competenciasDoCurso[j].id);
   }
-  for (i in competenciasDoCurso)
+  for (let i in competenciasDoCurso)
     dbComponentesCompetencias_Competencias.delete(
       idComponente,
       competenciasDoCurso[i]

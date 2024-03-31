@@ -35,7 +35,7 @@ let dbComponentesCurriculares_Cursos = {
       localStorage.getItem("componentescurriculares-cursos") || "[]"
     );
     let componentesCurriculares = [];
-    for (i in componentesCurriculares_Cursos) {
+    for (let i in componentesCurriculares_Cursos) {
       if (componentesCurriculares_Cursos[i].idCurso == idCurso)
         componentesCurriculares.push(componentesCurriculares_Cursos[i]);
     }
@@ -48,7 +48,7 @@ let dbComponentesCurriculares_Cursos = {
       localStorage.getItem("componentescurriculares-cursos") || "[]"
     );
     let cursos = [];
-    for (i in componentesCurriculares_Cursos) {
+    for (let i in componentesCurriculares_Cursos) {
       if (
         componentesCurriculares_Cursos[i].idComponenteCurricular ==
         idComponenteCurricular

@@ -64,7 +64,7 @@ let dbUsuarios = {
   // Retorna os dados de um usuário por meio do seu e-mail (sem a senha)
   usuario: function (id) {
     let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
-    for (i in usuarios) {
+    for (let i in usuarios) {
       if (usuarios[i].id == id)
         return {
           id: usuarios[i].id,
@@ -81,7 +81,7 @@ let dbUsuarios = {
   // O campo senha não está incluído nos dados
   update: function (elem) {
     let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
-    for (i in usuarios) {
+    for (let i in usuarios) {
       if (usuarios[i].id == elem.id) {
         usuarios[i].nome = elem.nome;
         usuarios[i].email = elem.email;

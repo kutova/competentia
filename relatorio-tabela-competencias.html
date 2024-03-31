@@ -4,19 +4,35 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>Curso - Competentia</title>
+    <title>Tabela de Competências - Competentia</title>
     <meta name="description" content="Mapa de Competências - PUC Minas" />
     <script defer src="./scripts/dados.js"></script>
     <script defer src="./services/usuarios-service.js"></script>
     <script defer src="./services/cursos-service.js"></script>
     <script defer src="./services/cursos-usuarios-service.js"></script>
     <script defer src="./services/areas-service.js"></script>
+    <script defer src="./services/competencias-service.js"></script>
+    <script defer src="./services/competencias-cursos-service.js"></script>
+    <script defer src="./services/componentescompetencias-service.js"></script>
+    <script defer src="./services/componentescurriculares-service.js"></script>
+    <script
+      defer
+      src="./services/componentescurriculares-cursos-service.js"
+    ></script>
+    <script
+      defer
+      src="./services/componentescompetencias-competencias-service.js"
+    ></script>
+    <script
+      defer
+      src="./services/componentescompetencias-componentescurriculares-service.js"
+    ></script>
     <script defer src="./scripts/scripts.js"></script>
-    <script defer src="./scripts/curso.js"></script>
+    <script defer src="./scripts/relatorio-tabela-competencias.js"></script>
     <link rel="stylesheet" href="./estilos/pico.min.css" />
     <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
     <link rel="stylesheet" href="./estilos/estilos.css" />
-    <link rel="stylesheet" href="./estilos/curso.css" />
+    <link rel="stylesheet" href="./estilos/relatorios-tabelas.css" />
   </head>
 
   <body class="container">
@@ -60,7 +76,7 @@
                 <a href="./index.html" class="secondary">Painel de Cursos</a>
               </li>
               <li>
-                <a class="linkDoCurso" href="./curso.html">Curso</a>
+                <a class="linkDoCurso secondary" href="./curso.html">Curso</a>
               </li>
               <li>
                 <a class="linkDoCurso secondary" href="./competencias.html">
@@ -103,7 +119,7 @@
                     </li>
                     <li class="submenu">
                       <a
-                        class="linkDoCurso secondary"
+                        class="linkDoCurso"
                         href="./relatorio-tabela-competencias.html"
                         >Tabela de Competências</a
                       >
@@ -123,46 +139,15 @@
         </article>
       </aside>
 
-      <!-- Conteúdo do curso -->
+      <!-- Conteúdo central -->
       <section>
-        <div id="dadosCurso">
-          <table>
-            <tbody>
-              <tr>
-                <th scope="row">Grau:</th>
-                <td id="grauCurso"></td>
-              </tr>
-              <tr>
-                <th scope="row">Modalide:</th>
-                <td id="modalidadeCurso"></td>
-              </tr>
-              <tr>
-                <th scope="row">Semestres:</th>
-                <td id="semestresCurso"></td>
-              </tr>
-              <tr>
-                <th scope="row">Área:</th>
-                <td id="areaCurso"></td>
-              </tr>
-              <tr>
-                <th scope="row">Versão:</th>
-                <td id="versaoCurso"></td>
-              </tr>
-              <tr>
-                <th scope="row">Ano:</th>
-                <td id="anoCurso"></td>
-              </tr>
-              <tr>
-                <th scope="row">Editores:</th>
-                <td id="editoresCurso"></td>
-              </tr>
-              <tr>
-                <th scope="row">Observações:</th>
-                <td id="observacoesCurso"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <h4>TABELA DE COMPETÊNCIAS</h4>
+
+        <section>
+          <div class="overflow-auto">
+            <table id="tabelaDados"></table>
+          </div>
+        </section>
       </section>
     </main>
   </body>

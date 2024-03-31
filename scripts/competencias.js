@@ -10,7 +10,7 @@ nomeCurso.innerHTML =
     : "");
 
 let linksMenu = document.querySelectorAll(".linkDoCurso");
-for (i in linksMenu) {
+for (let i in linksMenu) {
   linksMenu[i].href += "?curso=" + curso.id;
 }
 
@@ -254,11 +254,11 @@ let pesquisaCompetencias = function () {
   let cursosDoUsuario = dbCursos_Usuarios.cursosUsuario(usuarioLogado.id);
   let competencias = [];
   let i, j;
-  for (i in cursosDoUsuario) {
+  for (let i in cursosDoUsuario) {
     let competenciasDoCurso = dbCompetencias_Cursos.competencias(
       cursosDoUsuario[i].id
     );
-    for (j in competenciasDoCurso) {
+    for (let j in competenciasDoCurso) {
       let k = competencias.findIndex((c) => c.id == competenciasDoCurso[j].id);
       if (k == -1)
         competencias.push({

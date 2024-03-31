@@ -16,3 +16,4 @@ let tiposComponentesCurriculares = [
 
 let tiposComponentesCompetencias = ["Conhecimento", "Habilidade", "Atitude"];
 let artigosTiposComponentesCompetencias = ["o", "a", "a"];
+let iniciaisTiposComponentesCompetencias = ["C", "H", "A"];

@@ -64,7 +64,7 @@ let dbCompetencias = {
   // recupera um competencia específico
   competencia: function (idCompetencia) {
     let competencias = JSON.parse(localStorage.getItem("competencias") || "[]");
-    for (i in competencias) {
+    for (let i in competencias) {
       if (competencias[i].id == idCompetencia) return competencias[i];
     }
     return null;
@@ -73,7 +73,7 @@ let dbCompetencias = {
   // Atualiza os dados da área, supondo que o id foi mantido
   update: function (elem) {
     let competencias = JSON.parse(localStorage.getItem("competencias") || "[]");
-    for (i in competencias) {
+    for (let i in competencias) {
       if (competencias[i].id == elem.id) {
         competencias[i].nome = elem.nome;
         competencias[i].tipo = elem.tipo;

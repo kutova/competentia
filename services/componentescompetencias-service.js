@@ -184,7 +184,7 @@ let dbComponentesCompetencias = {
     let componentesCompetencias = JSON.parse(
       localStorage.getItem("componentescompetencias") || "[]"
     );
-    for (i in componentesCompetencias) {
+    for (let i in componentesCompetencias) {
       if (componentesCompetencias[i].id == elem.id) {
         componentesCompetencias[i].nome = elem.nome;
         componentesCompetencias[i].tipo = elem.tipo;

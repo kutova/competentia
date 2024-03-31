@@ -1,0 +1,27 @@
+.overflow-auto {
+  max-width: 100%;
+}
+
+#tabelaDados thead th {
+  height: 25em;
+}
+
+#tabelaDados thead th:first-child {
+  vertical-align: bottom;
+}
+
+#tabelaDados thead th:not(:first-child) {
+  padding-left: 1ex;
+  padding-right: 1ex;
+}
+
+#tabelaDados thead th:not(:first-child) div {
+  height: 100%;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+#tabelaDados tbody td:not(:first-child) {
+  vertical-align: top;
+  text-align: center;
+}

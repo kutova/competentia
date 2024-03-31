@@ -97,7 +97,7 @@ let dbCursos_Usuarios = {
       localStorage.getItem("cursos-usuarios") || "[]"
     );
     let cursos = [];
-    for (i in cursosUsuarios) {
+    for (let i in cursosUsuarios) {
       if (cursosUsuarios[i].idUsuario == idUsuario)
         cursos.push({
           id: cursosUsuarios[i].idCurso,
@@ -113,7 +113,7 @@ let dbCursos_Usuarios = {
       localStorage.getItem("cursos-usuarios") || "[]"
     );
     let usuarios = [];
-    for (i in cursosUsuarios) {
+    for (let i in cursosUsuarios) {
       if (
         cursosUsuarios[i].idCurso == idCurso &&
         cursosUsuarios[i].permissao == 0
@@ -133,7 +133,7 @@ let dbCursos_Usuarios = {
     cursosUsuarios = cursosUsuarios.filter((c) => c.idUsuario != idUsuario);
 
     // acrescenta os cursos a editar
-    for (i in cursosAEditar) {
+    for (let i in cursosAEditar) {
       cursosUsuarios.push({
         idUsuario: idUsuario,
         idCurso: cursosAEditar[i],
@@ -142,7 +142,7 @@ let dbCursos_Usuarios = {
     }
 
     // acrescenta os cursos a visualziar
-    for (i in cursosAVisualizar) {
+    for (let i in cursosAVisualizar) {
       cursosUsuarios.push({
         idUsuario: idUsuario,
         idCurso: cursosAVisualizar[i],

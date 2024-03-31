@@ -136,7 +136,7 @@ let dbCursos = {
   // Atualiza os dados do curso, supondo que o id foi mantido
   update: function (elem) {
     let cursos = JSON.parse(localStorage.getItem("cursos") || "[]");
-    for (i in cursos) {
+    for (let i in cursos) {
       if (cursos[i].id == elem.id) {
         cursos[i].nome = elem.nome;
         cursos[i].semestres = elem.semestres;

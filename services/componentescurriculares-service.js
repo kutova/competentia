@@ -167,7 +167,7 @@ let dbComponentesCurriculares = {
     let componentesCurriculares = JSON.parse(
       localStorage.getItem("componentescurriculares") || "[]"
     );
-    for (i in componentesCurriculares) {
+    for (let i in componentesCurriculares) {
       if (componentesCurriculares[i].id == elem.id) {
         componentesCurriculares[i].nome = elem.nome;
         componentesCurriculares[i].cargaHoraria = elem.cargaHoraria;

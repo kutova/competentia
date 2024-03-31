@@ -35,7 +35,7 @@ let dbComponentesCompetencias_ComponentesCurriculares = {
         "[]"
     );
     let componentesCompetencias = [];
-    for (i in componentesCompentencia_ComponentesCurriculares) {
+    for (let i in componentesCompentencia_ComponentesCurriculares) {
       if (
         componentesCompentencia_ComponentesCurriculares[i]
           .idComponenteCurricular == idComponenteCurricular
@@ -55,7 +55,7 @@ let dbComponentesCompetencias_ComponentesCurriculares = {
         "[]"
     );
     let componentescurriculares = [];
-    for (i in componentesCompentencia_ComponentesCurriculares) {
+    for (let i in componentesCompentencia_ComponentesCurriculares) {
       if (
         componentesCompentencia_ComponentesCurriculares[i]
           .idComponenteCompetencia == idComponenteCompetencia
@@ -78,7 +78,7 @@ let dbComponentesCompetencias_ComponentesCurriculares = {
       componentesCompentencia_ComponentesCurriculares.filter(
         (cc) => cc.idComponenteCurricular != idComponenteCurricular
       );
-    for (i in listaIdsComponenteCompetencias) {
+    for (let i in listaIdsComponenteCompetencias) {
       componentesCompentencia_ComponentesCurriculares.push({
         idComponenteCompetencia: listaIdsComponenteCompetencias[i],
         idComponenteCurricular: idComponenteCurricular,

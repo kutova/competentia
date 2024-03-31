@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Admin (Cursos) - Competentia</title>
+    <meta name="description" content="Mapa de Competências - PUC Minas" />
+    <script defer src="./scripts/dados.js"></script>
+    <script defer src="./scripts/scripts.js"></script>
+    <script defer src="./services/usuarios-service.js"></script>
+    <script defer src="./services/areas-service.js"></script>
+    <script defer src="./services/cursos-service.js"></script>
+    <script defer src="./services/cursos-usuarios-service.js"></script>
+    <script defer src="./scripts/admin-cursos.js"></script>
+    <link rel="stylesheet" href="./estilos/pico.min.css" />
+    <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
+    <link rel="stylesheet" href="./estilos/estilos.css" />
+    <link rel="stylesheet" href="./estilos/admin-css" />
+  </head>
+
+  <body class="container">
+    <!-- Header -->
+    <header id="cabecalho">
+      <span class="logo">
+        <a href="./index.html">
+          <img src="./imagens/pucminas.png" width="120" />
+        </a>
+      </span>
+      <h1 id="appName"></h1>
+      <nav>
+        <ul id="topMenu">
+          <li>
+            <details class="dropdown">
+              <summary class="secondary" id="nomeUsuarioLogado"></summary>
+              <ul>
+                <li><a href="#" id="btnLogout">Sair</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- ./ Header -->
+
+    <!-- Main -->
+    <main class="has-side-menu">
+      <header>
+        <h2>Área do Administrador</h2>
+        <hr />
+      </header>
+
+      <aside id="sideMenu">
+        <article>
+          <nav>
+            <ul>
+              <li>
+                <a href="./index.html" class="secondary">Painel de Cursos</a>
+              </li>
+              <li>
+                <a class="secondary" href="./admin-usuarios.html">Usuários</a>
+              </li>
+              <li>
+                <a class="secondary" href="./admin-areas.html">Áreas</a>
+              </li>
+              <li>
+                <a href="./admin-cursos.html">Cursos</a>
+              </li>
+            </ul>
+          </nav>
+        </article>
+      </aside>
+
+      <section id="painelCursos">
+        <header>
+          <h4>CURSOS</h4>
+          <fieldset>
+            <label>
+              <input id="chkArquivados" type="checkbox" role="switch" /> Incluir
+              cursos arquivados
+            </label>
+          </fieldset>
+        </header>
+
+        <div class="overflow-auto">
+          <table id="tabela">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Grau</th>
+                <th scope="col">Modalidade</th>
+                <th scope="col">Versão</th>
+                <th scope="col">Ano</th>
+                <th scope="col" class="colunaIcones"></th>
+              </tr>
+            </thead>
+            <tbody id="dadosCursos"></tbody>
+          </table>
+        </div>
+        <footer><button id="btnAdicionar">Adicionar</button></footer>
+      </section>
+    </main>
+
+    <dialog id="modalExibeCurso">
+      <article>
+        <header>
+          <button
+            id="iconeFecharExibicao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Curso</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalExibeCurso">Nome</label>
+          <input id="nomeModalExibeCurso" readonly />
+          <div class="grid">
+            <div>
+              <label for="grauModalExibeCurso">Grau</label>
+              <input id="grauModalExibeCurso" readonly />
+            </div>
+            <div>
+              <label for="modalidadeModalExibeCurso">Modalidade</label>
+              <input id="modalidadeModalExibeCurso" readonly />
+            </div>
+          </div>
+          <div class="grid">
+            <div>
+              <label for="semestresModalExibeCurso">Semestres</label>
+              <input
+                id="semestresModalExibeCurso"
+                type="number"
+                min="1"
+                max="20"
+                readonly
+              />
+            </div>
+            <div>
+              <label for="areaModalExibeCurso">Área</label>
+              <input id="areaModalExibeCurso" readonly />
+            </div>
+          </div>
+          <div class="grid">
+            <div>
+              <label for="versaoModalExibeCurso">Versão</label>
+              <input
+                id="versaoModalExibeCurso"
+                type="number"
+                min="1"
+                readonly
+              />
+            </div>
+            <div>
+              <label for="anoModalExibeCurso">Ano</label>
+              <input
+                id="anoModalExibeCurso"
+                type="number"
+                min="2020"
+                readonly
+              />
+            </div>
+          </div>
+          <label for="observacoesModalExibeCurso">Observações</label>
+          <textarea id="observacoesModalExibeCurso" readonly></textarea>
+        </fieldset>
+        <footer>
+          <button id="btnFecharExibicao">Fechar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalEditaCurso">
+      <article>
+        <header>
+          <button id="iconeFecharEdicao" aria-label="Close" rel="prev"></button>
+          <p>
+            <strong>Curso</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalEditaCurso">Nome</label>
+          <input id="nomeModalEditaCurso" />
+          <div class="grid">
+            <div>
+              <label for="grauModalEditaCurso">Grau</label>
+              <select id="grauModalEditaCurso"></select>
+            </div>
+            <div>
+              <label for="modalidadeModalEditaCurso">Modalidade</label>
+              <select id="modalidadeModalEditaCurso"></select>
+            </div>
+          </div>
+          <div class="grid">
+            <div>
+              <label for="semestresModalEditaCurso">Semestres</label>
+              <input
+                id="semestresModalEditaCurso"
+                type="number"
+                min="1"
+                max="20"
+              />
+            </div>
+            <div>
+              <label for="areaModalEditaCurso">Área</label>
+              <select id="areaModalEditaCurso"></select>
+            </div>
+          </div>
+          <div class="grid">
+            <div>
+              <label for="versaoModalEditaCurso">Versão</label>
+              <input id="versaoModalEditaCurso" type="number" min="1" />
+            </div>
+            <div>
+              <label for="anoModalEditaCurso">Ano</label>
+              <input id="anoModalEditaCurso" type="number" min="2020" />
+            </div>
+          </div>
+          <label for="observacoesModalEditaCurso">Observações</label>
+          <textarea id="observacoesModalEditaCurso"></textarea>
+        </fieldset>
+        <footer>
+          <button class="outline" id="btnCancelar2">Cancelar</button>
+          <button id="btnFecharEdicao">Salvar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalCriaCurso">
+      <article>
+        <header>
+          <button
+            id="iconeFecharCriacao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Novo Curso</strong>
+          </p>
+        </header>
+        <fieldset>
+          <label for="nomeModalCriaCurso">Nome</label>
+          <input id="nomeModalCriaCurso" />
+          <div class="grid">
+            <div>
+              <label for="grauModalCriaCurso">Grau</label>
+              <select id="grauModalCriaCurso"></select>
+            </div>
+            <div>
+              <label for="modalidadeModalCriaCurso">Modalidade</label>
+              <select id="modalidadeModalCriaCurso"></select>
+            </div>
+          </div>
+          <div class="grid">
+            <div>
+              <label for="semestresModalCriaCurso">Semestres</label>
+              <input
+                id="semestresModalCriaCurso"
+                type="number"
+                min="1"
+                max="20"
+              />
+            </div>
+            <div>
+              <label for="areaModalCriaCurso">Área</label>
+              <select id="areaModalCriaCurso"></select>
+            </div>
+          </div>
+          <div class="grid">
+            <div>
+              <label for="versaoModalCriaCurso">Versão</label>
+              <input id="versaoModalCriaCurso" type="number" min="1" />
+            </div>
+            <div>
+              <label for="anoModalCriaCurso">Ano</label>
+              <input id="anoModalCriaCurso" type="number" min="2020" />
+            </div>
+          </div>
+          <label for="observacoesModalCriaCurso">Observações</label>
+          <textarea id="observacoesModalCriaCurso"></textarea>
+        </fieldset>
+        <footer>
+          <button class="outline" id="btnCancelar3">Cancelar</button>
+          <button id="btnFecharCriacao">Adicionar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalArquivaCurso">
+      <article>
+        <header>
+          <button
+            id="iconeFecharExclusao"
+            aria-label="Close"
+            rel="prev"
+          ></button>
+          <p>
+            <strong>Arquivamento de Curso</strong>
+          </p>
+        </header>
+        <p>
+          Deseja arquivar o curso
+          <strong><span id="cursoAArquivar"></span></strong>?
+        </p>
+        <p>
+          <small>
+            <strong>Obs.:</strong> Todos os usuários perderão o acesso ao curso.
+          </small>
+        </p>
+        <footer>
+          <button class="outline" id="btnCancelar4">Cancelar</button>
+          <button id="btnArquivar4">Arquivar</button>
+        </footer>
+      </article>
+    </dialog>
+
+    <dialog id="modalErro">
+      <article>
+        <header>
+          <button id="iconeFecharErro" aria-label="Close" rel="prev"></button>
+          <p>
+            <strong>ERRO</strong>
+          </p>
+        </header>
+        <p id="mensagemErro"></p>
+        <footer>
+          <button id="btnOkErro">Ok</button>
+        </footer>
+      </article>
+    </dialog>
+  </body>
+</html>

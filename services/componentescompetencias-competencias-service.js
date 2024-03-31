@@ -39,7 +39,7 @@ let dbComponentesCompetencias_Competencias = {
       localStorage.getItem("componentescompetencias-competencias") || "[]"
     );
     let componentesCompetencia = [];
-    for (i in componentesCompetencias_Competencias) {
+    for (let i in componentesCompetencias_Competencias) {
       if (
         componentesCompetencias_Competencias[i].idCompetencia == idCompetencia
       )
@@ -56,7 +56,7 @@ let dbComponentesCompetencias_Competencias = {
       localStorage.getItem("componentescompetencias-competencias") || "[]"
     );
     let competencias = [];
-    for (i in componentesCompetencias_Competencias) {
+    for (let i in componentesCompetencias_Competencias) {
       if (
         componentesCompetencias_Competencias[i].idComponenteCompetencia ==
         idComponenteCompetencia
@@ -77,7 +77,7 @@ let dbComponentesCompetencias_Competencias = {
       componentesCompetencias_Competencias.filter(
         (cc) => cc.idComponenteCompetencia != idComponenteCompetencia
       );
-    for (i in listaIdsCompetencias) {
+    for (let i in listaIdsCompetencias) {
       componentesCompetencias_Competencias.push({
         idComponenteCompetencia: idComponenteCompetencia,
         idCompetencia: listaIdsCompetencias[i],
