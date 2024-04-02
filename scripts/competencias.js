@@ -152,7 +152,7 @@ let editaCompetencia = function (id) {
     alerta(
       (n == 2
         ? "Existe <strong>mais 1 curso</strong> vinculado"
-        : `Existem <strong>mais ${n - 1} cursos/strong> vinculados`) +
+        : `Existem <strong>mais ${n - 1} cursos</strong> vinculados`) +
         " a esta competência. As alterações feitas aqui valerão para todos os cursos. Apenas o campo código é específico deste curso.",
       () => editaCompetenciaContinuacao(id)
     );
