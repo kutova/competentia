@@ -41,6 +41,7 @@ let mostraTabela = function (idCompetencia) {
               <th>Componente</th>
               <th>Tipo</th>
               <th>Área</th>
+              <th class="dadosExtras escondido">Descrição</th>
             </tr>
           </thead>
           <tbody>
@@ -61,6 +62,7 @@ let mostraTabela = function (idCompetencia) {
       <td>${cc.nome}</td>
       <td>${tiposComponentesCompetencias[cc.tipo]}</td>
       <td>${dbAreas.area(cc.area).nome}</td>
+      <td class="dadosExtras escondido">${cc.descricao}</td>
     </tr>`
               )
               .join("")}
@@ -73,9 +75,21 @@ let mostraTabela = function (idCompetencia) {
   });
 };
 
-// Mostra a tabela de competências
-mostraTabela();
+// --------------------------------------------------------------
+// Gerencia a visualização da coluna de descrição
+// --------------------------------------------------------------
+btnMostraDescricao.onchange = () => {
+  let celulas = document.querySelectorAll(".dadosExtras");
+  if (btnMostraDescricao.checked) {
+    celulas.forEach((c) => c.classList.remove("escondido"));
+  } else {
+    celulas.forEach((c) => c.classList.add("escondido"));
+  }
+};
 
+// --------------------------------------------------------------
+// Cria a funcionalidade de impressão do relatório em PDF
+// --------------------------------------------------------------
 btnImprimir.onclick = () => {
   let doc = new jspdf.jsPDF({
     orientation: "p",
@@ -148,3 +162,8 @@ btnImprimir.onclick = () => {
   }
   doc.save("competencias.pdf");
 };
+
+// --------------------------------------------------------------
+// Mostra a tabela de competências
+// --------------------------------------------------------------
+mostraTabela();

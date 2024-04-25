@@ -11,3 +11,7 @@
 .tabelaCompetencias td {
   vertical-align: top;
 }
+
+.escondido {
+  display: none;
+}

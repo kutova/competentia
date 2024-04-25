@@ -48,6 +48,7 @@ let mostraTabela = function () {
                 <th scope="col">CH</th>
                 <th scope="col">Tipo</th>
                 <th scope="col">Área</th>
+                <th scope="col" class="dadosExtras escondido">Componentes de competências</th>
             </tr>
           </thead>
           <tbody>
@@ -59,6 +60,26 @@ let mostraTabela = function () {
                     <td>${cc.cargaHoraria}</td>
                     <td>${tiposComponentesCurriculares[cc.tipo]}</td>
                     <td>${dbAreas.area(cc.area).nome}</td>
+                    <td class="dadosExtras escondido">${dbComponentesCompetencias_ComponentesCurriculares
+                      .componentesCompetencias(cc.id)
+                      .map((idComponenteCompetencia) =>
+                        dbComponentesCompetencias.componenteCompetencias(
+                          idComponenteCompetencia
+                        )
+                      )
+                      .sort((a, b) =>
+                        a.tipo == b.tipo
+                          ? a.nome.localeCompare(b.nome)
+                          : a.tipo - b.tipo
+                      )
+                      .map(
+                        (c) =>
+                          c.nome +
+                          " (" +
+                          iniciaisTiposComponentesCompetencias[c.tipo] +
+                          ")"
+                      )
+                      .join(", ")}</td>
                     </tr>`
               )
               .join("")}
@@ -71,9 +92,21 @@ let mostraTabela = function () {
   }
 };
 
-// Mostra a tabela de competências
-mostraTabela();
+// --------------------------------------------------------------
+// Gerencia a visualização da coluna de componentes de competências
+// --------------------------------------------------------------
+btnMostraDetalhes.onchange = () => {
+  let celulas = document.querySelectorAll(".dadosExtras");
+  if (btnMostraDetalhes.checked) {
+    celulas.forEach((c) => c.classList.remove("escondido"));
+  } else {
+    celulas.forEach((c) => c.classList.add("escondido"));
+  }
+};
 
+// --------------------------------------------------------------
+// Cria a funcionalidade de impressão do relatório em PDF
+// --------------------------------------------------------------
 btnImprimir.onclick = () => {
   let doc = new jspdf.jsPDF({
     orientation: "p",
@@ -180,3 +213,8 @@ btnImprimir.onclick = () => {
   }
   doc.save("curriculo.pdf");
 };
+
+// --------------------------------------------------------------
+// Mostra a tabela de competências
+// --------------------------------------------------------------
+mostraTabela();
