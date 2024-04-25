@@ -32,11 +32,11 @@ let dbCompetencias_Cursos = {
         idCurso: 9,
         codigo: "C06",
       },
-      {
-        idCompetencia: 7,
-        idCurso: 9,
-        codigo: "C07",
-      },
+      // {
+      //   idCompetencia: 7,
+      //   idCurso: 9,
+      //   codigo: "C07",
+      // },
       {
         idCompetencia: 1,
         idCurso: 5,
