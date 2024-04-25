@@ -6,6 +6,8 @@
     <meta name="color-scheme" content="light dark" />
     <title>Relatório do Currículo - Competentia</title>
     <meta name="description" content="Mapa de Competências - PUC Minas" />
+    <script src="./scripts/jspdf.umd.min.js"></script>
+    <script src="./scripts/jspdf.plugin.autotable.js"></script>
     <script defer src="./scripts/dados.js"></script>
     <script defer src="./services/usuarios-service.js"></script>
     <script defer src="./services/cursos-service.js"></script>
@@ -73,8 +75,17 @@
 
       <!-- Conteúdo central -->
       <section>
-        <h4>CURRÍCULO</h4>
-
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 1.5em;
+          "
+        >
+          <h4>CURRÍCULO</h4>
+          <button id="btnImprimir">Imprimir</button>
+        </div>
         <section id="listaPeriodos"></section>
       </section>
     </main>
