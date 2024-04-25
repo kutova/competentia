@@ -26,6 +26,7 @@ let dbComponentesCompetencias_Competencias = {
       { idComponenteCompetencia: 18, idCompetencia: 2 },
       { idComponenteCompetencia: 19, idCompetencia: 2 },
       { idComponenteCompetencia: 20, idCompetencia: 3 },
+      { idComponenteCompetencia: 21, idCompetencia: 2 },
     ];
     localStorage.setItem(
       "componentescompetencias-competencias",
