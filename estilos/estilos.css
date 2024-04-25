@@ -95,7 +95,7 @@ main.has-side-menu #sideMenu.ativo {
 
 @media (min-width: 1024px) {
   main.has-side-menu {
-    grid-template-columns: 12em 1fr;
+    grid-template-columns: 14em 1fr;
     grid-template-areas:
       "menu header"
       "menu body";
@@ -108,7 +108,7 @@ main.has-side-menu #sideMenu.ativo {
     margin-right: 1.5em;
     align-self: flex-start;
     left: 0px;
-    width: 10rem;
+    width: 12rem;
     padding: 0;
     font-size: 0.85em;
   }
