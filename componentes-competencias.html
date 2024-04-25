@@ -63,80 +63,7 @@
       </header>
 
       <aside id="sideMenu">
-        <article>
-          <!-- class="pico-background-indigo-50" -->
-          <nav>
-            <ul>
-              <li>
-                <a href="./index.html" class="secondary">Painel de Cursos</a>
-              </li>
-              <li>
-                <a class="linkDoCurso secondary" href="./curso.html">Curso</a>
-              </li>
-              <li>
-                <a class="linkDoCurso secondary" href="./competencias.html">
-                  Competências
-                </a>
-              </li>
-              <li>
-                <a class="linkDoCurso" href="./componentes-competencias.html">
-                  Componentes das Competências
-                </a>
-              </li>
-              <li>
-                <a
-                  class="linkDoCurso secondary"
-                  href="./componentes-curriculares.html"
-                >
-                  Componentes Curriculares
-                </a>
-              </li>
-              <li>
-                <details open>
-                  <summary>Relatórios</summary>
-                  <ul>
-                    <li class="submenu">
-                      <a
-                        class="linkDoCurso secondary"
-                        href="./relatorio-competencias.html"
-                        >Competências</a
-                      >
-                    </li>
-                    <li class="submenu">
-                      <a
-                        class="linkDoCurso secondary"
-                        href="./relatorio-curriculo.html"
-                        >Currículo</a
-                      >
-                    </li>
-                    <li class="submenu">
-                      <a
-                        class="linkDoCurso secondary"
-                        href="./tabela-componentes-competencias.html"
-                        >Tabela de Componentes de Competência</a
-                      >
-                    </li>
-                    <li class="submenu">
-                      <a
-                        class="linkDoCurso secondary"
-                        href="./tabela-componentes-curriculares.html"
-                        >Tabela de Componentes Currilares</a
-                      >
-                    </li>
-                    <li class="submenu">
-                      <a
-                        class="linkDoCurso secondary"
-                        href="./matriz-componentes.html"
-                        >Matriz de Componentes de Curriculares e de
-                        Competência</a
-                      >
-                    </li>
-                  </ul>
-                </details>
-              </li>
-            </ul>
-          </nav>
-        </article>
+        <article><nav id="navMenuCursos"></nav></article>
       </aside>
 
       <!-- Conteúdo central -->
@@ -232,7 +159,7 @@
           <textarea id="descricaoModalEditaComponente" rows="4"> </textarea>
         </fieldset>
         <small>
-          <strong>Observação:</strong> Um conhecimento, habilidade ou atitude
+          <strong class="pico-color-pumpkin-300">Observação:</strong> Um conhecimento, habilidade ou atitude
           pode estar vinculado a mais de uma competência e a mais de um
           componente curricular. A alteração dos dados aqui afeta todas as
           competências e todos os componentes curriculares vinculados.
@@ -274,7 +201,7 @@
           <textarea id="descricaoModalCriaComponente" rows="3"> </textarea>
         </fieldset>
         <small>
-          <strong>Observação:</strong> Antes de criar um novo componente de
+          <strong class="pico-color-pumpkin-300">Observação:</strong> Antes de criar um novo componente de
           competência, certifique-se de que ele já não existe por meio do botão
           <em>Pesquisar</em> abaixo. Se existir, você poderá importá-lo para
           esta competência do curso.
@@ -358,7 +285,7 @@
         </p>
         <textarea id="nomeModalRemoveComponente" readonly></textarea>
         <small>
-          <strong>Observação:</strong> A remoção não é uma exclusão do
+          <strong class="pico-color-pumpkin-300">Observação:</strong> A remoção não é uma exclusão do
           componente de competência, mas apenas a sua remoção desta competência.
           Esse componente continuará vinculado a outras competências e outros
           cursos e poderá ser pesquisada por meio deles. Se não estiver

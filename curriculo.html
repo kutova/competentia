@@ -11,13 +11,9 @@
     <script defer src="./services/cursos-service.js"></script>
     <script defer src="./services/cursos-usuarios-service.js"></script>
     <script defer src="./services/areas-service.js"></script>
+    <script defer src="./services/competencias-service.js"></script>
     <script defer src="./services/competencias-cursos-service.js"></script>
     <script defer src="./services/componentescompetencias-service.js"></script>
-    <script defer src="./services/componentescurriculares-service.js"></script>
-    <script
-      defer
-      src="./services/componentescurriculares-cursos-service.js"
-    ></script>
     <script
       defer
       src="./services/componentescompetencias-competencias-service.js"
@@ -27,11 +23,11 @@
       src="./services/componentescompetencias-componentescurriculares-service.js"
     ></script>
     <script defer src="./scripts/scripts.js"></script>
-    <script defer src="./scripts/componentescurriculares.js"></script>
+    <script defer src="./scripts/componentes.curriculares.js"></script>
     <link rel="stylesheet" href="./estilos/pico.min.css" />
     <link rel="stylesheet" href="./estilos/pico.colors.min.css" />
     <link rel="stylesheet" href="./estilos/estilos.css" />
-    <link rel="stylesheet" href="./estilos/componentescurriculares.css" />
+    <link rel="stylesheet" href="./estilos/componentes.curriculares.css" />
   </head>
 
   <body class="container">
@@ -67,7 +63,60 @@
       </header>
 
       <aside id="sideMenu">
-        <article><nav id="navMenuCursos"></nav></article>
+        <article>
+          <!-- class="pico-background-indigo-50" -->
+          <nav>
+            <ul>
+              <li>
+                <a href="./index.html" class="secondary">Painel de Cursos</a>
+              </li>
+              <li>
+                <a class="secondary" href="./curso.html">Curso</a>
+              </li>
+              <li>
+                <a class="secondary" href="./competencias.html">
+                  Competências
+                </a>
+              </li>
+              <li>
+                <a class="secondary" href="./componentes-competencias.html">
+                  Componentes das Competências
+                </a>
+              </li>
+              <li>
+                <a class="" href="./componentes-curriculares.html">
+                  Componentes Curriculares
+                </a>
+              </li>
+              <li>
+                <details>
+                  <summary>Relatórios</summary>
+                  <ul>
+                    <li class="submenu">
+                      <a
+                        class="linkDoCurso secondary"
+                        href="./relatorio-competencias.html"
+                        >Competências</a
+                      >
+                    </li>
+                    <li class="submenu">
+                      <a
+                        class="linkDoCurso secondary"
+                        href="./relatorio-curriculo.html"
+                        >Currículo</a
+                      >
+                    </li>
+                  </ul>
+                </details>
+
+                <!--
+                <a class=" secondary" href="./objetivos.html">
+                  Objetivos de Aprendizagem </a
+                > -->
+              </li>
+            </ul>
+          </nav>
+        </article>
       </aside>
 
       <!-- Conteúdo central -->
@@ -76,34 +125,20 @@
           <small>
             Os <strong>componentes curriculares</strong> são as unidades
             fundamentais de ensino e aprendizagem que compõem a estrutura de um
-            curso superior. Os componentes curriculares possuem carga horária
+            cruso superior. Os componentes curriculares possuem carga horária
             específica e podem ser representados por disciplinas, estágios e
             outras atividades de formação de caráter teórico ou prático.
           </small>
         </article>
         <h4>COMPONENTES CURRICULARES</h4>
-        <div class="overflow-auto">
-          <table id="tabela">
-            <thead>
-              <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">CH</th>
-                <th scope="col">Semestre</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">Área</th>
-                <th scope="col" class="colunaIcones"></th>
-              </tr>
-            </thead>
-            <tbody id="corpoTabela"></tbody>
-          </table>
-        </div>
-        <footer>
-          <button id="btnAdicionar">Adicionar</button>
-        </footer>
+
+        <section id="listaSemestres"></section>
       </section>
     </main>
 
-    <!-- Modal para visualização dos dados do componente curricular -->
+    <!--
+
+    < !-- Modal para visualização dos dados do componente de competência -- >
     <dialog id="modalExibeComponente">
       <article>
         <header>
@@ -113,7 +148,7 @@
             rel="prev"
           ></button>
           <p>
-            <strong>Componente Curricular</strong>
+            <strong>Componente de Competências</strong>
           </p>
         </header>
         <fieldset>
@@ -121,62 +156,24 @@
           <textarea id="nomeModalExibeComponente" readonly></textarea>
           <div class="grid">
             <div>
-              <label for="cargaHorariaModalExibeComponente">
-                Carga Horária
-              </label>
-              <input id="cargaHorariaModalExibeComponente" readonly />
-            </div>
-            <div>
               <label for="tipoModalExibeComponente">Tipo</label>
               <input id="tipoModalExibeComponente" readonly />
-            </div>
-          </div>
-          <div class="grid">
-            <div>
-              <label for="semestreModalExibeComponente">Semestre</label>
-              <input id="semestreModalExibeComponente" readonly />
             </div>
             <div>
               <label for="areaModalExibeComponente">Área</label>
               <input id="areaModalExibeComponente" readonly />
             </div>
           </div>
+          <label for="descricaoModalExibeComponente">Descrição</label>
+          <textarea id="descricaoModalExibeComponente" readonly> </textarea>
 
-          <table class="tabelaCursos">
+          <table class="tabelaCompetencias">
             <thead>
               <tr>
-                <th>Cursos que usam esse componente curricular</th>
+                <th>Competências que possuem este componentes</th>
               </tr>
             </thead>
-            <tbody id="cursosModalExibeComponente"></tbody>
-          </table>
-
-          <table class="tabelaComponentesCompetencias">
-            <thead>
-              <tr>
-                <th>Conhecimento</th>
-                <th>Área</th>
-              </tr>
-            </thead>
-            <tbody id="conhecimentosModalExibeComponente"></tbody>
-          </table>
-          <table class="tabelaComponentesCompetencias">
-            <thead>
-              <tr>
-                <th>Habilidade</th>
-                <th>Área</th>
-              </tr>
-            </thead>
-            <tbody id="habilidadesModalExibeComponente"></tbody>
-          </table>
-          <table class="tabelaComponentesCompetencias">
-            <thead>
-              <tr>
-                <th>Atitude</th>
-                <th>Área</th>
-              </tr>
-            </thead>
-            <tbody id="atitudesModalExibeComponente"></tbody>
+            <tbody id="competenciasModalExibeComponente"></tbody>
           </table>
         </fieldset>
         <footer>
@@ -185,63 +182,37 @@
       </article>
     </dialog>
 
-    <!-- Modal para alteração dos dados do componente curricular -->
+    < !-- Modal para alteração dos dados do componente de competência -- >
     <dialog id="modalEditaComponente">
       <article>
         <header>
           <button id="iconeFecharEdicao" aria-label="Close" rel="prev"></button>
           <p>
-            <strong>Componente Curricular</strong>
+            <strong>Componente de Competências</strong>
           </p>
         </header>
         <fieldset>
           <label for="nomeModalEditaComponente">Nome</label>
-          <textarea id="nomeModalEditaComponente"></textarea>
+          <textarea id="nomeModalEditaComponente" rows="2"></textarea>
           <div class="grid">
-            <div>
-              <label for="cargaHorariaModalEditaComponente">
-                Carga Horária
-              </label>
-              <input id="cargaHorariaModalEditaComponente" />
-            </div>
             <div>
               <label for="tipoModalEditaComponente">Tipo</label>
               <select id="tipoModalEditaComponente"></select>
             </div>
-          </div>
-          <div class="grid">
-            <div>
-              <label for="semestreModalEditaComponente">Semestre</label>
-              <input id="semestreModalEditaComponente" />
-            </div>
+
             <div>
               <label for="areaModalEditaComponente">Área</label>
               <select id="areaModalEditaComponente"></select>
             </div>
           </div>
-          <div class="tabelaComRolagem">
-            <table id="tabelaComponentesCompetencias">
-              <thead>
-                <tr>
-                  <th scope="col">
-                    <span class="simbolo">
-                      <img src="./imagens/check.svg" />
-                    </span>
-                  </th>
-                  <th scope="col">Componente de Competência</th>
-                  <th scope="col">Tipo</th>
-                  <th scope="col">Área</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody id="conteudoComponentesCompetenciasEdicao"></tbody>
-            </table>
-          </div>
+          <label for="descricaoModalEditaComponente">Descrição</label>
+          <textarea id="descricaoModalEditaComponente" rows="4"> </textarea>
         </fieldset>
         <small>
-          <strong class="pico-color-pumpkin-300">Observação:</strong> Os dados
-          do componente curricular são os mesmos em todos os cursos a que ele
-          está vinculado, exceto o semestre, que é específico para este curso.
+          <strong>Observação:</strong> Um conhecimento, habilidade ou atitude
+          pode estar vinculado a mais de uma competência e a mais de um
+          componente curricular. A alteração dos dados aqui afeta todas as
+          competências e todos os componentes curriculares vinculados.
         </small>
         <footer>
           <button class="outline" id="btnCancelarEdicao">Cancelar</button>
@@ -250,7 +221,7 @@
       </article>
     </dialog>
 
-    <!-- Modal para criação de um novo componente curricular -->
+    < !-- Modal para criação de uma nova competência -- >
     <dialog id="modalCriaComponente">
       <article>
         <header>
@@ -260,7 +231,7 @@
             rel="prev"
           ></button>
           <p>
-            <strong>Novo Componente Curricular</strong>
+            <strong>Novo Componente de Competência</strong>
           </p>
         </header>
         <fieldset>
@@ -268,50 +239,22 @@
           <textarea id="nomeModalCriaComponente"></textarea>
           <div class="grid">
             <div>
-              <label for="cargaHorariaModalCriaComponente">
-                Carga Horária
-              </label>
-              <input id="cargaHorariaModalCriaComponente" />
-            </div>
-            <div>
               <label for="tipoModalCriaComponente">Tipo</label>
               <select id="tipoModalCriaComponente"></select>
-            </div>
-          </div>
-          <div class="grid">
-            <div>
-              <label for="semestreModalCriaComponente">Semestre</label>
-              <input id="semestreModalCriaComponente" />
             </div>
             <div>
               <label for="areaModalCriaComponente">Área</label>
               <select id="areaModalCriaComponente"></select>
             </div>
           </div>
-          <div class="tabelaComRolagem">
-            <table id="tabelaComponentesCompetencias">
-              <thead>
-                <tr>
-                  <th scope="col">
-                    <span class="simbolo">
-                      <img src="./imagens/check.svg" />
-                    </span>
-                  </th>
-                  <th scope="col">Componente de Competência</th>
-                  <th scope="col">Tipo</th>
-                  <th scope="col">Área</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody id="conteudoComponentesCompetenciasCriacao"></tbody>
-            </table>
-          </div>
+          <label for="descricaoModalCriaComponente">Descrição</label>
+          <textarea id="descricaoModalCriaComponente" rows="3"> </textarea>
         </fieldset>
         <small>
-          <strong class="pico-color-pumpkin-300">Observação:</strong> Antes de
-          criar um novo componente curricular, certifique-se de que ele já não
-          existe por meio do botão <em>Pesquisar</em> abaixo. Se existir, você
-          poderá importá-lo para este curso.
+          <strong>Observação:</strong> Antes de criar um novo componente de
+          competência, certifique-se de que ele já não existe por meio do botão
+          <em>Pesquisar</em> abaixo. Se existir, você poderá importá-lo para
+          esta competência do curso.
         </small>
         <footer>
           <button id="btnPesquisar">Pesquisar</button>
@@ -323,8 +266,8 @@
       </article>
     </dialog>
 
-    <!-- Modal pesquisar -->
-    <dialog id="modalPesquisaComponentes" class="modal-pesquisa">
+    < !-- Modal pesquisar -- >
+    <dialog id="modalPesquisaComponente" class="modal-pesquisa">
       <article>
         <header>
           <button
@@ -333,7 +276,7 @@
             rel="prev"
           ></button>
           <p>
-            <strong>Pesquisa de Componente Curricular</strong>
+            <strong>Pesquisa de Componentes de Competências</strong>
           </p>
         </header>
         <fieldset>
@@ -347,24 +290,15 @@
               <select id="filtroAreas"></select>
             </div>
           </div>
-          <div class="grid">
-            <div>
-              <label for="filtroCursos">Filtrar por curso</label>
-              <select id="filtroCursos"></select>
-            </div>
-            <div>
-              <label for="filtroTexto">
-                Filtrar por palavras (separadas por espaços)
-              </label>
-              <input id="filtroTexto" />
-            </div>
-          </div>
+          <label for="filtroTexto"
+            >Filtrar por palavras (separadas por espaços)</label
+          >
+          <input id="filtroTexto" />
         </fieldset>
         <table>
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Carga Horária</th>
               <th>Tipo</th>
               <th>Área</th>
               <th class="colunaIcones"></th>
@@ -378,7 +312,7 @@
       </article>
     </dialog>
 
-    <!-- Modal para remoção da competência -->
+    < !-- Modal para remoção do componente de competências -- >
     <dialog id="modalRemoveComponente">
       <article>
         <header>
@@ -388,18 +322,25 @@
             rel="prev"
           ></button>
           <p>
-            <strong>Remoção do Componente Curricular</strong>
+            <strong>Remoção do Componente de Competências</strong>
           </p>
         </header>
-        <p>Deseja remover o componente curricular?</p>
+        <p>
+          Deseja remover <span id="artigoModalRemoveComponente">o</span>
+          <strong
+            ><span id="tipoModalRemoveComponente"
+              >componente de competência</span
+            ></strong
+          >?
+        </p>
         <textarea id="nomeModalRemoveComponente" readonly></textarea>
         <small>
-          <strong class="pico-color-pumpkin-300">Observação:</strong> A remoção
-          não é uma exclusão do componente curricular, mas apenas a sua remoção
-          deste curso. O componente curricular continuará vinculado a outros
-          cursos e poderá ser pesquisado por meio deles. Se não estiver
-          vinculado a nenhum outro curso, apenas o administrador do sistema
-          poderá recuperá-lo.
+          <strong>Observação:</strong> A remoção não é uma exclusão do
+          componente de competência, mas apenas a sua remoção desta competência.
+          Esse componente continuará vinculado a outras competências e outros
+          cursos e poderá ser pesquisada por meio deles. Se não estiver
+          vinculado a nenhuma outra competência, apenas o administrador do
+          sistema poderá recuperá-lo.
         </small>
         <footer>
           <button class="outline" id="btnCancelarRemocao">Cancelar</button>
@@ -408,21 +349,7 @@
       </article>
     </dialog>
 
-    <!-- Modal com descrição do componente de competência -->
-    <dialog id="modalDescricao">
-      <article>
-        <header>
-          <p>
-            <strong>DESCRIÇÃO</strong>
-          </p>
-        </header>
-        <p><strong id="tituloDescricao"></strong></p>
-        <p id="mensagemDescricao"></p>
-        <footer>
-          <button id="btnOkDescricao">Ok</button>
-        </footer>
-      </article>
-    </dialog>
+  -->
 
     <!-- Modal para mensagens de alerta -->
     <dialog id="modalAlerta">

@@ -59,83 +59,7 @@
       </header>
 
       <aside id="sideMenu">
-        <article>
-          <!-- class="pico-background-indigo-50" -->
-          <nav>
-            <ul>
-              <li>
-                <a href="./index.html" class="secondary">Painel de Cursos</a>
-              </li>
-              <li>
-                <a class="linkDoCurso secondary" href="./curso.html">Curso</a>
-              </li>
-              <li>
-                <a class="linkDoCurso" href="./competencias.html">
-                  Competências
-                </a>
-              </li>
-              <li>
-                <a
-                  class="linkDoCurso secondary"
-                  href="./componentes-competencias.html"
-                >
-                  Componentes das Competências
-                </a>
-              </li>
-              <li>
-                <a
-                  class="linkDoCurso secondary"
-                  href="./componentes-curriculares.html"
-                >
-                  Componentes Curriculares
-                </a>
-              </li>
-              <li>
-                <details open>
-                  <summary>Relatórios</summary>
-                  <ul>
-                    <li class="submenu">
-                      <a
-                        class="linkDoCurso secondary"
-                        href="./relatorio-competencias.html"
-                        >Competências</a
-                      >
-                    </li>
-                    <li class="submenu">
-                      <a
-                        class="linkDoCurso secondary"
-                        href="./relatorio-curriculo.html"
-                        >Currículo</a
-                      >
-                    </li>
-                    <li class="submenu">
-                      <a
-                        class="linkDoCurso secondary"
-                        href="./tabela-componentes-competencias.html"
-                        >Tabela de Componentes de Competência</a
-                      >
-                    </li>
-                    <li class="submenu">
-                      <a
-                        class="linkDoCurso secondary"
-                        href="./tabela-componentes-curriculares.html"
-                        >Tabela de Componentes Currilares</a
-                      >
-                    </li>
-                    <li class="submenu">
-                      <a
-                        class="linkDoCurso secondary"
-                        href="./matriz-componentes.html"
-                        >Matriz de Componentes de Curriculares e de
-                        Competência</a
-                      >
-                    </li>
-                  </ul>
-                </details>
-              </li>
-            </ul>
-          </nav>
-        </article>
+        <article><nav id="navMenuCursos"></nav></article>
       </aside>
 
       <!-- Conteúdo central -->
@@ -200,8 +124,8 @@
               <input id="codigoModalExibeCompetencia" readonly />
             </div>
           </div>
-          <label for="observacoesModalExibeCompetencia">Observações</label>
-          <textarea id="observacoesModalExibeCompetencia" readonly> </textarea>
+          <label for="descricaoModalExibeCompetencia">Descrição</label>
+          <textarea id="descricaoModalExibeCompetencia" readonly> </textarea>
 
           <table class="tabelaCursos">
             <thead>
@@ -297,13 +221,13 @@
               <input id="codigoModalEditaCompetencia" />
             </div>
           </div>
-          <label for="observacoesModalEditaCompetencia">Observações</label>
-          <textarea id="observacoesModalEditaCompetencia" rows="3"> </textarea>
+          <label for="descricaoModalEditaCompetencia">Descrição</label>
+          <textarea id="descricaoModalEditaCompetencia" rows="3"> </textarea>
         </fieldset>
         <small>
-          <strong>Observação:</strong> Os dados da competência são os mesmos em
-          todos os cursos a que ela está vinculada, exceto o seu Código, que é
-          específico para este curso.
+          <strong class="pico-color-pumpkin-300">Observação:</strong> Os dados
+          da competência são os mesmos em todos os cursos a que ela está
+          vinculada, exceto o seu Código, que é específico para este curso.
         </small>
         <footer>
           <button class="outline" id="btnCancelarEdicao">Cancelar</button>
@@ -338,14 +262,14 @@
               <input id="codigoModalCriaCompetencia" />
             </div>
           </div>
-          <label for="observacoesModalCriaCompetencia">Observações</label>
-          <textarea id="observacoesModalCriaCompetencia" rows="3"> </textarea>
+          <label for="descricaoModalCriaCompetencia">Descrição</label>
+          <textarea id="descricaoModalCriaCompetencia" rows="3"> </textarea>
         </fieldset>
         <small>
-          <strong>Observação:</strong> Antes de criar uma nova competência,
-          certifique-se de que ela já não existe por meio do botão
-          <em>Pesquisar</em> abaixo. Se existir, você poderá importá-la para
-          este curso.
+          <strong class="pico-color-pumpkin-300">Observação:</strong> Antes de
+          criar uma nova competência, certifique-se de que ela já não existe por
+          meio do botão <em>Pesquisar</em> abaixo. Se existir, você poderá
+          importá-la para este curso.
         </small>
         <footer>
           <button id="btnPesquisar">Pesquisar</button>
@@ -421,11 +345,11 @@
         </p>
         <textarea id="nomeModalRemoveCompetencia" readonly></textarea>
         <small>
-          <strong>Observação:</strong> A remoção não é uma exclusão da
-          competência, mas apenas a sua remoção deste curso. A competência
-          continuará vinculada a outros cursos e poderá ser pesquisada por meio
-          deles. Se não estiver vinculada a nenhum outro curso, apenas o
-          administrador do sistema poderá recuperá-la.
+          <strong class="pico-color-pumpkin-300">Observação:</strong> A remoção
+          não é uma exclusão da competência, mas apenas a sua remoção deste
+          curso. A competência continuará vinculada a outros cursos e poderá ser
+          pesquisada por meio deles. Se não estiver vinculada a nenhum outro
+          curso, apenas o administrador do sistema poderá recuperá-la.
         </small>
         <footer>
           <button class="outline" id="btnCancelarRemocao">Cancelar</button>
