@@ -122,10 +122,10 @@ let dbComponentesCurriculares = {
         id: 17,
       },
       {
-        nome: "Linguagens de Programação",
+        nome: "Estatística e Probabilidade",
         tipo: 0,
         cargaHoraria: 72,
-        area: 7,
+        area: 10,
         id: 18,
       },
       {

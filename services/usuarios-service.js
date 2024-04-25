@@ -26,9 +26,17 @@ let dbUsuarios = {
         celular: "(31)99992-9992",
         id: 3,
       },
+      {
+        nome: "Usuário de Teste",
+        email: "admin@pucminas.br",
+        senha: "admin",
+        tipo: 0,
+        celular: "(31)99999-9999",
+        id: 4,
+      },
     ];
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
-    localStorage.setItem("ultimoUsuario", 3);
+    localStorage.setItem("ultimoUsuario", 4);
   },
 
   // Valida email e senha do usuário, retornando os demais dados

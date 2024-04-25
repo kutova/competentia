@@ -25,14 +25,14 @@ let dbComponentesCompetencias = {
         id: 3,
       },
       {
-        nome: "Padrões Web",
+        nome: "Padrões web",
         tipo: 0,
         area: 7,
         descricao: "HTML. CSS. JavaScript.",
         id: 4,
       },
       {
-        nome: "Desenvolvimento ágil de software",
+        nome: "Metodologia ágil de software",
         tipo: 0,
         area: 4,
         descricao:
@@ -84,7 +84,7 @@ let dbComponentesCompetencias = {
         tipo: 1,
         area: 4,
         descricao:
-          "Avaiar e validar as funcionalidades e o desempenho de um software para garantir que ele atenda aos requisitos especificados e funcione corretamente em diferentes cenários e condições.coordenar e controlar recursos, cronogramas e atividades para garantir a entrega bem-sucedida de um projeto dentro dos prazos, orçamentos e requisitos definidos.",
+          "Avaliar e validar as funcionalidades e o desempenho de um software para garantir que ele atenda aos requisitos especificados e funcione corretamente em diferentes cenários e condições.coordenar e controlar recursos, cronogramas e atividades para garantir a entrega bem-sucedida de um projeto dentro dos prazos, orçamentos e requisitos definidos.",
         id: 11,
       },
       {
@@ -152,19 +152,27 @@ let dbComponentesCompetencias = {
         id: 19,
       },
       {
-        nome: "Design Centrado no Usuário",
+        nome: "Design centrado no usuário",
         tipo: 0,
         area: 7,
         descricao:
           "Design Centrado no Usuário. Análise de contexto e de tarefas. Personas e arquétipos. Prototipagem. Avaliação de usabilidade. Design de experiências",
         id: 20,
       },
+      {
+        nome: "Processamento de imagens digitais",
+        tipo: 0,
+        area: 7,
+        descricao:
+          "Pré-processamento de imagens digitais. Transformadas geométricas. Segmentação de imagens. Extração de características. Operações de filtragem. Reconhecimento e classificação de padrões.",
+        id: 21,
+      },
     ];
     localStorage.setItem(
       "componentescompetencias",
       JSON.stringify(componentesCompetencias)
     );
-    localStorage.setItem("ultimoComponenteCompetencia", 20);
+    localStorage.setItem("ultimoComponenteCompetencia", 21);
   },
 
   // recupera a lista de conhecimentos, habilidades e atitudes

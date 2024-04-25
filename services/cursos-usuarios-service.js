@@ -87,6 +87,26 @@ let dbCursos_Usuarios = {
         idCurso: 1,
         permissao: 0,
       },
+      {
+        idUsuario: 4,
+        idCurso: 2,
+        permissao: 1,
+      },
+      {
+        idUsuario: 4,
+        idCurso: 9,
+        permissao: 0,
+      },
+      {
+        idUsuario: 4,
+        idCurso: 6,
+        permissao: 0,
+      },
+      {
+        idUsuario: 4,
+        idCurso: 1,
+        permissao: 1,
+      },
     ];
     localStorage.setItem("cursos-usuarios", JSON.stringify(cursosUsuarios));
   },
@@ -107,7 +127,7 @@ let dbCursos_Usuarios = {
     return cursos;
   },
 
-  // retorna os usuãrios que podem editar um curso
+  // retorna os usuários que podem editar um curso
   usuarios: function (idCurso) {
     let cursosUsuarios = JSON.parse(
       localStorage.getItem("cursos-usuarios") || "[]"
@@ -121,6 +141,21 @@ let dbCursos_Usuarios = {
         usuarios.push(cursosUsuarios[i].idUsuario);
     }
     return usuarios;
+  },
+
+  // retorna a permissão do usuário para um curso específico
+  permissao: function (idUsuario, idCurso) {
+    let cursosUsuarios = JSON.parse(
+      localStorage.getItem("cursos-usuarios") || "[]"
+    );
+    for (let i in cursosUsuarios) {
+      if (
+        cursosUsuarios[i].idUsuario == idUsuario &&
+        cursosUsuarios[i].idCurso == idCurso
+      )
+        return cursosUsuarios[i].permissao;
+    }
+    return -1;
   },
 
   // altera os cursos de um usuário
