@@ -3,7 +3,7 @@
 // --------------------------------------------------------
 // Testa se há um usuário logado
 let pathName = document.location.pathname.split("/");
-pagina = pathName.pop();
+let pagina = pathName.pop();
 if (!localStorage.getItem("usuario")) {
   if (pagina != "login.html") window.location = "./login.html";
 }
@@ -50,6 +50,7 @@ if (pagina != "login.html") {
 // Carrega o curso do URL, se existir e o usuário tiver acesso a ele
 // Caso contrário, redireciona para a página principal
 // --------------------------------------------------------
+let permissaoUsuario = -1;
 function carregaCursoDoURL() {
   let params = new URLSearchParams(document.location.search);
   let idCurso = params.get("curso");
@@ -63,7 +64,58 @@ function carregaCursoDoURL() {
   )
     window.location = "./index.html";
 
+  // Define a permissão do usuário para este curso
+  permissaoUsuario = dbCursos_Usuarios.permissao(usuarioLogado.id, curso.id);
+
   return curso;
+}
+
+// --------------------------------------------------------
+// Cria o menu de cursos, quando for o caso
+// --------------------------------------------------------
+if (typeof navMenuCursos != "undefined") {
+  let params = new URLSearchParams(document.location.search);
+  let idCurso = params.get("curso");
+  navMenuCursos.innerHTML = "<ul>";
+  navMenuCursos.innerHTML += listaOpcoesDoMenu
+    .map((o) =>
+      typeof o.url != "undefined"
+        ? `
+        <li>
+          <a href="./${o.url}?curso=${idCurso}" ${
+            pagina != o.url ? 'class="secondary"' : ""
+          }>
+            ${o.titulo}
+          </a>
+        </li>
+      `
+        : `
+        <li>
+          <details open>
+            <summary>${o.titulo}</summary>
+            <ul>
+              ${o.lista
+                .map(
+                  (s) =>
+                    `<li class="submenu">
+                      <a
+                        class="linkDoCurso${
+                          pagina != s.url ? " secondary" : ""
+                        }"
+                        href="./${s.url}"
+                        >${s.titulo}</a
+                      >
+                    </li>`
+                )
+                .join("")}
+            </ul>
+          </details>
+        </li>
+      `
+    )
+    .join("");
+
+  navMenuCursos.innerHTML += "</ul>";
 }
 
 // --------------------------------------------------------

@@ -14,17 +14,17 @@ let mostraTabela = function () {
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeUsuario('${usuario.id}')"
-          title="Exibe os dados do usuário">
+          title="Visualizar">
           <img src="./imagens/visibility.svg" />
         </span>
         <span class="simbolo" 
           onclick="editaUsuario('${usuario.id}')"
-          title="Altera os dados do usuário">
+          title="Editar">
           <img src="./imagens/edit.svg" />
         </span>
         <span class="simbolo" 
           onclick="apagaUsuario('${usuario.id}')"
-          title="Exclui o usuário">
+          title="Excluir">
           <img src="./imagens/delete.svg" />
         </span>
       </td>
@@ -180,7 +180,7 @@ let salvar = function (usuario, cursos) {
 // Exibe o modal para criação de usuário
 // --------------------------------------------------------------
 let criaUsuario = function () {
-  tipoModalCreateUsuario.innerHTML = tiposUsuario
+  tipoModalCriaUsuario.innerHTML = tiposUsuario
     .map((t, i) => `<option value=${i}>${t}</option>`)
     .join("");
   nomeModalCriaUsuario.value = "";

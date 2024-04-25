@@ -17,93 +17,80 @@ for (let i in linksMenu) {
 // --------------------------------------------------------------
 // Mostra a tabela de competências do curso e seus componentes
 // --------------------------------------------------------------
-let mostraTabela = function (idCompetencia) {
-  if (idCompetencia == undefined) idCompetencia = -1;
-  listaCompetencias.innerHTML = "";
-  let competencias = dbCompetencias_Cursos.competencias(curso.id);
-  competencias.sort((a, b) => a.codigo.localeCompare(b.codigo));
-  competencias = competencias.map((c) => ({
-    codigo: c.codigo,
-    ...dbCompetencias.competencia(c.id),
-  }));
-  competencias.forEach((competencia) => {
-    let listaComponentesCompetencias =
-      dbComponentesCompetencias_Competencias.componentesCompetencia(
-        competencia.id
-      );
-    listaCompetencias.innerHTML += `
+let mostraTabela = function (nSemestre) {
+  if (nSemestre == undefined) nSemestre = -1;
+  listaSemestres.innerHTML = "";
+  for (let i = 1; i <= curso.semestres; i++) {
+    // let listaComponentesCompetencias =
+    //   dbComponentesCompetencias_Competencias.componentesCompetencia(
+    //     competencia.id
+    //   );
+
+    listaSemestres.innerHTML +=
+      `
     <article>
-      <details ${competencia.id == idCompetencia ? "open" : ""}>
-        <summary>${competencia.codigo} - ${competencia.nome}</summary>
-        <table class="tabelaComponentesCompetenciasComp">
+      <details ${i == nSemestre ? "open" : ""}>
+        <summary>${i}&ordm; Semestre</summary>
+        <table class="tabelaComponentesCurriculares_Semestre">
           <thead>
             <tr>
-              <th>Componente</th>
+              <th>Componente Curricular</th>
+              <th>CH</th>
               <th>Tipo</th>
               <th>Área</th>
               <th class="colunaIcones"></th>
             </tr>
           </thead>
-          <tbody>
-            ${listaComponentesCompetencias
-              .map((idComponenteCompetencia) =>
-                dbComponentesCompetencias.componenteCompetencias(
-                  idComponenteCompetencia
-                )
-              )
-              .sort((a, b) =>
-                a.tipo == b.tipo
-                  ? a.nome.localeCompare(b.nome)
-                  : a.tipo - b.tipo
-              )
-              .map(
-                (cc) => `
-    <tr>
-      <td>${cc.nome}</td>
-      <td>${tiposComponentesCompetencias[cc.tipo]}</td>
-      <td>${dbAreas.area(cc.area).nome}</td>
-      <td class="clicavel">
-        <span class="simbolo" 
-          onclick="exibeComponente(${cc.id})"
-          title="Visualizar">
-          <img src="./imagens/visibility.svg" />
-        </span>
-        ${
-          permissaoUsuario == 0
-            ? `
-        <span class="simbolo" 
-          onclick="editaComponente(${cc.id}, ${competencia.id})"
-          title="Editar">
-          <img src="./imagens/edit.svg" />
-        </span>
-        <span class="simbolo" 
-          onclick="removeComponente(${cc.id}, ${competencia.id})"
-          title="Remover">
-          <img src="./imagens/close.svg" />
-        </span>
-        `
-            : ""
-        }
-      </td>
-    </tr>`
-              )
-              .join("")}
-          </tbody>
+          <tbody>` +
+      //         ${listaComponentesCompetencias
+      //           .map((idComponenteCompetencia) =>
+      //             dbComponentesCompetencias.componenteCompetencias(
+      //               idComponenteCompetencia
+      //             )
+      //           )
+      //           .sort((a, b) =>
+      //             a.tipo == b.tipo
+      //               ? a.nome.localeCompare(b.nome)
+      //               : a.tipo - b.tipo
+      //           )
+      //           .map(
+      //             (cc) => `
+      // <tr>
+      //   <td>${cc.nome}</td>
+      //   <td>${tiposComponentesCompetencias[cc.tipo]}</td>
+      //   <td>${dbAreas.area(cc.area).nome}</td>
+      //   <td class="clicavel">
+      //     <span class="simbolo"
+      //       onclick="exibeComponente(${cc.id})"
+      //       title="Visualizar">
+      //       <img src="./imagens/visibility.svg" />
+      //     </span>
+      //     <span class="simbolo"
+      //       onclick="editaComponente(${cc.id}, ${competencia.id})"
+      //       title="Editar">
+      //       <img src="./imagens/edit.svg" />
+      //     </span>
+      //     <span class="simbolo"
+      //       onclick="removeComponente(${cc.id}, ${competencia.id})"
+      //       title="Remover">
+      //       <img src="./imagens/close.svg" />
+      //     </span>
+      //   </td>
+      // </tr>`
+      //           )
+      //           .join("")}
+      ` </tbody>
         </table>
-        ${
-          permissaoUsuario == 0
-            ? `
       <footer>
-        <button onclick="criaComponente(${competencia.id})">Adicionar</button>
+        <button onclick="criaComponente(${nSemestre})">Adicionar</button>
       </footer>
-        `
-            : ""
-        }
       </details>
     </article>
   `;
-  });
+  }
 };
+
+/*
 
 // --------------------------------------------------------------
 // Exibe o modal para visualização dos dados do compomente de competência
@@ -121,13 +108,10 @@ let exibeComponente = function (id) {
 
   let competencias = dbComponentesCompetencias_Competencias
     .competencias(id)
-    .map((idCompetencia) => ({
-      ...dbCompetencias.competencia(idCompetencia),
-      codigo: dbCompetencias_Cursos.codigo(idCompetencia, curso.id),
-    }));
+    .map((idCompetencia) => dbCompetencias.competencia(idCompetencia));
   competenciasModalExibeComponente.innerHTML = competencias
-    .sort((a, b) => a.codigo.localeCompare(b.codigo))
-    .map((elem) => `<tr><td>${elem.codigo}</td><td>${elem.nome}</td></tr>`)
+    .sort((a, b) => a.nome.localeCompare(b.nome))
+    .map((elem) => `<tr><td>${elem.nome}</td></tr>`)
     .join("");
 
   modalExibeComponente.showModal();
@@ -152,7 +136,7 @@ let editaComponente = function (idComponenteCompetencia, idCompetencia) {
     idComponenteCompetencia
   ).length;
   let n2 =
-    dbComponentesCompetencias_ComponentesCurriculares.componentesCurriculares(
+    dbComponentesCompetencias_ComponentesCurriculares.componentescurriculares(
       idComponenteCompetencia
     ).length;
   let mensagem = "";
@@ -195,17 +179,16 @@ let editaComponenteContinuacao = function (id, idCompetencia) {
           componenteCompetencias.tipo == i ? "selected" : ""
         }>${t}</option>`
     )
-    .join("");
+    .join('');
   areaModalEditaComponente.innerHTML = dbAreas
     .areas()
-    .sort((a, b) => a.nome.localeCompare(b.nome))
     .map(
       (t) =>
         `<option value=${t.id} ${
           componenteCompetencias.area == t.id ? "selected" : ""
         }>${t.nome}</option>`
     )
-    .join("");
+    .join('');
 
   descricaoModalEditaComponente.value = componenteCompetencias.descricao;
   btnFecharEdicao.onclick = () => salvar(componenteCompetencias, idCompetencia);
@@ -236,12 +219,11 @@ let criaComponente = function (idCompetencia) {
   nomeModalCriaComponente.value = "";
   tipoModalCriaComponente.innerHTML = tiposComponentesCompetencias
     .map((t, i) => `<option value=${i}>${t}</option>`)
-    .join("");
+    .join('');
   areaModalCriaComponente.innerHTML = dbAreas
     .areas()
-    .sort((a, b) => a.nome.localeCompare(b.nome))
     .map((t) => `<option value=${t.id}>${t.nome}</option>`)
-    .join("");
+    .join('');
   descricaoModalCriaComponente.value = "";
   nomeModalCriaComponente.removeAttribute("aria-invalid");
 
@@ -278,60 +260,50 @@ let adicionar = function (idCompetencia) {
 // Pesquisa componentes de competências
 // --------------------------------------------------------------
 let pesquisaComponentes = function (idCompetencia) {
-  // OBSERVAÇÃO: RESOLVEMOS DEIXAR ACESSO A TODOS OS COMPONENTES DE COMPETÊNCIA (24/04/2024)
-
   // Recupera as competências dos cursos aos quais o usuário tem acesso
-  // let cursosDoUsuario = dbCursos_Usuarios.cursosUsuario(usuarioLogado.id);
-  // let competencias = [];
-  // let i, j;
-  // for (let i in cursosDoUsuario) {
-  //   let competenciasDoCurso = dbCompetencias_Cursos.competencias(
-  //     cursosDoUsuario[i].id
-  //   );
-  //   for (let j in competenciasDoCurso) {
-  //     let k = competencias.findIndex((c) => c.id == competenciasDoCurso[j].id);
-  //     if (k == -1)
-  //       competencias.push({
-  //         id: competenciasDoCurso[j].id,
-  //         cursos: [cursosDoUsuario[i].id],
-  //       });
-  //     else competencias[k].cursos.push(cursosDoUsuario[i].id);
-  //   }
-  // }
+  let cursosDoUsuario = dbCursos_Usuarios.cursosUsuario(usuarioLogado.id);
+  let competencias = [];
+  let i, j;
+  for (let i in cursosDoUsuario) {
+    let competenciasDoCurso = dbCompetencias_Cursos.competencias(
+      cursosDoUsuario[i].id
+    );
+    for (let j in competenciasDoCurso) {
+      let k = competencias.findIndex((c) => c.id == competenciasDoCurso[j].id);
+      if (k == -1)
+        competencias.push({
+          id: competenciasDoCurso[j].id,
+          cursos: [cursosDoUsuario[i].id],
+        });
+      else competencias[k].cursos.push(cursosDoUsuario[i].id);
+    }
+  }
 
   // Recupera os componentes dessas competências
-  // let componentes = [];
-  // for (let i in competencias) {
-  //   let componentesDaCompetencia =
-  //     dbComponentesCompetencias_Competencias.componentesCompetencia(
-  //       competencias[i].id
-  //     );
-  //   for (let j in componentesDaCompetencia)
-  //     if (
-  //       componentes.findIndex((id) => id == componentesDaCompetencia[j]) == -1
-  //     )
-  //       componentes.push(componentesDaCompetencia[j]);
-  // }
+  let componentes = [];
+  for (let i in competencias) {
+    let componentesDaCompetencia =
+      dbComponentesCompetencias_Competencias.componentesCompetencia(
+        competencias[i].id
+      );
+    for (let j in componentesDaCompetencia)
+      if (
+        componentes.findIndex((id) => id == componentesDaCompetencia[j]) == -1
+      )
+        componentes.push(componentesDaCompetencia[j]);
+  }
 
-  // componentes = componentes
-  //   .map((id) => dbComponentesCompetencias.componenteCompetencias(id))
-  //   .sort((a, b) =>
-  //     a.tipo == b.tipo ? a.nome.localeCompare(b.nome) : a.tipo - b.tipo
-  //   );
-
-  // NOVA VERSÃO COM ACESSO LIBERADO A TUDO (24/04/2024) ----------------
-  componentes = dbComponentesCompetencias
-    .componentesCompetencias()
+  componentes = componentes
+    .map((id) => dbComponentesCompetencias.componenteCompetencias(id))
     .sort((a, b) =>
       a.tipo == b.tipo ? a.nome.localeCompare(b.nome) : a.tipo - b.tipo
     );
-  // -------------------------------------
 
   filtroTipos.innerHTML =
     '<option value="-1">Todos</option>' +
     tiposComponentesCompetencias
       .map((t, i) => `<option value=${i}>${t}</option>`)
-      .join("");
+      .join('');
   filtroTipos.onchange = () => aplicaFiltros(componentes);
 
   filtroAreas.innerHTML =
@@ -340,7 +312,7 @@ let pesquisaComponentes = function (idCompetencia) {
       .areas()
       .sort((a, b) => a.nome.localeCompare(b.nome))
       .map((a) => `<option value=${a.id}>${a.nome}</option>`)
-      .join("");
+      .join('');
   filtroAreas.onchange = () => aplicaFiltros(componentes, idCompetencia);
 
   filtroTexto.value = "";
@@ -493,6 +465,8 @@ nomeModalCriaComponente.oninput = function () {
     nomeModalCriaComponente.value.length == 0
   );
 };
+
+*/
 
 // Mostra a tabela de competências
 mostraTabela();

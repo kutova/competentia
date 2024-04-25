@@ -13,6 +13,7 @@ let linksMenu = document.querySelectorAll(".linkDoCurso");
 for (let i in linksMenu) {
   linksMenu[i].href += "?curso=" + curso.id;
 }
+if (permissaoUsuario != 0) btnAdicionar.style.display = "none";
 
 // --------------------------------------------------------------
 // Mostra a tabela de componentes curriculares do curso
@@ -42,19 +43,25 @@ let mostraTabela = function () {
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeComponente('${componente.id}')"
-          title="Exibe os dados e cursos do componente curricular">
+          title="Visualizar">
           <img src="./imagens/visibility.svg" />
-        </span>
+        </span>        
+        ${
+          permissaoUsuario == 0
+            ? `
         <span class="simbolo" 
           onclick="editaComponente('${componente.id}')"
-          title="Altera os dados do componente curricular">
+          title="Editar">
           <img src="./imagens/edit.svg" />
         </span>
         <span class="simbolo" 
           onclick="removeComponente('${componente.id}')"
-          title="Remove o componente curricular deste curso">
+          title="Remover">
           <img src="./imagens/close.svg" />
         </span>
+        `
+            : ""
+        }
       </td>
     </tr>
   `;
@@ -216,7 +223,7 @@ let editaComponenteContinuacao = function (idComponenteCurricular) {
        <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeDescricao('${cc.nome}', '${cc.descricao}')"
-          title="Exibe a descrição componente de competência">
+          title="Visualizar">
           <img src="./imagens/visibility.svg" />
         </span></td>
        </tr>`
@@ -328,7 +335,7 @@ let criaComponente = function () {
        <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeDescricao('${cc.nome}', '${cc.descricao}')"
-          title="Exibe a descrição componente de competência">
+          title="Visualizar">
           <img src="./imagens/visibility.svg" />
         </span></td>
        </tr>`
@@ -459,12 +466,12 @@ let mostraTabelaPesquisa = function (componentes) {
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeComponente('${componente.id}')"
-          title="Exibe os dados do componente curricular">
+          title="Visualizar">
           <img src="./imagens/visibility.svg" />
         </span>
         <span class="simbolo" 
           onclick="importaComponente('${componente.id}')"
-          title="Vincula este componente curricular ao curso">
+          title="Importar">
           <img src="./imagens/download.svg" />
         </span>
       </td>
@@ -519,7 +526,7 @@ let importaComponente = function (idComponente) {
       "Componente curricular vinculado ao curso. Na próxima tela, informe a que semestre esse componente curricular será vinculado.<br/><br/>Alterações nos demais campos afetarão todos os cursos vinculados a este componente curricular.",
       function () {
         editaComponenteContinuacao(idComponente);
-        semestreModalEditaCompetencia.focus();
+        semestreModalEditaComponente.focus();
       }
     );
     modalPesquisaComponentes.close();

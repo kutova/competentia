@@ -29,3 +29,16 @@ btnOkErro.onclick = () => {
   senha.placeholder = "";
   modalErro.close();
 };
+
+email.onkeypress = function (evento) {
+  if (evento.key === "Enter") {
+    evento.preventDefault();
+    validaLogin();
+  }
+};
+senha.onkeypress = function (evento) {
+  if (evento.key === "Enter") {
+    evento.preventDefault();
+    validaLogin();
+  }
+};

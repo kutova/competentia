@@ -12,17 +12,17 @@ let mostraTabela = function () {
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeArea('${area.id}')"
-          title="Exibe os cursos da área">
+          title="Visualizar">
           <img src="./imagens/visibility.svg" />
         </span>
         <span class="simbolo" 
           onclick="editaArea('${area.id}')"
-          title="Edita o nome da área">
+          title="Editar">
           <img src="./imagens/edit.svg" />
         </span>
         <span class="simbolo" 
           onclick="apagaArea('${area.id}')"
-          title="Exclui a área, se não tiver cursos">
+          title="Excluir">
           <img src="./imagens/delete.svg" />
         </span>
       </td>

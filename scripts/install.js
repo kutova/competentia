@@ -40,4 +40,6 @@ logInstall.innerHTML += "<p>Componentes curriculares.</p>";
 
 dbComponentesCurriculares_Cursos.install();
 logInstall.innerHTML +=
-  "<p>Vínculso dos componentes curriculares aos cursos.</p>";
+  "<p>Vínculos dos componentes curriculares aos cursos.</p>";
+
+window.location = "./index.html";

@@ -14,6 +14,8 @@ for (let i in linksMenu) {
   linksMenu[i].href += "?curso=" + curso.id;
 }
 
+if (permissaoUsuario != 0) btnAdicionar.style.display = "none";
+
 // --------------------------------------------------------------
 // Mostra a tabela de competências do curso
 // --------------------------------------------------------------
@@ -34,19 +36,24 @@ let mostraTabela = function () {
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeCompetencia('${competencia.id}')"
-          title="Exibe os dados e cursos da competência">
+          title="Visualizar">
           <img src="./imagens/visibility.svg" />
         </span>
+        ${
+          permissaoUsuario == 0
+            ? `
         <span class="simbolo" 
           onclick="editaCompetencia('${competencia.id}')"
-          title="Altera os dados da competência">
+          title="Editar">
           <img src="./imagens/edit.svg" />
         </span>
         <span class="simbolo" 
           onclick="removeCompetencia('${competencia.id}')"
-          title="Remove a competência deste curso">
+          title="Remover">
           <img src="./imagens/close.svg" />
-        </span>
+        </span>`
+            : ""
+        }
       </td>
     </tr>
   `;
@@ -64,7 +71,7 @@ let exibeCompetencia = function (id) {
     curso.id
   );
   tipoModalExibeCompetencia.value = tiposCompetencia[competencia.tipo];
-  observacoesModalExibeCompetencia.value = competencia.observacoes;
+  descricaoModalExibeCompetencia.value = competencia.descricao;
 
   cursosModalExibeCompetencia.innerHTML = dbCompetencias_Cursos
     .cursos(id)
@@ -111,32 +118,15 @@ let exibeCompetencia = function (id) {
     )
     .join("");
 
-  /*
-  conhecimentosModalExibeCompetencia.value = componentesCompetencias
-    .filter((c) => c.tipo == 0)
-    .map((elem) => elem.nome)
-    .sort((a, b) => a.localeCompare(b))
-    .join("\n");
-  habilidadesModalExibeCompetencia.value = componentesCompetencias
-    .filter((c) => c.tipo == 1)
-    .map((elem) => elem.nome)
-    .sort((a, b) => a.localeCompare(b))
-    .join("\n");
-  atitudesModalExibeCompetencia.value = componentesCompetencias
-    .filter((c) => c.tipo == 2)
-    .map((elem) => elem.nome)
-    .sort((a, b) => a.localeCompare(b))
-    .join("\n");
-*/
   modalExibeCompetencia.showModal();
 
   nomeModalExibeCompetencia.style.height = "auto";
   nomeModalExibeCompetencia.style.height =
     nomeModalExibeCompetencia.scrollHeight + 10 + "px";
 
-  observacoesModalExibeCompetencia.style.height = "auto";
-  observacoesModalExibeCompetencia.style.height =
-    observacoesModalExibeCompetencia.scrollHeight + 10 + "px";
+  descricaoModalExibeCompetencia.style.height = "auto";
+  descricaoModalExibeCompetencia.style.height =
+    descricaoModalExibeCompetencia.scrollHeight + 10 + "px";
   nomeModalExibeCompetencia.focus();
 };
 
@@ -175,7 +165,7 @@ let editaCompetenciaContinuacao = function (id) {
         }>${t}</option>`
     )
     .join("");
-  observacoesModalEditaCompetencia.value = competencia.observacoes;
+  descricaoModalEditaCompetencia.value = competencia.descricao;
   btnFecharEdicao.onclick = () => salvar(competencia);
   modalEditaCompetencia.showModal();
   nomeModalEditaCompetencia.focus();
@@ -192,7 +182,7 @@ let salvar = function (competencia) {
   }
   competencia.nome = nomeModalEditaCompetencia.value;
   competencia.tipo = tipoModalEditaCompetencia.value;
-  competencia.observacoes = observacoesModalEditaCompetencia.value;
+  competencia.descricao = descricaoModalEditaCompetencia.value;
   dbCompetencias.update(competencia);
 
   dbCompetencias_Cursos.update({
@@ -214,7 +204,7 @@ let criaCompetencia = function () {
   tipoModalCriaCompetencia.innerHTML = tiposCompetencia
     .map((t, i) => `<option value=${i}>${t}</option>`)
     .join("");
-  observacoesModalCriaCompetencia.value = "";
+  descricaoModalCriaCompetencia.value = "";
   btnFecharCriacao.onclick = () => adicionar();
   modalCriaCompetencia.showModal();
   nomeModalCriaCompetencia.focus();
@@ -232,7 +222,7 @@ let adicionar = function () {
   let novaCompetencia = {
     nome: nomeModalCriaCompetencia.value,
     tipo: tipoModalCriaCompetencia.value,
-    observacoes: observacoesModalCriaCompetencia.value,
+    descricao: descricaoModalCriaCompetencia.value,
   };
   id = dbCompetencias.create(novaCompetencia);
 
@@ -309,12 +299,12 @@ let mostraTabelaPesquisa = function (competencias) {
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeCompetencia('${competencia.id}')"
-          title="Exibe os dados e cursos da competência">
+          title="Visualizar">
           <img src="./imagens/visibility.svg" />
         </span>
         <span class="simbolo" 
           onclick="importaCompetencia('${competencia.id}')"
-          title="Vincula esta competência ao curso">
+          title="Importar">
           <img src="./imagens/download.svg" />
         </span>
       </td>

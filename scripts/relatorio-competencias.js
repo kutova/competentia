@@ -75,3 +75,76 @@ let mostraTabela = function (idCompetencia) {
 
 // Mostra a tabela de competências
 mostraTabela();
+
+btnImprimir.onclick = () => {
+  let doc = new jspdf.jsPDF({
+    orientation: "p",
+    unit: "pt",
+    format: "a4",
+  });
+
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "normal");
+  let totalPagesExp = "{total_pages_count_string}";
+
+  let competencias = dbCompetencias_Cursos.competencias(curso.id);
+  competencias.sort((a, b) => a.codigo.localeCompare(b.codigo));
+  competencias = competencias.map((c) => ({
+    codigo: c.codigo,
+    ...dbCompetencias.competencia(c.id),
+  }));
+  competencias.forEach((competencia) => {
+    let listaComponentesCompetencias = dbComponentesCompetencias_Competencias
+      .componentesCompetencia(competencia.id)
+      .map((cc) => dbComponentesCompetencias.componenteCompetencias(cc))
+      .sort((a, b) =>
+        a.tipo == b.tipo ? a.nome.localeCompare(b.nome) : a.tipo - b.tipo
+      );
+    doc.autoTable({
+      head: [
+        [
+          {
+            content: competencia.codigo + " - " + competencia.nome,
+            colSpan: 4,
+          },
+        ],
+        ["Nome", "Tipo", "Área", "Descrição"],
+      ],
+      body: listaComponentesCompetencias.map((c) => [
+        c.nome,
+        tiposComponentesCompetencias[c.tipo],
+        dbAreas.area(c.area).nome,
+        c.descricao,
+      ]),
+      willDrawPage: function (data) {
+        doc.setFontSize(18);
+        doc.text("COMPETENTIA - " + curso.nome, 40, 40);
+      },
+      didDrawPage: function (data) {
+        // Footer
+        var str = "Página " + doc.internal.getNumberOfPages();
+        // Total page number plugin only available in jspdf v1.0+
+        if (typeof doc.putTotalPages === "function") {
+          str = str + " de " + totalPagesExp;
+        }
+        doc.setFontSize(10);
+
+        // jsPDF 1.4+ uses getHeight, <1.4 uses .height
+        var pageSize = doc.internal.pageSize;
+        var pageHeight = pageSize.height
+          ? pageSize.height
+          : pageSize.getHeight();
+        doc.text(str, data.settings.margin.left, pageHeight - 10);
+      },
+      margin: { top: 60 },
+      pageBreak: "avoid",
+      rowPageBreak: "auto",
+      bodyStyles: { valign: "top" },
+    });
+  });
+  // Total page number plugin only available in jspdf v1.0+
+  if (typeof doc.putTotalPages === "function") {
+    doc.putTotalPages(totalPagesExp);
+  }
+  doc.save("competencias.pdf");
+};

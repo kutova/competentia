@@ -18,7 +18,7 @@ let mostraTabela = function () {
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeCurso('${curso.id}')"
-          title="Exibe os dados do curso">
+          title="Visualizar">
           <img src="./imagens/visibility.svg" />
         </span>
         ${
@@ -26,12 +26,12 @@ let mostraTabela = function () {
             ? `
         <span class="simbolo" 
           onclick="editaCurso('${curso.id}')"
-          title="Altera os dados do curso">
+          title="Editar">
           <img src="./imagens/edit.svg" />
         </span>
         <span class="simbolo" 
           onclick="arquivaCurso('${curso.id}')"
-          title="Arquiva o curso">
+          title="Arquivar">
           <img src="./imagens/archive.svg" />
         </span>`
             : ""
