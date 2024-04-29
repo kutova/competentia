@@ -4,9 +4,6 @@
 #tabela thead th:nth-child(2) {
   width: 40em;
 }
-#tabela thead th:nth-child(3) {
-  width: 10em;
-}
 
 @media (max-width: 768px) {
   #tabela thead th:nth-child(3),

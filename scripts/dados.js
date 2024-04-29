@@ -3,8 +3,7 @@ appName.innerHTML = "Competentia";
 let tiposUsuario = ["Administrador", "Professor"];
 let graus = ["Bacharelado", "Licenciatura", "Tecnólogo"];
 let modalidades = ["Presencial", "A Distância"];
-let tiposCompetencia = ["Humanística", "Técnica", "Comportamental"];
-let statusCurso = ["Ativo", "Arquivado"];
+let statusCurso = ["Arquivado", "Fase 1", "Fase 2", "Fase 3"]; // 1 = Projeto das competências, 2 = Projeto dos componentes de competência, 3 = Projeto dos componentes curriculares
 let tiposComponentesCurriculares = [
   "Disciplina teórica",
   "Disciplina prática",

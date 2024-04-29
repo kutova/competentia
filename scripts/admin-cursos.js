@@ -7,9 +7,9 @@ let mostraTabela = function () {
   let cursos = dbCursos.cursos();
   cursos.sort((a, b) => a.nome.localeCompare(b.nome));
   cursos.forEach((curso) => {
-    if (arquivados || (!arquivados && curso.status == 0)) {
+    if (arquivados || (!arquivados && curso.status != 0)) {
       dadosCursos.innerHTML += `
-    <tr${curso.status == 1 ? ' class="arquivado"' : ""}>
+    <tr${curso.status == 0 ? ' class="arquivado"' : ""}>
       <td>${curso.nome}</td>
       <td>${graus[curso.grau]}</td>
       <td>${modalidades[curso.modalidade]}</td>
@@ -22,7 +22,7 @@ let mostraTabela = function () {
           <img src="./imagens/visibility.svg" />
         </span>
         ${
-          curso.status == 0
+          curso.status != 0
             ? `
         <span class="simbolo" 
           onclick="editaCurso('${curso.id}')"
@@ -150,9 +150,9 @@ let criaCurso = function () {
   semestresModalCriaCurso.value = 8;
   grauModalCriaCurso.value = 0;
   modalidadeModalCriaCurso.value = 0;
-  versaoModalCriaCurso = 1;
-  anoModalCriaCurso = new Date().getFullYear();
-  observacoesModalCriaCurso = "";
+  versaoModalCriaCurso.value = 1;
+  anoModalCriaCurso.value = new Date().getFullYear();
+  observacoesModalCriaCurso.value = "";
 
   btnFecharCriacao.onclick = () => {
     adicionar();
@@ -182,6 +182,7 @@ let adicionar = function () {
     versao: versaoModalCriaCurso.value,
     ano: anoModalCriaCurso.value,
     observacoes: observacoesModalCriaCurso.value,
+    status: 1,
   };
   dbCursos.create(curso);
   modalCriaCurso.close();

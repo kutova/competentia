@@ -17,10 +17,10 @@ cursos.forEach((c) => {
     painelCursos.innerHTML += `
     <article 
       onclick="abreCurso(${c.id})" 
-      ${c.status == 1 ? 'class="pico-background-slate-100"' : ""}>
+      ${c.status == 0 ? 'class="pico-background-slate-100"' : ""}>
         ${c.nome} &nbsp; 
         ${
-          c.status == 1
+          c.status == 0
             ? '<img src="./imagens/inventory.svg" title="Arquivado" />'
             : ""
         }

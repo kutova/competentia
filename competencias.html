@@ -85,7 +85,6 @@
               <tr>
                 <th scope="col">Código</th>
                 <th scope="col">Nome</th>
-                <th scope="col">Tipo</th>
                 <th scope="col" class="colunaIcones"></th>
               </tr>
             </thead>
@@ -115,10 +114,6 @@
           <label for="nomeModalExibeCompetencia">Nome</label>
           <textarea id="nomeModalExibeCompetencia" readonly></textarea>
           <div class="grid">
-            <div>
-              <label for="tipoModalExibeCompetencia">Tipo</label>
-              <input id="tipoModalExibeCompetencia" readonly />
-            </div>
             <div>
               <label for="codigoModalExibeCompetencia">Código no curso</label>
               <input id="codigoModalExibeCompetencia" readonly />
@@ -213,10 +208,6 @@
           <textarea id="nomeModalEditaCompetencia"></textarea>
           <div class="grid">
             <div>
-              <label for="tipoModalEditaCompetencia">Tipo</label>
-              <select id="tipoModalEditaCompetencia"></select>
-            </div>
-            <div>
               <label for="codigoModalEditaCompetencia">Código no curso</label>
               <input id="codigoModalEditaCompetencia" />
             </div>
@@ -253,10 +244,6 @@
           <label for="nomeModalCriaCompetencia">Nome</label>
           <textarea id="nomeModalCriaCompetencia"></textarea>
           <div class="grid">
-            <div>
-              <label for="tipoModalCriaCompetencia">Tipo</label>
-              <select id="tipoModalCriaCompetencia"></select>
-            </div>
             <div>
               <label for="codigoModalCriaCompetencia">Código no curso</label>
               <input id="codigoModalCriaCompetencia" />
@@ -297,24 +284,21 @@
         <fieldset>
           <div class="grid">
             <div>
-              <label for="filtroTipos">Filtrar por tipo</label>
-              <select id="filtroTipos"></select>
-            </div>
-            <div>
               <label for="filtroCursos">Filtrar por curso</label>
               <select id="filtroCursos"></select>
             </div>
+            <div>
+              <label for="filtroTexto"
+                >Filtrar por palavras (separadas por espaços)</label
+              >
+              <input id="filtroTexto" />
+            </div>
           </div>
-          <label for="filtroTexto"
-            >Filtrar por palavras (separadas por espaços)</label
-          >
-          <input id="filtroTexto" />
         </fieldset>
         <table>
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Tipo</th>
               <th class="colunaIcones"></th>
             </tr>
           </thead>

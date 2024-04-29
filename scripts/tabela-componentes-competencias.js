@@ -5,7 +5,7 @@
 curso = carregaCursoDoURL();
 nomeCurso.innerHTML =
   curso.nome +
-  (curso.status == 1
+  (curso.status == 0
     ? ' <sup><img src="./imagens/inventory.svg" title="Arquivado" /></sup>'
     : "");
 

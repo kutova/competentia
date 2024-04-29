@@ -56,7 +56,7 @@ let exibeUsuario = function (id) {
     for (let i in cursosDoUsuario)
       corpoTabela += `<tr>
       <td>${cursosDoUsuario[i].nome} ${
-        cursosDoUsuario[i].status == 1
+        cursosDoUsuario[i].status == 0
           ? ' <sup><img width="15px" src="./imagens/inventory.svg" title="Arquivado" /></sup>'
           : ""
       }</td>
@@ -111,7 +111,7 @@ let editaUsuario = function (id) {
       let p = j == -1 ? -1 : parseInt(cursosDoUsuario[j].permissao);
       corpoTabela += `<tr>
         <td>${cursos[i].nome}${
-        cursos[i].status == 1
+        cursos[i].status == 0
           ? ' <sup><img width="15px" src="./imagens/inventory.svg" title="Arquivado" /></sup>'
           : ""
       }</td>
@@ -129,7 +129,7 @@ let editaUsuario = function (id) {
             type="checkbox" 
             id="${"ct_" + cursos[i].id + "_e"}" 
             ${p == 0 ? "checked" : ""} 
-            ${cursos[i].status == 1 ? " readOnly" : ""}
+            ${cursos[i].status == 0 ? " readOnly" : ""}
             onchange="alternaPermissao(${cursos[i].id}, 0)"/>
             </td> 
       </tr>`;

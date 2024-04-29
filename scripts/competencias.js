@@ -5,7 +5,7 @@
 curso = carregaCursoDoURL();
 nomeCurso.innerHTML =
   curso.nome +
-  (curso.status == 1
+  (curso.status == 0
     ? ' <sup><img src="./imagens/inventory.svg" title="Arquivado" /></sup>'
     : "");
 
@@ -32,7 +32,6 @@ let mostraTabela = function () {
     <tr>
       <td>${competencia.codigo}</td>
       <td>${competencia.nome}</td>
-      <td>${tiposCompetencia[competencia.tipo]}</td>
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeCompetencia('${competencia.id}')"
@@ -70,7 +69,6 @@ let exibeCompetencia = function (id) {
     id,
     curso.id
   );
-  tipoModalExibeCompetencia.value = tiposCompetencia[competencia.tipo];
   descricaoModalExibeCompetencia.value = competencia.descricao;
 
   cursosModalExibeCompetencia.innerHTML = dbCompetencias_Cursos
@@ -157,14 +155,6 @@ let editaCompetenciaContinuacao = function (id) {
     id,
     curso.id
   );
-  tipoModalEditaCompetencia.innerHTML = tiposCompetencia
-    .map(
-      (t, i) =>
-        `<option value=${i} ${
-          competencia.tipo == i ? "selected" : ""
-        }>${t}</option>`
-    )
-    .join("");
   descricaoModalEditaCompetencia.value = competencia.descricao;
   btnFecharEdicao.onclick = () => salvar(competencia);
   modalEditaCompetencia.showModal();
@@ -181,7 +171,6 @@ let salvar = function (competencia) {
     return;
   }
   competencia.nome = nomeModalEditaCompetencia.value;
-  competencia.tipo = tipoModalEditaCompetencia.value;
   competencia.descricao = descricaoModalEditaCompetencia.value;
   dbCompetencias.update(competencia);
 
@@ -201,9 +190,6 @@ let salvar = function (competencia) {
 let criaCompetencia = function () {
   nomeModalCriaCompetencia.value = "";
   codigoModalCriaCompetencia.value = "";
-  tipoModalCriaCompetencia.innerHTML = tiposCompetencia
-    .map((t, i) => `<option value=${i}>${t}</option>`)
-    .join("");
   descricaoModalCriaCompetencia.value = "";
   btnFecharCriacao.onclick = () => adicionar();
   modalCriaCompetencia.showModal();
@@ -221,7 +207,6 @@ let adicionar = function () {
   }
   let novaCompetencia = {
     nome: nomeModalCriaCompetencia.value,
-    tipo: tipoModalCriaCompetencia.value,
     descricao: descricaoModalCriaCompetencia.value,
   };
   id = dbCompetencias.create(novaCompetencia);
@@ -266,11 +251,6 @@ let pesquisaCompetencias = function () {
     }))
     .sort((a, b) => a.nome.localeCompare(b.nome));
 
-  filtroTipos.innerHTML =
-    '<option value="-1">Todos</option>' +
-    tiposCompetencia.map((t, i) => `<option value=${i}>${t}</option>`).join("");
-  filtroTipos.onchange = () => aplicaFiltros(competencias);
-
   filtroCursos.innerHTML =
     '<option value="-1">Todos</option>' +
     cursosDoUsuario
@@ -285,7 +265,7 @@ let pesquisaCompetencias = function () {
 
   mostraTabelaPesquisa(competencias);
   modalPesquisaCompetencia.showModal();
-  filtroTipos.focus();
+  filtroTexto.focus();
 };
 
 // Mostra a tabela de pesquisa de competências
@@ -295,7 +275,6 @@ let mostraTabelaPesquisa = function (competencias) {
     tabelaPesquisaCompetencias.innerHTML += `
     <tr>
       <td>${competencia.nome}</td>
-      <td>${tiposCompetencia[competencia.tipo]}</td>
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeCompetencia('${competencia.id}')"
@@ -313,10 +292,8 @@ let mostraTabelaPesquisa = function (competencias) {
   });
 };
 
-// Filtro de tipos
+// Filtro de competências
 let aplicaFiltros = function (competencias) {
-  let condicaoTipo = (tipo) =>
-    filtroTipos.value == -1 ? true : tipo == filtroTipos.value;
   let condicaoCurso = (cursos) =>
     filtroCursos.value == -1
       ? true
@@ -329,8 +306,7 @@ let aplicaFiltros = function (competencias) {
           .reduce((acc, val) => acc && desacentua(nome).includes(val), true);
 
   let competenciasFiltradas = competencias.filter(
-    (c) =>
-      condicaoTipo(c.tipo) && condicaoCurso(c.cursos) && condicaoTexto(c.nome)
+    (c) => condicaoCurso(c.cursos) && condicaoTexto(c.nome)
   );
   mostraTabelaPesquisa(competenciasFiltradas);
 };
