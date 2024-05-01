@@ -39,7 +39,7 @@ let mostraTabela = function () {
       <td>${componente.cargaHoraria}</td>
       <td>${componente.semestre}</td>
       <td>${tiposComponentesCurriculares[componente.tipo]}</td>
-      <td>${dbAreas.area(componente.area).nome}</td>
+      <td>${dbAreas.area(componente.idArea).nome}</td>
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeComponente('${componente.id}')"
@@ -81,7 +81,7 @@ let exibeComponente = function (idComponenteCurricular) {
     tiposComponentesCurriculares[componente.tipo];
   semestreModalExibeComponente.value =
     dbComponentesCurriculares_Cursos.semestre(idComponenteCurricular, curso.id);
-  areaModalExibeComponente.value = dbAreas.area(componente.area).nome;
+  areaModalExibeComponente.value = dbAreas.area(componente.idArea).nome;
 
   cursosModalExibeComponente.innerHTML = dbComponentesCurriculares_Cursos
     .cursos(idComponenteCurricular)
@@ -103,7 +103,9 @@ let exibeComponente = function (idComponenteCurricular) {
     .sort((a, b) => a.nome.localeCompare(b.nome))
     .map(
       (elem) =>
-        `<tr><td>${elem.nome}</td><td>${dbAreas.area(elem.area).nome}</td></tr>`
+        `<tr><td>${elem.nome}</td><td>${
+          dbAreas.area(elem.idArea).nome
+        }</td></tr>`
     )
     .join("");
   habilidadesModalExibeComponente.innerHTML = componentesCompetencias
@@ -111,7 +113,9 @@ let exibeComponente = function (idComponenteCurricular) {
     .sort((a, b) => a.nome.localeCompare(b.nome))
     .map(
       (elem) =>
-        `<tr><td>${elem.nome}</td><td>${dbAreas.area(elem.area).nome}</td></tr>`
+        `<tr><td>${elem.nome}</td><td>${
+          dbAreas.area(elem.idArea).nome
+        }</td></tr>`
     )
     .join("");
   atitudesModalExibeComponente.innerHTML = componentesCompetencias
@@ -119,7 +123,9 @@ let exibeComponente = function (idComponenteCurricular) {
     .sort((a, b) => a.nome.localeCompare(b.nome))
     .map(
       (elem) =>
-        `<tr><td>${elem.nome}</td><td>${dbAreas.area(elem.area).nome}</td></tr>`
+        `<tr><td>${elem.nome}</td><td>${
+          dbAreas.area(elem.idArea).nome
+        }</td></tr>`
     )
     .join("");
 
@@ -169,12 +175,12 @@ let editaComponenteContinuacao = function (idComponenteCurricular) {
     )
     .join("");
   areaModalEditaComponente.innerHTML = dbAreas
-    .areas(componenteCurricular.area)
+    .areas(componenteCurricular.idArea)
     .sort((a, b) => a.nome.localeCompare(b.nome))
     .map(
       (t) =>
         `<option value=${t.id} ${
-          componenteCurricular.area == t.id ? "selected" : ""
+          componenteCurricular.idArea == t.id ? "selected" : ""
         }>${t.nome}</option>`
     )
     .join("");
@@ -219,7 +225,7 @@ let editaComponenteContinuacao = function (idComponenteCurricular) {
       }></td>
        <td>${cc.nome}</td>
        <td>${tiposComponentesCompetencias[cc.tipo]}</td>
-       <td>${dbAreas.area(cc.area).nome}</td>
+       <td>${dbAreas.area(cc.idArea).nome}</td>
        <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeDescricao('${cc.nome}', '${cc.descricao}')"
@@ -254,7 +260,7 @@ let salvar = function (componenteCurricular) {
   componenteCurricular.nome = nomeModalEditaComponente.value;
   componenteCurricular.cargaHoraria = cargaHorariaModalEditaComponente.value;
   componenteCurricular.tipo = tipoModalEditaComponente.value;
-  componenteCurricular.area = areaModalEditaComponente.value;
+  componenteCurricular.idArea = areaModalEditaComponente.value;
   dbComponentesCurriculares.update(componenteCurricular);
 
   // atualiza o semestre
@@ -331,7 +337,7 @@ let criaComponente = function () {
        <td><input class="marcacoes" id="cb_${cc.id}" type="checkbox"></td>
        <td>${cc.nome}</td>
        <td>${tiposComponentesCompetencias[cc.tipo]}</td>
-       <td>${dbAreas.area(cc.area).nome}</td>
+       <td>${dbAreas.area(cc.idArea).nome}</td>
        <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeDescricao('${cc.nome}', '${cc.descricao}')"
@@ -364,7 +370,7 @@ let adicionar = function () {
     nome: nomeModalCriaComponente.value,
     cargaHoraria: cargaHorariaModalCriaComponente.value,
     tipo: tipoModalCriaComponente.value,
-    area: areaModalCriaComponente.value,
+    idArea: areaModalCriaComponente.value,
   };
   idComponente = dbComponentesCurriculares.create(novoComponente);
 
@@ -462,7 +468,7 @@ let mostraTabelaPesquisa = function (componentes) {
       <td>${componente.nome}</td>
       <td>${componente.cargaHoraria}</td>
       <td>${tiposComponentesCurriculares[componente.tipo]}</td>
-      <td>${dbAreas.area(componente.area).nome}</td>
+      <td>${dbAreas.area(componente.idArea).nome}</td>
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeComponente('${componente.id}')"
@@ -500,7 +506,7 @@ let aplicaFiltros = function (competencias) {
   let competenciasFiltradas = competencias.filter(
     (c) =>
       condicaoTipo(c.tipo) &&
-      condicaoAreas(c.area) &&
+      condicaoAreas(c.idArea) &&
       condicaoCurso(c.cursos) &&
       condicaoTexto(c.nome)
   );

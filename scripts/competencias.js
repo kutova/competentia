@@ -96,7 +96,9 @@ let exibeCompetencia = function (id) {
     .sort((a, b) => a.nome.localeCompare(b.nome))
     .map(
       (elem) =>
-        `<tr><td>${elem.nome}</td><td>${dbAreas.area(elem.area).nome}</td></tr>`
+        `<tr><td>${elem.nome}</td><td>${
+          dbAreas.area(elem.idArea).nome
+        }</td></tr>`
     )
     .join("");
   habilidadesModalExibeCompetencia.innerHTML = componentesCompetencias
@@ -104,7 +106,9 @@ let exibeCompetencia = function (id) {
     .sort((a, b) => a.nome.localeCompare(b.nome))
     .map(
       (elem) =>
-        `<tr><td>${elem.nome}</td><td>${dbAreas.area(elem.area).nome}</td></tr>`
+        `<tr><td>${elem.nome}</td><td>${
+          dbAreas.area(elem.idArea).nome
+        }</td></tr>`
     )
     .join("");
   atitudesModalExibeCompetencia.innerHTML = componentesCompetencias
@@ -112,7 +116,9 @@ let exibeCompetencia = function (id) {
     .sort((a, b) => a.nome.localeCompare(b.nome))
     .map(
       (elem) =>
-        `<tr><td>${elem.nome}</td><td>${dbAreas.area(elem.area).nome}</td></tr>`
+        `<tr><td>${elem.nome}</td><td>${
+          dbAreas.area(elem.idArea).nome
+        }</td></tr>`
     )
     .join("");
 

@@ -7,7 +7,7 @@ let dbCursos = {
         grau: 0,
         modalidade: 0,
         semestres: 8,
-        area: 8,
+        idArea: 8,
         versao: 1,
         ano: 2024,
         status: 1,
@@ -19,7 +19,7 @@ let dbCursos = {
         grau: 0,
         modalidade: 0,
         semestres: 10,
-        area: 9,
+        idArea: 9,
         versao: 1,
         ano: 2024,
         status: 1,
@@ -31,7 +31,7 @@ let dbCursos = {
         grau: 0,
         modalidade: 0,
         semestres: 10,
-        area: 2,
+        idArea: 2,
         versao: 1,
         ano: 2024,
         status: 1,
@@ -43,7 +43,7 @@ let dbCursos = {
         grau: 0,
         modalidade: 0,
         semestres: 8,
-        area: 3,
+        idArea: 3,
         versao: 1,
         ano: 2024,
         status: 1,
@@ -55,7 +55,7 @@ let dbCursos = {
         grau: 0,
         modalidade: 0,
         semestres: 8,
-        area: 4,
+        idArea: 4,
         versao: 1,
         ano: 2024,
         status: 1,
@@ -67,7 +67,7 @@ let dbCursos = {
         grau: 2,
         modalidade: 1,
         semestres: 5,
-        area: 4,
+        idArea: 4,
         versao: 1,
         ano: 2024,
         status: 1,
@@ -79,7 +79,7 @@ let dbCursos = {
         grau: 1,
         modalidade: 0,
         semestres: 8,
-        area: 5,
+        idArea: 5,
         versao: 1,
         ano: 2024,
         status: 0,
@@ -91,7 +91,7 @@ let dbCursos = {
         grau: 1,
         modalidade: 0,
         semestres: 8,
-        area: 6,
+        idArea: 6,
         versao: 1,
         ano: 2024,
         status: 0,
@@ -103,7 +103,7 @@ let dbCursos = {
         grau: 0,
         modalidade: 0,
         semestres: 8,
-        area: 7,
+        idArea: 7,
         versao: 1,
         ano: 2024,
         status: 1,
@@ -123,7 +123,7 @@ let dbCursos = {
   // recupera a lista de cursos de uma área específica
   cursosDaArea: function (idArea) {
     return JSON.parse(localStorage.getItem("cursos") || "[]").filter(
-      (elem) => elem.area == idArea
+      (elem) => elem.idArea == idArea
     );
   },
 
@@ -142,7 +142,7 @@ let dbCursos = {
         cursos[i].semestres = elem.semestres;
         cursos[i].modalidade = elem.modalidade;
         cursos[i].grau = elem.grau;
-        cursos[i].area = elem.area;
+        cursos[i].idArea = elem.idArea;
         cursos[i].versao = elem.versao;
         cursos[i].ano = elem.ano;
         cursos[i].observacoes = elem.observacoes;

@@ -5,7 +5,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Algoritmos",
         tipo: 0,
-        area: 7,
+        idArea: 7,
         descricao:
           "Lógica de programação. Tipos primitivos de dados. Variáveis. Estruturas condicionais. Estruturas de repetição. Vetores. Matrizes. Funções.",
         id: 1,
@@ -13,28 +13,28 @@ let dbComponentesCompetencias = {
       {
         nome: "Estruturas de dados",
         tipo: 0,
-        area: 7,
+        idArea: 7,
         descricao: "Listas. Filas. Pilhas. Árvores. Algoritmos de Ordenação.",
         id: 2,
       },
       {
         nome: "Bancos de dados",
         tipo: 0,
-        area: 7,
+        idArea: 7,
         descricao: "Bancos de dados relacionais. Linguagem SQL.",
         id: 3,
       },
       {
         nome: "Padrões web",
         tipo: 0,
-        area: 7,
+        idArea: 7,
         descricao: "HTML. CSS. JavaScript.",
         id: 4,
       },
       {
         nome: "Metodologia ágil de software",
         tipo: 0,
-        area: 4,
+        idArea: 4,
         descricao:
           "Metologia ágil de desenvolvimento de software. SCRUM. Kanban.",
         id: 5,
@@ -42,7 +42,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Testes de software",
         tipo: 0,
-        area: 4,
+        idArea: 4,
         descricao:
           "Tipos de testes. Teste unitário. Teste de integração. Testes de usablidade.",
         id: 6,
@@ -50,7 +50,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Programar",
         tipo: 1,
-        area: 7,
+        idArea: 7,
         descricao:
           "Escrever e desenvolver um conjunto de instruções precisas em uma linguagem de programação para que um computador possa executar uma determinada tarefa ou resolver um problema específico.",
         id: 7,
@@ -58,7 +58,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Prototipar um software",
         tipo: 1,
-        area: 4,
+        idArea: 4,
         descricao:
           "Desenvolver uma versão inicial e simplificada de um aplicativo ou sistema para validar conceitos, funcionalidades e interações com os usuários antes da implementação completa.",
         id: 8,
@@ -66,7 +66,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Criar um modelo de dados para um software",
         tipo: 1,
-        area: 4,
+        idArea: 4,
         descricao:
           "Definir a estrutura e os relacionamentos dos elementos de informação que serão armazenados e manipulados por um sistema de software.",
         id: 9,
@@ -74,7 +74,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Testar um software",
         tipo: 1,
-        area: 4,
+        idArea: 4,
         descricao:
           "Avaliar e validar as funcionalidades e o desempenho de um software para garantir que ele atenda aos requisitos especificados e funcione corretamente em diferentes cenários e condições.",
         id: 10,
@@ -82,7 +82,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Gerenciar projetos de software",
         tipo: 1,
-        area: 4,
+        idArea: 4,
         descricao:
           "Avaliar e validar as funcionalidades e o desempenho de um software para garantir que ele atenda aos requisitos especificados e funcione corretamente em diferentes cenários e condições.coordenar e controlar recursos, cronogramas e atividades para garantir a entrega bem-sucedida de um projeto dentro dos prazos, orçamentos e requisitos definidos.",
         id: 11,
@@ -90,7 +90,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Colaboração",
         tipo: 2,
-        area: 1,
+        idArea: 1,
         descricao:
           "Capacidade de colaborar e trabalhar efetivamente em equipe.",
         id: 12,
@@ -98,7 +98,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Adaptabilidade",
         tipo: 2,
-        area: 1,
+        idArea: 1,
         descricao:
           "Capacidade de se adaptar a novas tecnologias, metodologias, situações e contextos.",
         id: 13,
@@ -106,7 +106,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Criatividade",
         tipo: 2,
-        area: 1,
+        idArea: 1,
         descricao:
           "Habilidade de pensar de forma criativa para encontrar soluções inovadoras para os problemas e desafios do mundo real.",
         id: 14,
@@ -114,7 +114,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Linguagens de programação",
         tipo: 0,
-        area: 7,
+        idArea: 7,
         descricao:
           "Sintaxe e semântica. Paradigmas de programação. Programação orientada a objetos. Programação concorrente e paralela. Manipulação de exceções. Gerenciamento de memória.",
         id: 15,
@@ -122,7 +122,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Resolução de problemas",
         tipo: 1,
-        area: 7,
+        idArea: 7,
         descricao:
           "Habilidade para analisar problemas complexos e encontrar soluções eficazes.",
         id: 16,
@@ -130,7 +130,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Perseverança",
         tipo: 2,
-        area: 1,
+        idArea: 1,
         descricao:
           "Lidar com desafios e problemas de forma paciente e persistente, buscando soluções mesmo diante de dificuldades.",
         id: 17,
@@ -138,7 +138,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Proatividade",
         tipo: 2,
-        area: 1,
+        idArea: 1,
         descricao:
           "Ser proativo na busca por soluções, assumir responsabilidades e ter iniciativa para resolver problemas.",
         id: 18,
@@ -146,7 +146,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Grafos",
         tipo: 0,
-        area: 7,
+        idArea: 7,
         descricao:
           "Grafos. Operações básicas em grafos. Árvores e árvores geradoras mínimas. Caminhos mínimos. Fluxo máximo. Coloração. Emparelhamentos.",
         id: 19,
@@ -154,7 +154,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Design centrado no usuário",
         tipo: 0,
-        area: 7,
+        idArea: 7,
         descricao:
           "Design Centrado no Usuário. Análise de contexto e de tarefas. Personas e arquétipos. Prototipagem. Avaliação de usabilidade. Design de experiências",
         id: 20,
@@ -162,7 +162,7 @@ let dbComponentesCompetencias = {
       {
         nome: "Processamento de imagens digitais",
         tipo: 0,
-        area: 7,
+        idArea: 7,
         descricao:
           "Pré-processamento de imagens digitais. Transformadas geométricas. Segmentação de imagens. Extração de características. Operações de filtragem. Reconhecimento e classificação de padrões.",
         id: 21,
@@ -196,7 +196,7 @@ let dbComponentesCompetencias = {
       if (componentesCompetencias[i].id == elem.id) {
         componentesCompetencias[i].nome = elem.nome;
         componentesCompetencias[i].tipo = elem.tipo;
-        componentesCompetencias[i].area = elem.area;
+        componentesCompetencias[i].idArea = elem.idArea;
         componentesCompetencias[i].descricao = elem.descricao;
       }
     }

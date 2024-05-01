@@ -7,7 +7,7 @@ let dbUsuarios = {
         email: "kutova@pucminas.br",
         senha: "kutova",
         tipo: 0,
-        celular: "(31)99999-9999",
+        telefone: "(31)99999-9999",
         id: 1,
       },
       {
@@ -15,7 +15,7 @@ let dbUsuarios = {
         email: "granffild@pucminas.br",
         senha: "docinho",
         tipo: 0,
-        celular: "(31)99991-9991",
+        telefone: "(31)99991-9991",
         id: 2,
       },
       {
@@ -23,7 +23,7 @@ let dbUsuarios = {
         email: "sara@pucminas.br",
         senha: "sara",
         tipo: 1,
-        celular: "(31)99992-9992",
+        telefone: "(31)99992-9992",
         id: 3,
       },
       {
@@ -31,7 +31,7 @@ let dbUsuarios = {
         email: "admin@pucminas.br",
         senha: "admin",
         tipo: 0,
-        celular: "(31)99999-9999",
+        telefone: "(31)99999-9999",
         id: 4,
       },
     ];
@@ -49,7 +49,7 @@ let dbUsuarios = {
           email: usuarios[u].email,
           nome: usuarios[u].nome,
           tipo: usuarios[u].tipo,
-          celular: usuarios[u].celular,
+          telefone: usuarios[u].telefone,
         };
     }
     return null;
@@ -64,7 +64,7 @@ let dbUsuarios = {
         email: elem.email,
         nome: elem.nome,
         tipo: elem.tipo,
-        celular: elem.celular,
+        telefone: elem.telefone,
       };
     });
   },
@@ -79,7 +79,7 @@ let dbUsuarios = {
           email: usuarios[i].email,
           nome: usuarios[i].nome,
           tipo: usuarios[i].tipo,
-          celular: usuarios[i].celular,
+          telefone: usuarios[i].telefone,
         };
     }
     return null;
@@ -94,7 +94,7 @@ let dbUsuarios = {
         usuarios[i].nome = elem.nome;
         usuarios[i].email = elem.email;
         usuarios[i].tipo = elem.tipo;
-        usuarios[i].celular = elem.celular;
+        usuarios[i].telefone = elem.telefone;
       }
     }
     localStorage.setItem("usuarios", JSON.stringify(usuarios));

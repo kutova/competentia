@@ -61,7 +61,7 @@ let mostraTabela = function (idCompetencia) {
     <tr>
       <td>${cc.nome}</td>
       <td>${tiposComponentesCompetencias[cc.tipo]}</td>
-      <td>${dbAreas.area(cc.area).nome}</td>
+      <td>${dbAreas.area(cc.idArea).nome}</td>
       <td class="dadosExtras escondido">${cc.descricao}</td>
     </tr>`
               )
@@ -127,7 +127,7 @@ btnImprimir.onclick = () => {
       body: listaComponentesCompetencias.map((c) => [
         c.nome,
         tiposComponentesCompetencias[c.tipo],
-        dbAreas.area(c.area).nome,
+        dbAreas.area(c.idArea).nome,
         c.descricao,
       ]),
       willDrawPage: function (data) {

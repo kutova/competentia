@@ -52,7 +52,7 @@ let exibeCurso = function (id) {
   semestresModalExibeCurso.value = curso.semestres;
   grauModalExibeCurso.value = graus[curso.grau];
   modalidadeModalExibeCurso.value = modalidades[curso.modalidade];
-  areaModalExibeCurso.value = dbAreas.area(curso.area).nome;
+  areaModalExibeCurso.value = dbAreas.area(curso.idarea).nome;
   versaoModalExibeCurso.value = curso.versao;
   anoModalExibeCurso.value = curso.ano;
   observacoesModalExibeCurso.value = curso.observacoes;
@@ -88,9 +88,9 @@ let editaCurso = function (id) {
     .sort((a, b) => a.nome.localeCompare(b.nome))
     .map(
       (elem) =>
-        `<option value=${elem.id} ${curso.area == elem.id ? "selected" : ""}>${
-          elem.nome
-        }</option>`
+        `<option value=${elem.id} ${
+          curso.idArea == elem.id ? "selected" : ""
+        }>${elem.nome}</option>`
     )
     .join("");
   versaoModalEditaCurso.value = curso.versao;
@@ -122,7 +122,7 @@ let salvar = function (curso, cursos) {
   curso.semestres = semestresModalEditaCurso.value;
   curso.grau = grauModalEditaCurso.value;
   curso.modalidade = modalidadeModalEditaCurso.value;
-  curso.area = areaModalEditaCurso.value;
+  curso.idArea = areaModalEditaCurso.value;
   curso.versao = versaoModalEditaCurso.value;
   curso.ano = anoModalEditaCurso.value;
   curso.observacoes = observacoesModalEditaCurso.value;
@@ -178,7 +178,7 @@ let adicionar = function () {
     semestres: semestresModalCriaCurso.value,
     modalidade: modalidadeModalCriaCurso.value,
     grau: grauModalCriaCurso.value,
-    area: areaModalCriaCurso.value,
+    idArea: areaModalCriaCurso.value,
     versao: versaoModalCriaCurso.value,
     ano: anoModalCriaCurso.value,
     observacoes: observacoesModalCriaCurso.value,

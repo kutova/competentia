@@ -59,7 +59,7 @@ let mostraTabela = function () {
                     <td>${cc.nome}</td>
                     <td>${cc.cargaHoraria}</td>
                     <td>${tiposComponentesCurriculares[cc.tipo]}</td>
-                    <td>${dbAreas.area(cc.area).nome}</td>
+                    <td>${dbAreas.area(cc.idArea).nome}</td>
                     <td class="dadosExtras escondido">${dbComponentesCompetencias_ComponentesCurriculares
                       .componentesCompetencias(cc.id)
                       .map((idComponenteCompetencia) =>
@@ -157,7 +157,7 @@ btnImprimir.onclick = () => {
         c.nome,
         c.cargaHoraria,
         tiposComponentesCurriculares[c.tipo],
-        dbAreas.area(c.area).nome,
+        dbAreas.area(c.idArea).nome,
 
         dbComponentesCompetencias_ComponentesCurriculares
           .componentesCompetencias(c.id)

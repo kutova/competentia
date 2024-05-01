@@ -25,7 +25,7 @@ for (let i in linksMenu) {
 grauCurso.innerHTML = graus[curso.grau];
 modalidadeCurso.innerHTML = modalidades[curso.modalidade];
 semestresCurso.innerHTML = curso.semestres;
-areaCurso.innerHTML = dbAreas.area(curso.area).nome;
+areaCurso.innerHTML = dbAreas.area(curso.idArea).nome;
 versaoCurso.innerHTML = curso.versao;
 anoCurso.innerHTML = curso.ano;
 observacoesCurso.innerHTML = curso.observacoes;

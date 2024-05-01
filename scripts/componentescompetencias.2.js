@@ -50,7 +50,7 @@ let mostraTabela = function () {
     <tr>
       <td>${componente.nome}</td>
       <td>${tiposComponentesCompetencias[componente.tipo]}</td>
-      <td>${dbAreas.area(componente.area).nome}</td>
+      <td>${dbAreas.area(componente.idArea).nome}</td>
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeComponente('${componente.id}')"
@@ -83,7 +83,7 @@ let exibeComponente = function (idComponenteCompetencia) {
   nomeModalExibeComponente.value = componente.nome;
   tipoModalExibeComponente.value =
     tiposComponentesCompetencias[componente.tipo];
-  areaModalExibeComponente.value = dbAreas.area(componente.area).nome;
+  areaModalExibeComponente.value = dbAreas.area(componente.idArea).nome;
   descricaoModalExibeComponente.value = componente.descricao;
 
   competenciasModalExibeComponente.innerHTML =
@@ -111,7 +111,7 @@ let exibeComponente = function (idComponenteCompetencia) {
            <td>${elem.nome}</td>
            <td>${elem.cargaHoraria}</td>
            <td>${tiposComponentesCurriculares[elem.tipo]}</td>
-           <td>${dbAreas.area(elem.area).nome}</td>
+           <td>${dbAreas.area(elem.idArea).nome}</td>
         </tr>`
       )
       .join("");
@@ -180,12 +180,12 @@ let editaComponenteContinuacao = function (idComponenteCompetencias) {
     )
     .join("");
   areaModalEditaComponente.innerHTML = dbAreas
-    .areas(componenteCompetencias.area)
+    .areas(componenteCompetencias.idArea)
     .sort((a, b) => a.nome.localeCompare(b.nome))
     .map(
       (t) =>
         `<option value=${t.id} ${
-          componenteCompetencias.area == t.id ? "selected" : ""
+          componenteCompetencias.idArea == t.id ? "selected" : ""
         }>${t.nome}</option>`
     )
     .join("");
@@ -241,7 +241,7 @@ let salvar = function (componenteCompetencias) {
   // atualiza dados do componente curricular
   componenteCompetencias.nome = nomeModalEditaComponente.value;
   componenteCompetencias.tipo = tipoModalEditaComponente.value;
-  componenteCompetencias.area = areaModalEditaComponente.value;
+  componenteCompetencias.idArea = areaModalEditaComponente.value;
   componenteCompetencias.descricao = descricaoModalEditaComponente.value;
   dbComponentesCompetencias.update(componenteCompetencias);
 
@@ -323,7 +323,7 @@ let adicionar = function () {
   let novoComponente = {
     nome: nomeModalCriaComponente.value,
     tipo: tipoModalCriaComponente.value,
-    area: areaModalCriaComponente.value,
+    idArea: areaModalCriaComponente.value,
     descricao: descricaoModalCriaComponente.value,
   };
   idComponente = dbComponentesCompetencias.create(novoComponente);
@@ -412,7 +412,7 @@ let mostraTabelaPesquisa = function (componentes) {
     <tr>
       <td>${componente.nome}</td>
       <td>${tiposComponentesCompetencias[componente.tipo]}</td>
-      <td>${dbAreas.area(componente.area).nome}</td>
+      <td>${dbAreas.area(componente.idArea).nome}</td>
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeComponente('${componente.id}')"
@@ -445,7 +445,7 @@ let aplicaFiltros = function (competencias) {
 
   let competenciasFiltradas = competencias.filter(
     (c) =>
-      condicaoTipo(c.tipo) && condicaoAreas(c.area) && condicaoTexto(c.nome)
+      condicaoTipo(c.tipo) && condicaoAreas(c.idArea) && condicaoTexto(c.nome)
   );
   mostraTabelaPesquisa(competenciasFiltradas);
 };

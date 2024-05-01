@@ -40,7 +40,7 @@ let exibeUsuario = function (id) {
   let usuario = dbUsuarios.usuario(id);
   nomeModalExibeUsuario.value = usuario.nome;
   emailModalExibeUsuario.value = usuario.email;
-  celularModalExibeUsuario.value = usuario.celular;
+  telefoneModalExibeUsuario.value = usuario.telefone;
   tipoModalExibeUsuario.value = tiposUsuario[usuario.tipo];
 
   let corpoTabela = "";
@@ -89,7 +89,7 @@ let editaUsuario = function (id) {
   let usuario = dbUsuarios.usuario(id);
   nomeModalEditaUsuario.value = usuario.nome;
   emailModalEditaUsuario.value = usuario.email;
-  celularModalEditaUsuario.value = usuario.celular;
+  telefoneModalEditaUsuario.value = usuario.telefone;
   tipoModalEditaUsuario.innerHTML = tiposUsuario
     .map(
       (t, i) =>
@@ -151,7 +151,7 @@ let salvar = function (usuario, cursos) {
   if (
     nomeModalEditaUsuario.value.length == 0 ||
     emailModalEditaUsuario.value.length == 0 ||
-    celularModalEditaUsuario.value.length == 0
+    telefoneModalEditaUsuario.value.length == 0
   ) {
     erro("Nenhum campo pode ficar vazio.");
     return;
@@ -159,7 +159,7 @@ let salvar = function (usuario, cursos) {
   usuario.nome = nomeModalEditaUsuario.value;
   usuario.email = emailModalEditaUsuario.value;
   usuario.tipo = tipoModalEditaUsuario.value;
-  usuario.celular = celularModalEditaUsuario.value;
+  usuario.telefone = telefoneModalEditaUsuario.value;
   dbUsuarios.update(usuario);
 
   let cursosAEditar = [];
@@ -187,7 +187,7 @@ let criaUsuario = function () {
   emailModalCriaUsuario.value = "";
   senha1ModalCriaUsuario.value = "";
   senha2ModalCriaUsuario.value = "";
-  celularModalCriaUsuario.value = "";
+  telefoneModalCriaUsuario.value = "";
   tipoModalCriaUsuario.value = 1;
   modalCriaUsuario.showModal();
   nomeModalCriaUsuario.focus();
@@ -202,7 +202,7 @@ let adicionar = function () {
     emailModalCriaUsuario.value.length == 0 ||
     senha1ModalCriaUsuario.value.length == 0 ||
     senha2ModalCriaUsuario.value.length == 0 ||
-    celularModalCriaUsuario.value.length == 0
+    telefoneModalCriaUsuario.value.length == 0
   ) {
     erro("Nenhum campo pode ficar vazio.");
     return;
@@ -216,7 +216,7 @@ let adicionar = function () {
     email: emailModalCriaUsuario.value,
     senha: senha1ModalCriaUsuario.value,
     tipo: tipoModalCriaUsuario.value,
-    celular: celularModalCriaUsuario.value,
+    telefone: telefoneModalCriaUsuario.value,
   };
   dbUsuarios.create(usuario);
   modalCriaUsuario.close();
@@ -289,10 +289,10 @@ emailModalEditaUsuario.oninput = function () {
     emailModalEditaUsuario.value.length == 0
   );
 };
-celularModalEditaUsuario.oninput = function () {
-  celularModalEditaUsuario.setAttribute(
+telefoneModalEditaUsuario.oninput = function () {
+  telefoneModalEditaUsuario.setAttribute(
     "aria-invalid",
-    celularModalEditaUsuario.value.length == 0
+    telefoneModalEditaUsuario.value.length == 0
   );
 };
 nomeModalCriaUsuario.oninput = function () {
@@ -322,10 +322,10 @@ senha2ModalCriaUsuario.oninput = function () {
       senha2ModalCriaUsuario.value != senha1ModalCriaUsuario.value
   );
 };
-celularModalCriaUsuario.oninput = function () {
-  celularModalCriaUsuario.setAttribute(
+telefoneModalCriaUsuario.oninput = function () {
+  telefoneModalCriaUsuario.setAttribute(
     "aria-invalid",
-    celularModalCriaUsuario.value.length == 0
+    telefoneModalCriaUsuario.value.length == 0
   );
 };
 

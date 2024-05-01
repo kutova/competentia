@@ -101,8 +101,8 @@ let exibeComponente = function (id) {
   nomeModalExibeComponente.value = componenteCompetencias.nome;
   tipoModalExibeComponente.value =
     tiposComponentesCompetencias[componenteCompetencias.tipo];
-  areaModalExibeComponente.value = dbAreas.area(
-    componenteCompetencias.area
+  areaModalExibeComponente.value = dbAreas.idArea(
+    componenteCompetencias.idArea
   ).nome;
   descricaoModalExibeComponente.value = componenteCompetencias.descricao;
 
@@ -181,11 +181,11 @@ let editaComponenteContinuacao = function (id, idCompetencia) {
     )
     .join('');
   areaModalEditaComponente.innerHTML = dbAreas
-    .areas()
+    .idAreas()
     .map(
       (t) =>
         `<option value=${t.id} ${
-          componenteCompetencias.area == t.id ? "selected" : ""
+          componenteCompetencias.idArea == t.id ? "selected" : ""
         }>${t.nome}</option>`
     )
     .join('');
@@ -204,7 +204,7 @@ let salvar = function (componenteCompetencias, idCompetencia) {
   }
   componenteCompetencias.nome = nomeModalEditaComponente.value;
   componenteCompetencias.tipo = tipoModalEditaComponente.value;
-  componenteCompetencias.area = areaModalEditaComponente.value;
+  componenteCompetencias.idArea = areaModalEditaComponente.value;
   componenteCompetencias.descricao = descricaoModalEditaComponente.value;
   dbComponentesCompetencias.update(componenteCompetencias);
 
@@ -242,7 +242,7 @@ let adicionar = function (idCompetencia) {
   let novoComponente = {
     nome: nomeModalCriaComponente.value,
     tipo: tipoModalCriaComponente.value,
-    area: areaModalCriaComponente.value,
+    idArea: areaModalCriaComponente.value,
     descricao: descricaoModalCriaComponente.value,
   };
   idComponente = dbComponentesCompetencias.create(novoComponente);
@@ -331,7 +331,7 @@ let mostraTabelaPesquisa = function (componentes, idCompetencia) {
     <tr>
       <td>${componente.nome}</td>
       <td>${tiposComponentesCompetencias[componente.tipo]}</td>
-      <td>${dbAreas.area(componente.area).nome}</td>
+      <td>${dbAreas.area(componente.idArea).nome}</td>
       <td class="clicavel">
         <span class="simbolo" 
           onclick="exibeComponente(${componente.id})"
@@ -363,7 +363,7 @@ let aplicaFiltros = function (componentes, idCompetencia) {
           .reduce((acc, val) => acc && desacentua(nome).includes(val), true);
 
   let componentesFiltrados = componentes.filter(
-    (c) => condicaoTipo(c.tipo) && condicaoArea(c.area) && condicaoTexto(c.nome)
+    (c) => condicaoTipo(c.tipo) && condicaoArea(c.idArea) && condicaoTexto(c.nome)
   );
   mostraTabelaPesquisa(componentesFiltrados, idCompetencia);
 };
